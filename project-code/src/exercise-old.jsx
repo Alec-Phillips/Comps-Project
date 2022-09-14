@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import TestResults from './testResults';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/theme-xcode';
@@ -82,7 +81,7 @@ function Exercise(props) {
             />
             <div id='testResults'>
             {
-                <TestResults resultsList={testResults} />
+       
             }
                 
             </div>
@@ -95,5 +94,4 @@ function Exercise(props) {
   );
     
 }
-
 export default Exercise;
