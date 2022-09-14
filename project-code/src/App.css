@@ -1,0 +1,45 @@
+
+
+#headerBar {
+    display: grid;
+    grid-template-columns: 50px auto 50px;
+}
+
+#appTitle {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    border: 3px solid orange;
+    background-color: aquamarine;
+    border-radius: 5px;
+    max-width: 500px;
+}
+
+.homeOption {
+    margin: 5px;
+    grid-column-start: 3;
+    background-color: white;
+    border: 3px solid orange;
+    width: 100px;
+}
+
+#contentArea {
+    display: grid;
+    grid-template-columns: 250px auto;
+}
+
+#topicOptions {
+    width: 200px;
+    list-style: none;
+    margin-left: -30px;
+}
+
+.topicOption {
+    border: 1px solid orange;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.hoverable:hover {
+    background-color: aquamarine;
+    cursor: pointer;
+}

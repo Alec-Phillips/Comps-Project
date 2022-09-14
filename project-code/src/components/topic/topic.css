@@ -1,0 +1,26 @@
+
+
+#toggle {
+    display: flex;
+}
+
+.toggleOption {
+    border: 1px solid orange;
+    padding: 5px;
+}
+
+#exerciseOptions {
+    display: flex;
+}
+
+.exerciseBubble {
+    border: 1px solid orange;
+    margin-top: 10px;
+    margin-right: 5px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#editor {
+    margin-top: 10px;
+}
