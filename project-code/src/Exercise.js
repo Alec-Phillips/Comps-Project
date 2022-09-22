@@ -7,14 +7,14 @@ import 'ace-builds/src-noconflict/theme-xcode';
 
 
 
-function Exercise() {
+function Exercise({ description, code }) {
 
   const [editorCode, setEditorCode] = useState('');
 
   return (
     <>
-      <SyntaxHighlighter language="python" style={xcode}>
-        {"def hello_there()"}
+      <SyntaxHighlighter language="javascript" style={xcode}>
+        {code}
       </SyntaxHighlighter>
 
       <AceEditor
