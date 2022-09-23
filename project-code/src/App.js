@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import OptionButton from './OptionButton';
 import ContentOptionButton from './ContentOptionButton';
 import Exercise from './Exercise';
@@ -27,18 +27,6 @@ function App() {
   const [practiceAreaContent, setPracticeAreaContent] = useState([]);
   const [currentExerciseType, setCurrentExerciseType] = useState(0);
   const [activeExercise, setActiveExercise] = useState(null);
-
-  // const setContentSectionCallback = (ind) => {
-  //   if (activeArea === 1) {
-  //     setActiveContentSection(contentDescriptions[ind].description);
-  //   } else if (activeArea === 2) {
-  //     let targetExercises = exerciseInfo.filter(item => item.type === activeExercise)
-  //     setActiveContentSection(exercises[ind].description)
-  //   }
-  // }
-
-  console.log(currentExerciseType);
-  console.log(activeExercise);
 
   return (
     <div className="App">
@@ -90,11 +78,8 @@ function App() {
                 label={label}
                 key={`${ind}-${label}`}
                 setContentSection={() => {
-                  // console.log("clicked");
-                  // console.log(exerciseInfo[ind].exercises.map(item => item.label));
+                  setActiveExercise(null);
                   setCurrentExerciseType(ind + 1);
-                  // setActiveExercise(exerciseInfo[ind].exercises.map(item => item.label));
-                  // setActiveContentSection(contentDescriptions[ind].description)
                 }}
               ></ContentOptionButton>
           )
@@ -110,11 +95,7 @@ function App() {
                 label={obj.label}
                 key={`${ind}-${obj.label}`}
                 setContentSection={() => {
-                  // console.log("clicked");
-                  // console.log(exerciseInfo[ind].exercises.map(item => item.label));
                   setActiveExercise(obj);
-                  // setActiveExercise(exerciseInfo.filter(item => item.type === currentExerciseType));
-                  // setActiveContentSection(contentDescriptions[ind].description)
                 }}
                 ></ContentOptionButton>)
               })
@@ -124,29 +105,15 @@ function App() {
         activeExercise ? (
           <div>
             <Exercise
-              description=''
-              code={activeExercise.code}
+              exercise={activeExercise}
+              // description={activeExercise.description}
+              // code={activeExercise.code}
             ></Exercise>
           </div>
-          // activeExercise.map(
-          //   (obj, ind) => 
-          //     <ContentOptionButton
-          //       label={label}
-          //       key={`${ind}-${label}`}
-          //       setContentSection={() => {
-          //         // console.log("clicked");
-          //         // console.log(exerciseInfo[ind].exercises.map(item => item.label));
-          //         setActiveExercise(exerciseInfo.filter(item => item.type === currentExerciseType));
-          //         // setActiveContentSection(contentDescriptions[ind].description)
-          //       }}
-          //       ></ContentOptionButton>
-          // )
         ) : null
       }
     </div>
   )
 }
-
-
 
 export default App;
