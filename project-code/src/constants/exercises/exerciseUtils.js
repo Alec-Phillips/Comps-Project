@@ -1,51 +1,60 @@
 // define all the test functions/utilities in here
 
-function compareStrings(s1, s2) {
-  if (s1 === '' || s2 === '') {
-    return true;
-  } else {
-    return compareStrings(s1.substring(1), s2.substring(1));
+
+const exerciseTestCases = new Map();
+
+// add test cases for 1.1
+exerciseTestCases.set(1.1,
+  {
+    testCase: (fn) => {
+      const testInputs = [
+        ['', '', true],
+        ['a', 'a', true],
+        ['abc', 'abc', true],
+        ['123456790abcdefghijklmnopqrstuvwxyz', '123456790abcdefghijklmnopqrstuvwxyz', true],
+        ['', 'abc', false],
+        ['abc', '', false],
+        ['a', 'abc', false],
+        ['abc', 'a', false],
+      ];
+      for (const input of testInputs) {
+        if (fn(input[0], input[1]) !== input[2]) {
+          return {
+            pass: false,
+            failedInput: `'${input[0]}', '${input[1]}'`,
+          }
+        }
+      }
+      return {
+        pass: true,
+        failedInput: null,
+      }
+    },
+    templateArgs: 's1, s2',
+    templateSuffix: 'return compareStrings(s1, s2);'
   }
-}
+)
 
-
-function intToBaseFour(n) {
-  let baseFour = ''
-  while (n > 0) {
-    if (n % 4 == 0) {
-      baseFour = '0' + baseFour;
-    } else if (n % 4 == 1) {
-      baseFour = '1' + baseFour;
-    } else if (n % 4 == 2) {
-      baseFour = '2' + baseFour;
-    } else {
-      baseFour = '3' + baseFour;
-    }
-    n = n / 4;
+// add test cases for 1.2
+exerciseTestCases.set(1.2, 
+  {
+    testCase: (fn) => {
+      for (let i = 1; i < 10000; i ++) {
+        if (fn(i) !== i.toString(4)) {
+          return {
+            pass: false,
+            failedInput: `${i}`,
+          }
+        }
+      }
+      return {
+        pass: true,
+        failedInput: null,
+      };
+    },
+    templateArgs: 'n',
+    templateSuffix: 'return intToBaseFour(n);',
   }
-  return baseFour;
-}
+);
 
-function toBinary(n) {
-  const bin = ''
-}
-
-
-
-
-
-
-// add all the test functions to this mapping, keyed by type, label
-// so that the proper utility code can be grabbed when evaluating a
-//    submission
-const exerciseMapping = new Map();
-
-exerciseMapping.add([1, "comapreStrings"], compareStrings);
-
-
-
-
-
-
-
-export { exerciseMapping };
+export { exerciseTestCases };

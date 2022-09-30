@@ -11,26 +11,18 @@ import Evaluator from './evaluator/evaluator';
 
 
 function Exercise({ exercise }) {
-
   const [editorCode, setEditorCode] = useState(exercise['placeholder-code']);
-  const ev = new Evaluator();
+  const [evalResult, setEvalResult] = useState(null);
+  const ev = new Evaluator(exercise.id);
 
   useEffect(() => {
     setEditorCode(exercise['placeholder-code']);
+    setEvalResult(null);
   }, [exercise['placeholder-code']]);
 
   const submitCode = () => {
-    // build this out, abstract into the evaluator and make specific to each exercise
-    const args = 'n';
-    const suffix = 'return intToBaseFour(n)'
-    const newFunction = Function(args, editorCode + suffix);
-    console.log(newFunction(500));
-    // console.log(submitCode);
-    // console.log(editorCode);
-    // const out = eval(editorCode);
-    // console.log(out);
-    // ev.setCode(editorCode);
-    // ev.evaluate();
+    const newResult = ev.evaluate(editorCode);
+    setEvalResult(newResult);
   }
 
   const cs = {
@@ -68,9 +60,7 @@ function Exercise({ exercise }) {
               name='basic-code-editor'
               onChange={(currentCode) => {
                   setEditorCode(currentCode);
-                  // console.log(currentCode);
               }}
-              // fontSize={18}
               showPrintMargin={true}
               showGutter={true}
               highlightActiveLine={true}
@@ -80,13 +70,24 @@ function Exercise({ exercise }) {
                 // enableLiveAutocompletion: true,
                 // enableSnippets: true,
                 showLineNumbers: true,
-                tabSize: 4,
+                tabSize: 2,
               }}
             />
             <button
               onClick={submitCode}>
               Submit
             </button>
+            {
+              evalResult && evalResult.pass ? (
+                <p>
+                  PASS!
+                </p>
+              ) : evalResult && (evalResult.pass === false) ? (
+                <p>
+                  Failed on input: {evalResult.failedInput}
+                </p>
+              ) : (null)
+            }
           </>
         ) : null
       }

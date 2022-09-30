@@ -15,6 +15,7 @@ export const exerciseInfo = [
       },
       {
         "label": "String Comp",
+        "id": 1.1,
         "code": `
         function compareStrings(s1, s2) {
           if (s1 === '' || s2 === '') {
@@ -40,6 +41,7 @@ function compareStrings(s1, s2) {
       },
       {
         "label": "Base Four",
+        "id": 1.2,
         "code": `
 function intToBaseFour(n) {
   let baseFour = ''
