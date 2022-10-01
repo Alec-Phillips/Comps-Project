@@ -57,4 +57,56 @@ exerciseTestCases.set(1.2,
   }
 );
 
+function initCoverageCheck(coverageCheck, numBranches) {
+  for (let _ = 0; _ < numBranches; _ ++) {
+    coverageCheck.push(false);
+  }
+}
+
+function reportCoverage(coverageCheck) {
+  const uncoveredBranches = [];
+  for (let i = 0; i < coverageCheck.length; i ++) {
+    const line = coverageCheck[i];
+    if (! line) {
+      uncoveredBranches.push(i);
+    }
+  }
+  const coverage = (coverageCheck.length - uncoveredBranches.length) / coverageCheck.length
+  return {
+    coverage: Math.trunc(coverage * 100),
+    uncoveredBranches: uncoveredBranches,
+  }
+}
+
+const assert = `
+function assert(condition) {
+  if (! condition) {
+    throw new Error('assertion error!');
+  }
+}
+`
+
+// add test cases for 2.1
+exerciseTestCases.set(2.1, 
+  {
+    testCase: (fn) => {
+      const coverageCheck = [];
+      initCoverageCheck(coverageCheck, 2);
+      const checkParity = (n) => {
+        if (n % 2 === 0) {
+          coverageCheck[0] = true;
+          return true;
+        } else {
+          coverageCheck[1] = true;
+          return false;
+        }
+      }
+      fn(checkParity, coverageCheck);
+      return reportCoverage(coverageCheck);
+    },
+    templateArgs: 'checkParity, coverageCheck',
+    templateSuffix: assert,
+  }
+);
+
 export { exerciseTestCases };

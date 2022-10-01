@@ -88,31 +88,28 @@ function intToBaseFour(n) {
     "label": "Unit Tests",
     "exercises": [
       {
-        "label": "Hashing",
+        "label": "Even/Odd",
+        "id": 2.1,
         "code": `
-        function Hash(s1, s2) {
-          if (s1 === '' && s2 === '') {
+        function checkParity(n) {
+          if (n % 2 === 0) {
             return true;
           } else {
-            return compareStrings(s1.substring(1), s2.substring(1));
+            return false;
           }
         }`,
         "input-type": "",
         "show-editor": true,
+        "placeholder-code": `
+function checkParity(n) {
+  if (n % 2 === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+        `
       },
-      {
-        "label": "Hasing 2",
-        "code": `
-        function HashSomething(s1, s2) {
-          if (s1 === '' && s2 === '') {
-            return true;
-          } else {
-            return compareStrings(s1.substring(1), s2.substring(1));
-          }
-        }`,
-        "input-type": "",
-        "show-editor": true,
-      }
     ],
   }
 ];

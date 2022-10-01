@@ -78,15 +78,39 @@ function Exercise({ exercise }) {
               Submit
             </button>
             {
-              evalResult && evalResult.pass ? (
-                <p>
-                  PASS!
-                </p>
-              ) : evalResult && (evalResult.pass === false) ? (
-                <p>
-                  Failed on input: {evalResult.failedInput}
-                </p>
-              ) : (null)
+              Math.trunc(exercise.id) === 1 ? (
+                <>
+                {
+                  evalResult && evalResult.pass ? (
+                    <p>
+                      PASS!
+                    </p>
+                  ) : evalResult && (evalResult.pass === false) ? (
+                    <p>
+                      Failed on input: {evalResult.failedInput}
+                    </p>
+                  ) : (null)
+                }
+                </>
+              ) : Math.trunc(exercise.id) === 2 ? (
+                <>
+                {
+                  evalResult && evalResult.coverage === 100 ? (
+                    <p>
+                      PASS!
+                      100% Coverage
+                    </p>
+                  ) : evalResult ? (
+                    <p>
+                      {evalResult.coverage}% Coverage
+                      Missing Branches: {evalResult.uncoveredBranches.length}
+                    </p>
+                  ) : (null)
+                }
+                </>
+              ) : (
+                null
+              )
             }
           </>
         ) : null
