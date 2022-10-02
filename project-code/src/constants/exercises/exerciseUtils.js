@@ -73,6 +73,7 @@ function reportCoverage(coverageCheck) {
   }
   const coverage = (coverageCheck.length - uncoveredBranches.length) / coverageCheck.length
   return {
+    pass: uncoveredBranches.length ? false : true,
     coverage: Math.trunc(coverage * 100),
     uncoveredBranches: uncoveredBranches,
   }

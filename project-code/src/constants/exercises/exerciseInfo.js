@@ -5,6 +5,7 @@ export const exerciseInfo = [
     "exercises": [
       {
         "label": "Introduction",
+        "id": 1.0,
         "code": "",
         "description": `In this section you will be debugging code and identifying edge cases that are not covered by
         certain functions. Each exercise will provide an example function that has some form of bug or missing edge case
@@ -100,15 +101,7 @@ function intToBaseFour(n) {
         }`,
         "input-type": "",
         "show-editor": true,
-        "placeholder-code": `
-function checkParity(n) {
-  if (n % 2 === 0) {
-    return true;
-  } else {
-    return false;
-  }
-}
-        `
+        "placeholder-code": ``
       },
     ],
   }

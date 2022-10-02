@@ -3,25 +3,30 @@ import styled from 'styled-components';
 
 const StyledOption = styled.div`
     background: transparent;
-    border-radius: 3px;
-    border: 2px solid palevioletred;
+    background-color: ${props => props.active ? 'yellow' : 'white'};
+    border-radius: 5px;
+    border: 2px solid lightblue;
     color: palevioletred;
     margin: 0.5em 1em;
     padding: 0.25em 1em;
-    width: 100px;
-    height: 50px;
+    width: 200px;
+    height: 100px;
     flex-direction: row;
+    text-align: center;
+    font-size: 20pt;
+    line-height: 100px;
     &:hover {
       cursor: pointer;
       transform: scale(1.1);
     }
   `
 
-function OptionButton({ label, setSubContent, content }) {
+function OptionButton({ label, active, setSubContent, content }) {
 
   return (
     <StyledOption
       onClick={setSubContent}
+      active={active}
       >
       {label}
     </StyledOption>

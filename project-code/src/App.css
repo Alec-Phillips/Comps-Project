@@ -1,0 +1,30 @@
+body {
+  background-color: lightblue;
+  font-family: Andale Mono, monospace;
+}
+
+.codeBlock {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.editorArea {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.editor {
+  border: 3px solid lightblue;
+}
+
+.submitButton {
+  height: 50px;
+  width: 100px;
+}
+
+hr {
+  border-top: 2px solid yellow;
+}

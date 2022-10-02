@@ -6,19 +6,39 @@ import { contentDescriptions } from './constants/learning-materials/learningMate
 import { exerciseInfo } from './constants/exercises/exerciseInfo';
 
 import './App.css';
+import {
+  StyledHeader,
+  OptionArea,
+  ContentArea,
+} from './constants/styledComponents';
 import styled from 'styled-components';
 
-const headerStyle = {
-  textAlign: 'center',
-  background: 'transparent',
-  color: 'palevioletred',
-}
 
-const OptionArea = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
+// const StyledHeader = styled.h1`
+//   text-align: center;
+//   background: transparent;
+//   color: palevioletred;
+//   &:hover {
+//     cursor: pointer;
+//     transform: scale(1.1);
+//   }
+// `
+
+// const OptionArea = styled.div`
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: center;
+//   align-items: center;
+// `
+
+// const ContentArea = styled.div`
+//   border: 2px solid yellow;
+//   background-color: white;
+//   margin: auto;
+//   margin-top: 10px;
+//   width: 75%;
+//   padding: 0px;
+// `
 
 function App() {
 
@@ -30,12 +50,21 @@ function App() {
 
   return (
     <div className="App">
-      <h1 style={headerStyle}>
+      <StyledHeader
+        onClick={() => {
+          setLearnAreaContent([]);
+          setActiveLearnSection('');
+          setPracticeAreaContent([]);
+          setCurrentExerciseType(0);
+          setActiveExercise(null);
+        }}
+        >
         Testing Tutor
-      </h1>
+      </StyledHeader>
       <OptionArea>
         <OptionButton
           label='Learn'
+          active={learnAreaContent.length ? true : false}
           setSubContent={() => {
             setPracticeAreaContent([]);
             setCurrentExerciseType(0);
@@ -45,6 +74,7 @@ function App() {
         />
         <OptionButton
           label='Practice'
+          active={practiceAreaContent.length ? true : false}
           setSubContent={() => {
             setLearnAreaContent([]);
             setActiveLearnSection('');
@@ -54,51 +84,63 @@ function App() {
       </OptionArea>
       {
         learnAreaContent.length ? (
-          learnAreaContent.map(
-            (label, ind) => <ContentOptionButton
-              label={label}
-              key={`${ind}-${label}`}
-              setContentSection={() => setActiveLearnSection(contentDescriptions[ind].description)}
-              ></ContentOptionButton>
-          )
+          <OptionArea>
+            {learnAreaContent.map(
+              (label, ind) => <ContentOptionButton
+                label={label}
+                key={`${ind}-${label}`}
+                active={activeLearnSection === contentDescriptions[ind].description}
+                setContentSection={() => setActiveLearnSection(contentDescriptions[ind].description)}
+                ></ContentOptionButton>
+            )}
+          </OptionArea>
         ) : null
       }
       {
         activeLearnSection.length ? (
-          <div>
+          <ContentArea>
             <p>{activeLearnSection}</p>
-          </div>
+          </ContentArea>
+          // <div>
+          //   <p>{activeLearnSection}</p>
+          // </div>
         ) : null
       }
       {
         practiceAreaContent.length ? (
-          practiceAreaContent.map(
-            (label, ind) => 
-              <ContentOptionButton
-                label={label}
-                key={`${ind}-${label}`}
-                setContentSection={() => {
-                  setActiveExercise(null);
-                  setCurrentExerciseType(ind + 1);
-                }}
-              ></ContentOptionButton>
-          )
+          <OptionArea>
+            {practiceAreaContent.map(
+              (label, ind) => 
+                <ContentOptionButton
+                  label={label}
+                  active={currentExerciseType === ind + 1}
+                  key={`${ind}-${label}`}
+                  setContentSection={() => {
+                    setActiveExercise(null);
+                    setCurrentExerciseType(ind + 1);
+                  }}
+                ></ContentOptionButton>
+            )}
+          </OptionArea>
         ) : null
       }
       {
         currentExerciseType ? (
-          exerciseInfo.filter(obj => obj.type === currentExerciseType).flatMap(obj => {
-            return obj.exercises;}).map(
-            (obj, ind) => {
-              return (
-              <ContentOptionButton
-                label={obj.label}
-                key={`${ind}-${obj.label}`}
-                setContentSection={() => {
-                  setActiveExercise(obj);
-                }}
-                ></ContentOptionButton>)
-              })
+          <OptionArea>
+            {exerciseInfo.filter(obj => obj.type === currentExerciseType).flatMap(obj => {
+              return obj.exercises;}).map(
+              (obj, ind) => {
+                return (
+                <ContentOptionButton
+                  label={obj.label}
+                  active={activeExercise && activeExercise.label === obj.label}
+                  key={`${ind}-${obj.label}`}
+                  setContentSection={() => {
+                    setActiveExercise(obj);
+                  }}
+                  ></ContentOptionButton>)
+                })}
+          </OptionArea>
         ) : null
       }
       {
