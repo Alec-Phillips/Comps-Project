@@ -45,9 +45,12 @@ function Exercise({ exercise }) {
 
   const submitCode = () => {
     const newResult = ev.evaluate(editorCode);
+    console.log(newResult);
     setEvalResult(newResult);
     if (newResult.pass) {
       setAccepted(true);
+    } else {
+      setAccepted(false);
     }
   }
 
@@ -111,6 +114,7 @@ function Exercise({ exercise }) {
               onClick={submitCode}>
               Submit
             </StyledOption>
+            <br></br>
             {
               Math.trunc(exercise.id) === 1 ? (
                 <>
@@ -129,15 +133,23 @@ function Exercise({ exercise }) {
               ) : Math.trunc(exercise.id) === 2 ? (
                 <>
                 {
-                  evalResult && evalResult.coverage === 100 ? (
+                  evalResult && evalResult.pass ? (
                     <p>
                       PASS!
+                      <br></br>
                       100% Coverage
+                      <br></br>
+                      Assertions Passed
                     </p>
                   ) : evalResult ? (
                     <p>
-                      {evalResult.coverage}% Coverage
-                      Missing Branches: {evalResult.uncoveredBranches.length}
+                      Failed:
+                      <br></br>
+                      {evalResult.coverageReport.coverage}% Coverage
+                      <br></br>
+                      Missing Branches: {evalResult.coverageReport.uncoveredBranches.length}
+                      <br></br>
+                      Failed Assertions: {evalResult.assertionReport.length}
                     </p>
                   ) : (null)
                 }

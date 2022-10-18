@@ -89,6 +89,32 @@ function intToBaseFour(n) {
     "label": "Unit Tests",
     "exercises": [
       {
+        "label": "Introduction",
+        "id": 2.0,
+        "code": `
+// For example, given the following function:
+
+function checkParity(n) {
+  if (n % 2 === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+// your assertions might be:
+
+assert(checkParity(2) === true);
+assert(checkParity(3) === false);`,
+        "description": `In this section you will be writing unit level tests on provided functions. You will do this
+        through writing a series of assertion tests. Your goal is to write tests that fully cover all branches of the
+        provided function. This means you should consider possible inputs and edge cases so that the function is 
+        exercised on a comprehensive set of inputs.`,
+        "input-type": "",
+        "show-editor": false,
+      },
+      {
         "label": "Even/Odd",
         "id": 2.1,
         "code": `
@@ -99,10 +125,51 @@ function intToBaseFour(n) {
             return false;
           }
         }`,
+        "description": `To get a feel for the process of these exercises, the first question is the same as the one from
+        the example in the introduction. The method should check if an integer is even or odd, and return true for even
+        inputs and false for odd inputs. Write a series of assertion tests that cover all branches of the control flow.`,
         "input-type": "",
         "show-editor": true,
-        "placeholder-code": ``
+        "placeholder-code": `
+assert(...);
+assert(...);`
       },
+      {
+        "label": "Sorting",
+        "id": 2.2,
+        "code": `
+        // note that the function doesn't return anything
+        // the array is sorted in-place
+
+        function sort(vals) {
+          for (let i = 0; i < vals.length; i ++) {
+            let min_val_ind = i;
+            for (let j = i + 1; j < vals.length; j ++) {
+              if (vals[j] < vals[min_val_ind]) {
+                min_val_ind = j;
+              }
+            }
+            let saved = vals[i];
+            vals[i] = vals[min_val_ind];
+            vals[min_val_ind] = saved;
+          }
+        }`,
+        "description": `To get a feel for the process of these exercises, the first question is the same as the one from
+        the example in the introduction. The method should check if an integer is even or odd, and return true for even
+        inputs and false for odd inputs. Write a series of assertion tests that cover all branches of the control flow.`,
+        "input-type": "",
+        "show-editor": true,
+        "placeholder-code": `
+let vals = [];
+let sortedVals = [];
+
+// note that javascript cannot directly compare array equality
+// you will need to check the equality manually
+
+for (...) {
+  assert(...);
+}
+      `},
     ],
   }
 ];

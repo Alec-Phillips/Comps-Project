@@ -73,17 +73,38 @@ function reportCoverage(coverageCheck) {
   }
   const coverage = (coverageCheck.length - uncoveredBranches.length) / coverageCheck.length
   return {
-    pass: uncoveredBranches.length ? false : true,
     coverage: Math.trunc(coverage * 100),
     uncoveredBranches: uncoveredBranches,
   }
 }
 
+function reportAssertions(assertionResults) {
+  return assertionResults[0]
+    .map(el => el.assertion)
+    .map((bool, ind) => 
+    {
+      if (! bool) {
+        return ind + 1;
+      } else {
+        return -1;
+      }
+    })
+    .filter(n => n > 0);
+}
+
+function buildEvalResult(coverageCheck, assertionResults) {
+  const coverageReport = reportCoverage(coverageCheck);
+  const assertionReport = reportAssertions(assertionResults);
+  return {
+    pass: coverageReport.uncoveredBranches.length || assertionReport.length ? false : true,
+    coverageReport: coverageReport,
+    assertionReport: assertionReport,
+  }
+}
+
 const assert = `
 function assert(condition) {
-  if (! condition) {
-    throw new Error('assertion error!');
-  }
+  assertionResults[0].push({assertion: condition});
 }
 `
 
@@ -92,6 +113,7 @@ exerciseTestCases.set(2.1,
   {
     testCase: (fn) => {
       const coverageCheck = [];
+      const assertionResults = [[]];
       initCoverageCheck(coverageCheck, 2);
       const checkParity = (n) => {
         if (n % 2 === 0) {
@@ -102,10 +124,41 @@ exerciseTestCases.set(2.1,
           return false;
         }
       }
-      fn(checkParity, coverageCheck);
-      return reportCoverage(coverageCheck);
+      fn(checkParity, coverageCheck, assertionResults);
+      return buildEvalResult(coverageCheck, assertionResults);
     },
-    templateArgs: 'checkParity, coverageCheck',
+    templateArgs: 'checkParity, coverageCheck, assertionResults',
+    templateSuffix: assert,
+  }
+);
+
+// add test cases for 2.2
+exerciseTestCases.set(2.2, 
+  {
+    testCase: (fn) => {
+      const coverageCheck = [];
+      const assertionResults = [[]];
+      initCoverageCheck(coverageCheck, 3);
+      const sort = (vals) => {
+        for (let i = 0; i < vals.length; i ++) {
+          coverageCheck[0] = true;
+          let min_val_ind = i;
+          for (let j = i + 1; j < vals.length; j ++) {
+            coverageCheck[1] = true;
+            if (vals[j] < vals[min_val_ind]) {
+              coverageCheck[2] = true;
+              min_val_ind = j;
+            }
+          }
+          let saved = vals[i];
+          vals[i] = vals[min_val_ind];
+          vals[min_val_ind] = saved;
+        }
+      }
+      fn(sort, coverageCheck, assertionResults);
+      return buildEvalResult(coverageCheck, assertionResults);
+    },
+    templateArgs: 'sort, coverageCheck, assertionResults',
     templateSuffix: assert,
   }
 );

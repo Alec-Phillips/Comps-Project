@@ -7,6 +7,7 @@ export const ContentArea = styled.div`
   margin-top: 10px;
   width: 75%;
   padding: 0px;
+  margin-bottom: 20px;
 `
 
 export const StyledHeader = styled.h1`
