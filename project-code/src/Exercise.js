@@ -8,8 +8,9 @@ import 'ace-builds/src-noconflict/theme-xcode';
 import styled from 'styled-components';
 
 import Evaluator from './evaluator/evaluator';
-
+import ResultDisplay from './ResultDisplay';
 import { ContentArea } from './constants/styledComponents';
+import { Fragment } from 'react';
 
 const StyledOption = styled.div`
   background: transparent;
@@ -26,7 +27,7 @@ const StyledOption = styled.div`
   &:hover {
     cursor: pointer;
     transform: scale(1.1);
-    background-color: yellow;
+    background-color: ${props => props.accepted ? 'lightgreen' : 'yellow'};
   }
   `
 
@@ -44,8 +45,17 @@ function Exercise({ exercise }) {
   }, [exercise['placeholder-code']]);
 
   const submitCode = () => {
-    const newResult = ev.evaluate(editorCode);
-    console.log(newResult);
+    let newResult = null;
+    try {
+      newResult = ev.evaluate(editorCode);
+    } catch(e){
+      newResult = {
+        pass: false,
+        error: true,
+        type: e.name + ': ',
+        message: e.message,
+      };
+    }
     setEvalResult(newResult);
     if (newResult.pass) {
       setAccepted(true);
@@ -109,55 +119,70 @@ function Exercise({ exercise }) {
               onClick={submitCode}>
               Submit
             </button> */}
-            <StyledOption
-              accepted={accepted}
-              onClick={submitCode}>
-              Submit
-            </StyledOption>
-            <br></br>
-            {
-              Math.trunc(exercise.id) === 1 ? (
-                <>
-                {
-                  evalResult && evalResult.pass ? (
-                    <p>
-                      PASS!
-                    </p>
-                  ) : evalResult && (evalResult.pass === false) ? (
-                    <p>
-                      Failed on input: {evalResult.failedInput}
-                    </p>
-                  ) : (null)
-                }
-                </>
-              ) : Math.trunc(exercise.id) === 2 ? (
-                <>
-                {
-                  evalResult && evalResult.pass ? (
-                    <p>
-                      PASS!
-                      <br></br>
-                      100% Coverage
-                      <br></br>
-                      Assertions Passed
-                    </p>
-                  ) : evalResult ? (
-                    <p>
-                      Failed:
-                      <br></br>
-                      {evalResult.coverageReport.coverage}% Coverage
-                      <br></br>
-                      Missing Branches: {evalResult.coverageReport.uncoveredBranches.length}
-                      <br></br>
-                      Failed Assertions: {evalResult.assertionReport.length}
-                    </p>
-                  ) : (null)
-                }
-                </>
-              ) : (
-                null
-              )
-            }
+            <div id="codeFeedbackArea">
+              <StyledOption
+                accepted={accepted}
+                onClick={submitCode}>
+                Submit
+              </StyledOption>
+              <br></br>
+              {
+                Math.trunc(exercise.id) === 1 ? (
+                  <>
+                  {
+                    evalResult && evalResult.pass ? (
+                      <p>
+                        PASS!
+                      </p>
+                    ) : evalResult && (evalResult.pass === false) ? (
+                      <p>
+                        Failed on input: {evalResult.failedInput}
+                      </p>
+                    ) : (null)
+                  }
+                  </>
+                ) : Math.trunc(exercise.id) === 2 ? (
+                  <Fragment>
+                    {
+                      evalResult ? (
+                        <ResultDisplay 
+                          evalResult={evalResult}
+                        >
+                          
+                        </ResultDisplay>
+                      ) : ( null )
+                    }
+                  </Fragment>
+                  
+                  // <>
+                  // {
+                  //   evalResult && evalResult.pass ? (
+                  //     <p>
+                  //       PASS!
+                  //       <br></br>
+                  //       100% Coverage
+                  //       <br></br>
+                  //       Assertions Passed
+                  //     </p>
+                  //   ) : evalResult ? (
+                  //     <p>
+                  //       Failed:
+                  //       <br></br>
+                  //       {evalResult.coverageReport.coverage}% Coverage
+                  //       <br></br>
+                  //       Missing Branches: {evalResult.coverageReport.uncoveredBranches.length}
+                  //       <br></br>
+                  //       Failed Assertions: {evalResult.assertionReport.length}
+                  //     </p>
+                  //   ) : (null)
+                  // }
+                  // </>
+                ) : (
+                  null
+                )
+              }
+            </div>
+            
           </div>
         ) : null
       }

@@ -97,6 +97,7 @@ function buildEvalResult(coverageCheck, assertionResults) {
   const assertionReport = reportAssertions(assertionResults);
   return {
     pass: coverageReport.uncoveredBranches.length || assertionReport.length ? false : true,
+    error: false,
     coverageReport: coverageReport,
     assertionReport: assertionReport,
   }
@@ -131,9 +132,76 @@ exerciseTestCases.set(2.1,
     templateSuffix: assert,
   }
 );
+  
+
+function rainfall(measurements) {
+  const total_rain = 0;
+  const total_days = 0;
+  for (let measurement of measurements) {
+    if (measurement === 99999) {
+      break;
+    } else {
+      if (measurement > 0) {
+        total_rain += measurement;
+        total_days += 1;
+      } else {
+        total_rain += 0;
+        total_days += 0;
+      }
+    }
+  }
+  if (total_rain > 0) {
+    return total_rain / total_days;
+  } else {
+    return 0;
+  }
+}
 
 // add test cases for 2.2
 exerciseTestCases.set(2.2, 
+  {
+    testCase: (fn) => {
+      const coverageCheck = [];
+      const assertionResults = [[]];
+      initCoverageCheck(coverageCheck, 6);
+      const rainfall = (measurements) => {
+        let total_rain = 0;
+        let total_days = 0;
+        for (let measurement of measurements) {
+          if (measurement === 99999) {
+            coverageCheck[0] = true;
+            break;
+          } else {
+            coverageCheck[1] = true;
+            if (measurement > 0) {
+              coverageCheck[2] = true;
+              total_rain += measurement;
+              total_days += 1;
+            } else {
+              coverageCheck[3] = true;
+              total_rain += 0;
+              total_days += 0;
+            }
+          }
+        }
+        if (total_rain > 0) {
+          coverageCheck[4] = true;
+          return total_rain / total_days;
+        } else {
+          coverageCheck[5] = true;
+          return 0;
+        }
+      }
+      fn(rainfall, coverageCheck, assertionResults);
+      return buildEvalResult(coverageCheck, assertionResults);
+    },
+    templateArgs: 'rainfall, coverageCheck, assertionResults',
+    templateSuffix: assert,
+  }
+);
+
+// add test cases for 2.2
+exerciseTestCases.set(2.3, 
   {
     testCase: (fn) => {
       const coverageCheck = [];

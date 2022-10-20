@@ -1,3 +1,7 @@
+const html = <div>
+  <pre><code class="python"> def test_array_reverse_duplicate_values(): # arrange: vals = [4, 3, 2, 2, 1] # act: sort(vals) # assert: for i, val in enumerate(vals[1:]): assert(val {'>'}= vals[i-1] </code></pre> 
+</div>
+
 export const contentDescriptions = [
   {
     "label": "Introduction",
@@ -60,6 +64,35 @@ export const contentDescriptions = [
   },
   {
     "label": "Writing Tests",
-    "description": "Assertions and Coverage General Testing Format: Just as normal code should follow certain guidelines in order to be understandable and easily maintained, tests should follow this same principle. When you have a large suite of tests, it is important to be able to determine what is wrong with the system when tests fail. In general, test cases should be organized based on type and what area of the system they are testing. Each test case should be represented by a function, and, most importantly, each test case should test only one thing. Even if two tests are related, they should be represented in different functions. This is important because when a test fails, it is clear what went wrong, making it easier to address the underlying issue. Each test case function should also be clearly named in a way that indicates what it is doing. Format of a test case: Each test case should follow an arrange, act, assert format. The arrange step encompasses any set up that is needed to get the system into the state that you want to test. The act step involves providing the input or performing the interaction that you want to exercise the system with. Finally the assert step is where you check if the system correctly processed the input. This usually involves an assertion statement to check that the output is as expected. Example: Imagine we are writing a test case for a method that sorts the values in an array, specifically testing the edge case of whether it handles duplicate values correctly. Following the above steps, we would write something like: <pre><code class=\"python\"> def test_array_reverse_duplicate_values(): # arrange: vals = [4, 3, 2, 2, 1] # act: sort(vals) # assert: for i, val in enumerate(vals[1:]): assert(val >= vals[i-1] </code></pre> Assertions: An assertion test is a boolean expression that should evaluate to true if the code is functioning as expected. For example, if we have a function that should add two numbers, we may use an assertion to test that it is correct that looks like: assert(add_two_numbers(1, 2) == 3). The assertion statement will raise an error if the boolean expression evaluates to false, otherwise code execution will continue. An assertion will be the last step of every test case that you write.  Coverage: Test coverage refers to the percentage of lines of code that are interacted with by your test suite. It can also be broken down by the percentage of functions that are getting called by your tests, as well as the percentage of logical branches that are being interacted with. This provides a good baseline for determining how comprehensive your test suite is. HOWEVER, your tests should not be motivated solely by increasing test coverage, and a high test coverage does not indicate that your tests are complete and of high quality. Test coverage is a useful metric that can help guide your testing, but the motivation should be to exercise edge cases and consider how the system will be interacted with by the user or the other components that interface with the system. "
+    "description": `Assertions and Coverage General Testing Format: Just as normal code should follow certain guidelines
+    in order to be understandable and easily maintained, tests should follow this same principle. When you have a large 
+    suite of tests, it is important to be able to determine what is wrong with the system when tests fail. In general, 
+    test cases should be organized based on type and what area of the system they are testing. Each test case should be 
+    represented by a function, and, most importantly, each test case should test only one thing. Even if two tests are 
+    related, they should be represented in different functions. This is important because when a test fails, it is clear 
+    what went wrong, making it easier to address the underlying issue. Each test case function should also be clearly named 
+    in a way that indicates what it is doing. Format of a test case: Each test case should follow an arrange, act, assert 
+    format. The arrange step encompasses any set up that is needed to get the system into the state that you want to test. 
+    The act step involves providing the input or performing the interaction that you want to exercise the system with. 
+    Finally the assert step is where you check if the system correctly processed the input. This usually involves an 
+    assertion statement to check that the output is as expected. Example: Imagine we are writing a test case for a method 
+    that sorts the values in an array, specifically testing the edge case of whether it handles duplicate values correctly. 
+    Following the above steps, we would write something like:` 
+    + html +
+   `Assertions: An assertion test is a boolean expression that should evaluate to true if the code is functioning as 
+    expected. For example, if we have a function that should add two numbers, we may use an assertion to test that it is 
+    correct that looks like: 
+    assert(add_two_numbers(1, 2) == 3). 
+    The assertion statement will raise an error if the boolean expression evaluates to false, otherwise code execution 
+    will continue. An assertion will be the last step of every test case that you write.  Coverage: Test coverage refers 
+    to the percentage of lines of code that are interacted with by your test suite. It can also be broken down by the 
+    percentage of functions that are getting called by your tests, as well as the percentage of logical branches that are 
+    being interacted with. This provides a good baseline for determining how comprehensive your test suite is. HOWEVER, 
+    your tests should not be motivated solely by increasing test coverage, and a high test coverage does not indicate that 
+    your tests are complete and of high quality. Test coverage is a useful metric that can help guide your testing, but 
+    the motivation should be to exercise edge cases and consider how the system will be interacted with by the user or the 
+    other components that interface with the system.`
   }
 ];
+
+

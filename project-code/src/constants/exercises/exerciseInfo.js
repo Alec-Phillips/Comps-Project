@@ -135,40 +135,27 @@ assert(...);
 assert(...);`
       },
       {
-        "label": "Sorting",
+        "label": "Rainfall",
         "id": 2.2,
         "code": `
-        // note that the function doesn't return anything
-        // the array is sorted in-place
-
-        function sort(vals) {
-          for (let i = 0; i < vals.length; i ++) {
-            let min_val_ind = i;
-            for (let j = i + 1; j < vals.length; j ++) {
-              if (vals[j] < vals[min_val_ind]) {
-                min_val_ind = j;
-              }
-            }
-            let saved = vals[i];
-            vals[i] = vals[min_val_ind];
-            vals[min_val_ind] = saved;
-          }
-        }`,
-        "description": `To get a feel for the process of these exercises, the first question is the same as the one from
-        the example in the introduction. The method should check if an integer is even or odd, and return true for even
-        inputs and false for odd inputs. Write a series of assertion tests that cover all branches of the control flow.`,
+function rainfal(measurements) {
+  // input: array of Numbers
+  // output: a Number representing the average rainfall in measurements
+}`,
+        "description": `Assume that you are given an array of measurements of rainfall, and you must determine the 
+        average amount of rainfall. However, any negative measurements should be ignored, and the presence of the value
+        99999 indicates that the processing of measurements should stop. This means all values after 99999 should be
+        ignored`,
         "input-type": "",
         "show-editor": true,
         "placeholder-code": `
-let vals = [];
-let sortedVals = [];
+let measurements = [...];
 
-// note that javascript cannot directly compare array equality
-// you will need to check the equality manually
+assert(rainfall(measurements) === ...);
 
-for (...) {
-  assert(...);
-}
+let measurements = [...];
+
+...
       `},
     ],
   }
