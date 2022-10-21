@@ -4,7 +4,7 @@
 const exerciseTestCases = new Map();
 
 // add test cases for 1.1
-exerciseTestCases.set(1.1,
+exerciseTestCases.set(2.1,
   {
     testCase: (fn) => {
       const testInputs = [
@@ -36,7 +36,7 @@ exerciseTestCases.set(1.1,
 )
 
 // add test cases for 1.2
-exerciseTestCases.set(1.2, 
+exerciseTestCases.set(2.2, 
   {
     testCase: (fn) => {
       for (let i = 1; i < 10000; i ++) {
@@ -110,7 +110,7 @@ function assert(condition) {
 `
 
 // add test cases for 2.1
-exerciseTestCases.set(2.1, 
+exerciseTestCases.set(3.1, 
   {
     testCase: (fn) => {
       const coverageCheck = [];
@@ -134,31 +134,9 @@ exerciseTestCases.set(2.1,
 );
   
 
-function rainfall(measurements) {
-  const total_rain = 0;
-  const total_days = 0;
-  for (let measurement of measurements) {
-    if (measurement === 99999) {
-      break;
-    } else {
-      if (measurement > 0) {
-        total_rain += measurement;
-        total_days += 1;
-      } else {
-        total_rain += 0;
-        total_days += 0;
-      }
-    }
-  }
-  if (total_rain > 0) {
-    return total_rain / total_days;
-  } else {
-    return 0;
-  }
-}
 
 // add test cases for 2.2
-exerciseTestCases.set(2.2, 
+exerciseTestCases.set(3.2, 
   {
     testCase: (fn) => {
       const coverageCheck = [];
@@ -201,7 +179,7 @@ exerciseTestCases.set(2.2,
 );
 
 // add test cases for 2.2
-exerciseTestCases.set(2.3, 
+exerciseTestCases.set(3.3, 
   {
     testCase: (fn) => {
       const coverageCheck = [];

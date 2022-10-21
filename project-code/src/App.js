@@ -13,6 +13,8 @@ import {
 } from './constants/styledComponents';
 import styled from 'styled-components';
 
+const parse = require('html-react-parser');
+
 
 // const StyledHeader = styled.h1`
 //   text-align: center;
@@ -99,7 +101,8 @@ function App() {
       {
         activeLearnSection.length ? (
           <ContentArea>
-            <p>{activeLearnSection}</p>
+            {parse(activeLearnSection)}
+            {parse('<h1> hi there </h1>')}
           </ContentArea>
           // <div>
           //   <p>{activeLearnSection}</p>

@@ -9,6 +9,13 @@ body {
   padding: 10px;
 }
 
+.exampleCodeArea {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .editorArea {
   display: flex;
   flex-direction: row;
@@ -32,4 +39,9 @@ body {
 
 hr {
   border-top: 2px solid yellow;
+}
+
+input {
+  border: 3px solid lightblue;
+  height: 30px;
 }

@@ -9,40 +9,38 @@ import styled from 'styled-components';
 
 import Evaluator from './evaluator/evaluator';
 import ResultDisplay from './ResultDisplay';
-import { ContentArea } from './constants/styledComponents';
+import { ContentArea, StyledOption } from './constants/styledComponents';
 import { Fragment } from 'react';
 
-const StyledOption = styled.div`
-  background: transparent;
-  background-color: ${props => props.accepted ? 'lightgreen' : 'white'};
-  border-radius: 5px;
-  border: 2px solid lightblue;
-  color: palevioletred;
-  margin: 0.5em 1em;
-  padding: 0.25em 1em;
-  width: 110px;
-  height: 50px;
-  text-align: center;
-  flex-direction: row;
-  &:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-    background-color: ${props => props.accepted ? 'lightgreen' : 'yellow'};
-  }
-  `
+const parse = require('html-react-parser');
 
 
 function Exercise({ exercise }) {
   const [editorCode, setEditorCode] = useState(exercise['placeholder-code']);
+  const [inputArgs, setInputArgs] = useState(['']);
   const [evalResult, setEvalResult] = useState(null);
   const [accepted, setAccepted] = useState(false);
   const ev = exercise['show-editor'] ? new Evaluator(exercise.id) : null;
+
+  const initInputArgs = () => {
+    const args = [];
+    if (exercise['input-type'] === 1) {
+      for (let _ = 0; _ < exercise['num-inputs']; _ ++) {
+        args.push('');
+      }
+    }
+    setInputArgs(args);
+  }
 
   useEffect(() => {
     setEditorCode(exercise['placeholder-code']);
     setEvalResult(null);
     setAccepted(false);
   }, [exercise['placeholder-code']]);
+
+  useEffect(() => {
+    initInputArgs();
+  }, [exercise.id])
 
   const submitCode = () => {
     let newResult = null;
@@ -64,6 +62,10 @@ function Exercise({ exercise }) {
     }
   }
 
+  const submitInputArgs = () => {
+    console.log('submitting input args');
+  }
+
   const cs = {
       fontSize: "80%"
     }
@@ -77,20 +79,48 @@ function Exercise({ exercise }) {
 
   return (
     <ContentArea>
-      <p>
-        {exercise.description}
-      </p>
-      <hr></hr>
-      <SyntaxHighlighter 
-        className="codeBlock"
-        language="javascript"
-        style={xcode}
-        customStyle={cs}
-        codeTagProps={ctp}
-        >
-        {exercise.code}
-      </SyntaxHighlighter>
-      <hr></hr>
+      {parse(exercise.description)}
+      {exercise.label !== 'Introduction' ? (<hr></hr>) : (null)}
+      <div className="exampleCodeArea">
+        <SyntaxHighlighter 
+          className={exercise['input-type'] === 1 ? '' : "codeBlock"}
+          language="javascript"
+          style={xcode}
+          customStyle={cs}
+          codeTagProps={ctp}
+          >
+          {exercise.code}
+        </SyntaxHighlighter>
+        {
+          exercise['input-type'] === 1 ? (
+            <Fragment>
+              {
+                inputArgs.map((currValue, i) => 
+                  <input 
+                    type="text"
+                    key={`argumentInput-${i}`}
+                    value={currValue}
+                    placeholder={exercise['placeholder-code']}
+                    onChange={(evt) => {
+                      let tempArgs = inputArgs.slice();
+                      tempArgs[i] = evt.target.value;
+                      setInputArgs(tempArgs);
+                    }}>
+                  </input>
+                )
+              }
+              <StyledOption
+                accepted={accepted}
+                onClick={submitInputArgs}>
+                Submit
+              </StyledOption>
+            </Fragment>
+          ) : ( null )
+        }
+      </div>
+      {
+        exercise['show-editor'] ? (<hr></hr>) : (null)
+      }
       {
         exercise['show-editor'] ? (
           <div className="editorArea">
@@ -127,7 +157,7 @@ function Exercise({ exercise }) {
               </StyledOption>
               <br></br>
               {
-                Math.trunc(exercise.id) === 1 ? (
+                Math.trunc(exercise.id) === 2 ? (
                   <>
                   {
                     evalResult && evalResult.pass ? (
@@ -141,7 +171,7 @@ function Exercise({ exercise }) {
                     ) : (null)
                   }
                   </>
-                ) : Math.trunc(exercise.id) === 2 ? (
+                ) : Math.trunc(exercise.id) === 3 ? (
                   <Fragment>
                     {
                       evalResult ? (

@@ -1,6 +1,15 @@
-const html = <div>
-  <pre><code class="python"> def test_array_reverse_duplicate_values(): # arrange: vals = [4, 3, 2, 2, 1] # act: sort(vals) # assert: for i, val in enumerate(vals[1:]): assert(val {'>'}= vals[i-1] </code></pre> 
-</div>
+const parse = require('html-react-parser');
+
+const html = `<div>
+  <pre><code class="javascript"> def test_array_reverse_duplicate_values(): 
+  # arrange: 
+  vals = [4, 3, 2, 2, 1] 
+  # act: 
+  sort(vals) 
+  # assert: 
+  for i, val in enumerate(vals[1:]): 
+  assert(val {'>'}= vals[i-1] </code></pre> 
+</div>`;
 
 export const contentDescriptions = [
   {
@@ -64,7 +73,7 @@ export const contentDescriptions = [
   },
   {
     "label": "Writing Tests",
-    "description": `Assertions and Coverage General Testing Format: Just as normal code should follow certain guidelines
+    "description": `<p>Assertions and Coverage General Testing Format: Just as normal code should follow certain guidelines
     in order to be understandable and easily maintained, tests should follow this same principle. When you have a large 
     suite of tests, it is important to be able to determine what is wrong with the system when tests fail. In general, 
     test cases should be organized based on type and what area of the system they are testing. Each test case should be 
@@ -91,7 +100,7 @@ export const contentDescriptions = [
     your tests should not be motivated solely by increasing test coverage, and a high test coverage does not indicate that 
     your tests are complete and of high quality. Test coverage is a useful metric that can help guide your testing, but 
     the motivation should be to exercise edge cases and consider how the system will be interacted with by the user or the 
-    other components that interface with the system.`
+    other components that interface with the system.<p>`
   }
 ];
 
