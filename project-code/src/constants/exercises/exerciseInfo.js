@@ -1,3 +1,10 @@
+
+// informal enumeration:
+//    - 1: Number
+//    - 2: Array
+//    - 3: String
+//    - 4: Object
+
 export const exerciseInfo = [
   {
     "type": 1,
@@ -28,6 +35,7 @@ function fizzbuzz(n) {
       output.push('buzz');
     }
   }
+  return output;
 }`,
         "description": `<h3>Fizzbuzz</h3>
         Fizzbuzz is a well known coding problem where a positive integer n is given as input, and for
@@ -44,6 +52,7 @@ function fizzbuzz(n) {
           <li>Any non-integer or non-positive integer inputs</li>
         </ul>`,
         "input-type": 1,
+        "param-types": [1],
         "num-inputs": 1,
         "show-editor": false,
         "placeholder-code": "// input n here",
@@ -72,6 +81,7 @@ function fizzbuzzCounts(n) {
         "description": `This variant of the fizzbuzz problem is simply trying to count the number of times that each
         word would be printed. Provide an input that produces an incorrect output.`,
         "input-type": 1,
+        "param-types": [1],
         "num-inputs": 1,
         "show-editor": false,
         "placeholder-code": "// input n here",
@@ -90,9 +100,6 @@ function rainfall(measurements) {
     if (measurement > 0) {
       total_rain += measurement;
       total_days += 1;
-    } else {
-      total_rain += 0;
-      total_days += 0;
     }
   }
   return total_rain / total_days;
@@ -100,37 +107,38 @@ function rainfall(measurements) {
         "description": `The goal of this function is to determine the average rainfall from an array of rainfall measurements.
         Additionally, negative numbers should be ignored. Provide an input array that causes this function to fail.`,
         "input-type": 1,
+        "param-types": [2.1],
         "num-inputs": 1,
         "show-editor": false,
         "placeholder-code": "// [...]",
       },
-      {
-        "label": "Object Keys",
-        "id": 1.4,
-        "code": `
-function multiplyObjects(obj1, obj2) {
-  if (obj1 !== obj2) {
-    for (const key in obj1) {
-      if (typeof obj1[key] === 'number' && typeof obj2[key] === 'number') {
-        obj1[key] = obj1[key] * obj2[key];
-      } else {
-        return obj1;
-      }
-    }
-    return obj1;
-  } else {
-    return obj1;
-  }
-}`,
-        "description": `This function takes two objects that both have properties a, b, and c, and multiplies the values
-        associated with each property together and returns the result. Constraints: 1. the objects should not have the
-        same values for each key, or else the original object is returned. 2: The values should only be numbers. The code
-        is responsible for checking that these constraints are met.`,
-        "input-type": 1,
-        "num-inputs": 2,
-        "show-editor": false,
-        "placeholder-code": "// {a: ..., b: ..., c: ...}",
-      }
+//       {
+//         "label": "Object Keys",
+//         "id": 1.4,
+//         "code": `
+// function multiplyObjects(obj1, obj2) {
+//   if (obj1 !== obj2) {
+//     for (const key in obj1) {
+//       if (typeof obj1[key] === 'number' && typeof obj2[key] === 'number') {
+//         obj1[key] = obj1[key] * obj2[key];
+//       } else {
+//         return obj1;
+//       }
+//     }
+//     return obj1;
+//   } else {
+//     return obj1;
+//   }
+// }`,
+//         "description": `This function takes two objects that both have properties a, b, and c, and multiplies the values
+//         associated with each property together and returns the result. Constraints: 1. the objects should not have the
+//         same values for each key, or else the original object is returned. 2: The values should only be numbers. The code
+//         is responsible for checking that these constraints are met.`,
+//         "input-type": 1,
+//         "num-inputs": 2,
+//         "show-editor": false,
+//         "placeholder-code": "// {a: ..., b: ..., c: ...}",
+//       }
     ]
   },
   {

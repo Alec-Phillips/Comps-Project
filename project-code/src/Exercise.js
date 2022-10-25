@@ -20,7 +20,7 @@ function Exercise({ exercise }) {
   const [inputArgs, setInputArgs] = useState(['']);
   const [evalResult, setEvalResult] = useState(null);
   const [accepted, setAccepted] = useState(false);
-  const ev = exercise['show-editor'] ? new Evaluator(exercise.id) : null;
+  const ev = exercise['label'] !== 'Introduction' ? new Evaluator(exercise.id) : null;
 
   const initInputArgs = () => {
     const args = [];
@@ -63,7 +63,25 @@ function Exercise({ exercise }) {
   }
 
   const submitInputArgs = () => {
-    console.log('submitting input args');
+    const inputInfo = {
+      paramTypes: exercise['param-types'],
+      inputArgs: inputArgs,
+    }
+    let newResult = null;
+    try {
+      newResult = {
+        pass: ev.evaluateEdgeCase(inputInfo),
+        error: false,
+      }
+    } catch(e) {
+      newResult = {
+        pass: false,
+        error: true,
+        message: e.message,
+      };
+    }
+    setEvalResult(newResult);
+    setAccepted(newResult.pass);
   }
 
   const cs = {
@@ -109,11 +127,15 @@ function Exercise({ exercise }) {
                   </input>
                 )
               }
-              <StyledOption
-                accepted={accepted}
-                onClick={submitInputArgs}>
-                Submit
-              </StyledOption>
+              <div className="flexCol">
+                <StyledOption
+                  accepted={accepted}
+                  onClick={submitInputArgs}>
+                  Submit
+                </StyledOption>
+                { evalResult && accepted ? 'Pass' : evalResult && !accepted ? 'Fail' : null}
+                { evalResult && evalResult.error ? <p>{evalResult.message}</p> : null}
+              </div>
             </Fragment>
           ) : ( null )
         }
