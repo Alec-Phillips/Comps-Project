@@ -94,10 +94,10 @@ function rainfall(measurements) {
   if (measurements.length === 0) {
     return 0;
   }
-  const total_rain = 0;
-  const total_days = 0;
+  let total_rain = 0;
+  let total_days = 0;
   for (let measurement of measurements) {
-    if (measurement > 0) {
+    if (measurement >= 0) {
       total_rain += measurement;
       total_days += 1;
     }
@@ -157,15 +157,21 @@ function rainfall(measurements) {
         "show-editor": false,
       },
       {
-        "label": "String Comp",
+        "label": "Fizzbuzz",
         "id": 2.1,
         "code": `
-        function compareStrings(s1, s2) {
-          if (s1 === '' || s2 === '') {
-            return true;
-          } else {
-            return compareStrings(s1.substring(1), s2.substring(1));
+        function fizzbuzz(n) {
+          const output = [];
+          for (let i = 0; i <= n; i ++) {
+            if (i % 3 === 0 && i % 5 === 0) {
+              output.push('fizzbuzz');
+            } else if (i % 3 === 0) {
+              output.push('fizz');
+            } else {
+              output.push('buzz');
+            }
           }
+          return output;
         }`,
         "description": `The following method is intended to take two strings as input and compare their individual
         characters, returning true if the strings are equal, and false otherwise. You must keep the implementation
@@ -173,55 +179,101 @@ function rainfall(measurements) {
         "input-type": "",
         "show-editor": true,
         "placeholder-code": `
-function compareStrings(s1, s2) {
-  if (s1 === '' || s2 === '') {
-    return true;
-  } else {
-    return compareStrings(s1.substring(1), s2.substring(1));
+function fizzbuzz(n) {
+  const output = [];
+  for (let i = 0; i <= n; i ++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      output.push('fizzbuzz');
+    } else if (i % 3 === 0) {
+      output.push('fizz');
+    } else {
+      output.push('buzz');
+    }
   }
+  return output;
 }
         `
       },
       {
-        "label": "Base Four",
+        "label": "Fizzbuzz Counts",
         "id": 2.2,
         "code": `
-function intToBaseFour(n) {
-  let baseFour = ''
-  while (n > 0) {
-    if (n % 4 == 0) {
-      baseFour = '0' + baseFour;
-    } else if (n % 4 == 1) {
-      baseFour = '1' + baseFour;
-    } else if (n % 4 == 2) {
-      baseFour = '2' + baseFour;
-    } else {
-      baseFour = '3' + baseFour;
-    }
-    n = n / 4;
-  }
-  return baseFour;
-}`,
+        function fizzbuzzCounts(n) {
+          const counts = {
+            fizz: 0,
+            buzz: 0,
+            fizzbuzz: 0,
+          };
+          for (let i = 0; i < n; i ++) {
+            if (i % 3 === 0 && i % 5 === 0) {
+              counts.fizzbuzz ++;
+            } else if (i % 3 === 0) {
+              counts.fizz ++;
+            } else if (i % 5 === 0) {
+              counts.buzz ++;
+            }
+          }
+          return counts;
+        }`,
         "description": `This function should convert from an integer in base 10 to a string representing the equivalent
         base 4 number. Identify the bug in the function and write a correct implementation.`,
         "input-type": "",
         "show-editor": true,
         "placeholder-code":`
-function intToBaseFour(n) {
-  let baseFour = ''
-  while (n > 0) {
-    if (n % 4 == 0) {
-      baseFour = '0' + baseFour;
-    } else if (n % 4 == 1) {
-      baseFour = '1' + baseFour;
-    } else if (n % 4 == 2) {
-      baseFour = '2' + baseFour;
-    } else {
-      baseFour = '3' + baseFour;
+function fizzbuzzCounts(n) {
+  const counts = {
+    fizz: 0,
+    buzz: 0,
+    fizzbuzz: 0,
+  };
+  for (let i = 0; i < n; i ++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      counts.fizzbuzz ++;
+    } else if (i % 3 === 0) {
+      counts.fizz ++;
+    } else if (i % 5 === 0) {
+      counts.buzz ++;
     }
-    n = n / 4;
   }
-  return baseFour;
+  return counts;
+}`,
+      },
+      {
+        "label": "Rainfall",
+        "id": 2.3,
+        "code": `
+        function rainfall(measurements) {
+          if (measurements.length === 0) {
+            return 0;
+          }
+          let total_rain = 0;
+          let total_days = 0;
+          for (let measurement of measurements) {
+            if (measurement >= 0) {
+              total_rain += measurement;
+              total_days += 1;
+            }
+          }
+          return total_rain / total_days;
+        }`,
+        "description": `This function should convert from an integer in base 10 to a string representing the equivalent
+        base 4 number. Identify the bug in the function and write a correct implementation.`,
+        "input-type": "",
+        "show-editor": true,
+        "placeholder-code":`
+function rainfall(measurements) {
+  if (measurements.length === 0) {
+    return 0;
+  }
+  let total_rain = 0;
+  let total_days = 0;
+  for (let measurement of measurements) {
+    if (measurement >= 0) {
+      total_rain += measurement;
+      total_days += 1;
+    }
+  }
+  return total_rain / total_days;
 }`,
       }
     ],

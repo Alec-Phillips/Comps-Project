@@ -178,61 +178,17 @@ function Exercise({ exercise }) {
                 Submit
               </StyledOption>
               <br></br>
-              {
-                Math.trunc(exercise.id) === 2 ? (
-                  <>
+                <Fragment>
                   {
-                    evalResult && evalResult.pass ? (
-                      <p>
-                        PASS!
-                      </p>
-                    ) : evalResult && (evalResult.pass === false) ? (
-                      <p>
-                        Failed on input: {evalResult.failedInput}
-                      </p>
-                    ) : (null)
+                    evalResult ? (
+                      <ResultDisplay 
+                        evalResult={evalResult}
+                        exerciseId={Math.trunc(exercise.id)}
+                      >
+                      </ResultDisplay>
+                    ) : ( null )
                   }
-                  </>
-                ) : Math.trunc(exercise.id) === 3 ? (
-                  <Fragment>
-                    {
-                      evalResult ? (
-                        <ResultDisplay 
-                          evalResult={evalResult}
-                        >
-                          
-                        </ResultDisplay>
-                      ) : ( null )
-                    }
-                  </Fragment>
-                  
-                  // <>
-                  // {
-                  //   evalResult && evalResult.pass ? (
-                  //     <p>
-                  //       PASS!
-                  //       <br></br>
-                  //       100% Coverage
-                  //       <br></br>
-                  //       Assertions Passed
-                  //     </p>
-                  //   ) : evalResult ? (
-                  //     <p>
-                  //       Failed:
-                  //       <br></br>
-                  //       {evalResult.coverageReport.coverage}% Coverage
-                  //       <br></br>
-                  //       Missing Branches: {evalResult.coverageReport.uncoveredBranches.length}
-                  //       <br></br>
-                  //       Failed Assertions: {evalResult.assertionReport.length}
-                  //     </p>
-                  //   ) : (null)
-                  // }
-                  // </>
-                ) : (
-                  null
-                )
-              }
+                </Fragment>
             </div>
             
           </div>
