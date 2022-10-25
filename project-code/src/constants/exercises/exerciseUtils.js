@@ -3,7 +3,65 @@
 
 const exerciseTestCases = new Map();
 
-// add test cases for 1.1
+exerciseTestCases.set(1.1,
+  {
+    testCase: (n) => {
+      const correct = (n) => {
+        const output = [];
+        for (let i = 0; i <= n; i ++) {
+          if (i % 3 === 0 && i % 5 === 0) {
+            output.push('fizzbuzz');
+          } else if (i % 3 === 0) {
+            output.push('fizz');
+          } else if (i % 5 === 0) {
+            output.push('buzz');
+          }
+        }
+        return output;
+      }
+      const incorrect = (n) => {
+        const output = [];
+        for (let i = 0; i <= n; i ++) {
+          if (i % 3 === 0 && i % 5 === 0) {
+            output.push('fizzbuzz');
+          } else if (i % 3 === 0) {
+            output.push('fizz');
+          } else {
+            output.push('buzz');
+          }
+        }
+        return output;
+      }
+      return JSON.stringify(correct(n)) !== JSON.stringify(incorrect(n));
+    },
+    templateArgs: '',
+    templateSuffix: '',
+  }
+);
+
+exerciseTestCases.set(1.2,
+  {
+    testCase: (n) => {
+      return n > 0 && (n % 5 === 0 || n % 3 === 0);
+    },
+    templateArgs: '',
+    templateSuffix: '',
+  }
+);
+
+
+exerciseTestCases.set(1.3,
+  {
+    testCase: (measurements) => {
+      const check = measurements.filter(item => item > 0);
+      return check.length === 0;
+    },
+    templateArgs: '',
+    templateSuffix: '',
+  }
+);
+
+
 exerciseTestCases.set(2.1,
   {
     testCase: (fn) => {
