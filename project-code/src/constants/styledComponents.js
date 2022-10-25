@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ContentArea = styled.div`
-  border: 2px solid yellow;
+  border: 2px solid lightblue;
   background-color: white;
   margin: auto;
   margin-top: 10px;

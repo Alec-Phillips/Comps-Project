@@ -4,7 +4,8 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { xcode } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
-import 'ace-builds/src-noconflict/theme-xcode';
+// import 'ace-builds/src-noconflict/theme-xcode';
+import 'ace-builds/src-noconflict/theme-vibrant_ink';
 import styled from 'styled-components';
 
 import Evaluator from './evaluator/evaluator';
@@ -150,7 +151,7 @@ function Exercise({ exercise }) {
               className="editor"
               // placeholder={exercise['placeholder-code']}
               mode='javascript'
-              theme='xcode'
+              theme='vibrant_ink'
               name='basic-code-editor'
               onChange={(currentCode) => {
                   setEditorCode(currentCode);

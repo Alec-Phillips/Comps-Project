@@ -1,6 +1,7 @@
 body {
-  background-color: lightblue;
-  font-family: Andale Mono, monospace;
+  background-color: rgb(34, 48, 51);
+  /* font-family: Andale Mono, monospace; */
+  font-family: Courier, monospace;
 }
 
 .codeBlock {
@@ -38,7 +39,7 @@ body {
 }
 
 hr {
-  border-top: 2px solid yellow;
+  border-top: 2px solid lightblue;
 }
 
 input {
