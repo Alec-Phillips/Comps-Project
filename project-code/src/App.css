@@ -1,7 +1,7 @@
 body {
   background-color: rgb(34, 48, 51);
   /* font-family: Andale Mono, monospace; */
-  font-family: Courier, monospace;
+  font-family: Helvetica, Courier, monospace;
 }
 
 .codeBlock {
@@ -50,4 +50,8 @@ input {
 .flexCol {
   display: flex;
   flex-direction: column;
+}
+
+code {
+  font-size: 11pt;
 }

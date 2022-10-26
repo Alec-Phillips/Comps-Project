@@ -14,34 +14,168 @@ const html = `<div>
 export const contentDescriptions = [
   {
     "label": "Introduction",
-    "description": `Testing is an important part of developing software, and having a good understanding of some of the
-    basics can go a long way in making you a well rounded engineer. Often, testing can seem like a burden or become an
-    afterthought, because it can seem less enjoyable than implementing new features. However, it is important to verify
-    the correctness of your code, and having comprehensive testing will make your projects much easier to maintain in
-    the future. By reading through the material here and doing the practice exercises, you should have a better
-    understanding of the basics of software testing.`
+    "description": `
+    <h1>Introduction</h1>
+    <hr></hr>
+    <h3>Why should you learn about software testing?</h3>
+    <ul>
+      <li>Ensures that code it acting as expected</li>
+      <li>Makes issues introduced by new features easier to diagnose</li>
+      <li>Code becomes more maintainable and easier to extend</li>
+      <li>You become more employable - professional engineers are expected to test their code, and there are entire positions that are devoted to testing</li>
+    </ul>
+    <hr></hr>
+    <h3>Challenges of software testing</h3>
+    <ul>
+      <li>Must deeply understand the goals of the features/code being tested</li>
+      <li>It can be difficult to identify all edge cases</li>
+      <li>There are many possible inputs to consider, especially when a non-technical user is interacting with the system</li>
+    </ul>
+    <hr></hr>
+    <h3>Content Overview</h3>
+    <p>Testing can be broken down into categories based on scope and style</p>
+    <p>This material will work through these different types, providing examples of each</p>`
   },
   {
     "label": "Unit Testing",
-    "description": `Unit tests exercise small pieces of code, usually individual functions or modules. These are usually
-    the firststep in testing code, as it is important to ensure that each function is working correctly so that you can
-    be confident when other parts of the code are interacting with it. When writing unit tests it is important to
-    consider a range of possible inputs, especially edge cases, and also potential errors that the function should raise.
-    Since there are any inputs that the function may get that should halt execution and raise an error, it is important
-    to test for that in your unit tests. Unit tests exercise small pieces of code, usually individual functions or
-    modules. These are usually the first step in testing code, as it is important to ensure that each function is
-    working correctly so that you can be confident when other parts of the code are interacting with it. When writing
-    unit tests it is important to consider a range of possible inputs, especially edge cases, and also potential errors
-    that the function should raise. Since there are any inputs that the function may get that should halt execution and
-    raise an error, it is important to test for that in your unit tests.`
+    "description": `
+    <h1>Unit Testing</h1>
+    <hr></hr>
+    <h3>Scope</h3>
+    <ul>
+      <li>Unit tests exercise small pieces of code, usually individual functions or modules</li>
+      <li>These are usually the first step in testing code, as it is important to ensure that each function is working correctly so that you can
+      be confident when other parts of the code are interacting with it</li>
+    </ul>
+    <hr></hr>
+    <h3>Writing Unit Tests</h3>
+    <ul>
+      <li>Consider a range of possible inputs</li>
+      <li>Think about edge cases - this is difficult and takes practice</li>
+      <li>Consider whether the function raises errors - test for those</li>
+    </ul>
+    <hr></hr>
+    <h3>Example</h3>
+    Say you have the function:
+    <pre>
+      <code>
+      function getMax(array) {
+        let max = array[0];
+        for (let i = 1; i < array.length; i ++) {
+          if (array[i] > max) {
+            max = array[i];
+          }
+        }
+        return max;
+      }
+      </code>
+    </pre>
+    Unit tests usually involve an <code>assert</code> statement. This is a statement that expects a certain condition to
+    be true. This is a way of saying that we expect our function to output a specific result.
+    <br></br>
+    Unit tests for this may look like:
+    <pre>
+      <code class='javascript'>
+      assert(getMax([1,2,3,4,5]) === 5);
+      assert(getMax([5,4,3,2,1]) === 5);
+      assert(getMax([]) === null);
+      </code>
+    </pre>
+    These unit tests would expose a bug in the code: the empty array input is not handled. This makes it clear where the
+    error is located and the code can be easily adjusted. 
+
+    Note the use of <code>assert</code> statements. These statements check the condition contained within, and if the
+    condition evaluates to false, an error will be raised. This means that when the tests are run, the code will error 
+    out if a test fails. 
+    `
   },
   {
     "label": "Integration Tetsting",
-    "description": `Integration tests are one level more zoomed out than unit tests. They involve testing how multiple
-    modules of the code are interacting with one another. For example, your system may be an application that gets
-    weather information for a user-provided location. You may have one component that handles retrieving weather data,
-    and another that parses and formats the user input. An integration test would check that these two components are
-    interacting correctly.`
+    "description": `
+    <h1>Integration Testing</h1>
+    <hr></hr>
+    <h3>Scope</h3>
+    <ul>
+      <li>One level more zoomed out than unit tests</li>
+      <li>Involves testing how multiple modules of the code are interacting with one another</li>
+    </ul>
+    <hr></hr>
+    <h3>Writing Integration Tests</h3>
+    <ul>
+      <li>Consider all possible interactions between the pieces of code being integrated</li>
+      <li>Think about what inputs may cause unexpected behavior</li>
+    </ul>
+    <hr></hr>
+    <h3>Example</h3>
+    Say your application gets weather information for a user-provided location for a past date
+    <br></br>
+    Possible Modules of Code:
+    <ul>
+      <li>Mechanism that takes and formats user input (verifies that the input is valid, formats it correctly for the next component)</li>
+      <li>Mechanism for retrieving weather information based on the user input</li>
+    </ul>
+    Say the interface for the input formatter looks like:
+    <pre>
+      <code>
+      class InputHandler {
+
+        format(input) {
+          // takes an input that can be a city name or zip code, along with a date
+          // validates input
+          // returns an object with the city name, zip code, and date
+          //    will retrieve the one that is not provided from a database
+        }
+      }
+      </code>
+    </pre>
+    And the interface for the weather retrieval system looks like:
+    <pre>
+      <code>
+      class GetWeather {
+
+        retrieve(locationData) {
+          // takes an object with a city name, zip code. and date
+          // queries database to get weather for input location from target date
+          // returns the weather data
+        }
+      }
+      </code>
+    </pre>
+    A possible test case that exercises the integration of these components:
+    <pre>
+      <code>
+      function TestInputHanderGetWeatherIntegration1() {
+        // create instance of input handler
+        const inputHandler = new InputHandler();
+
+        // create instance of the weather retriever
+        const weatherRetriever = new GetWeather();
+
+
+        // use the input handler to get the formatted user input
+        const formattedInput = inputHandler.format('90041', '10/10/2010');
+
+        // call the weather retriever with the formatted input
+        const weatherResult = weatherRetriever.retrieve(formattedInput);
+
+
+        // check if the result is accurate
+        // (this assumes we know what the system should output for this input)
+        const expectedResult = '79 degrees';
+        assert(weatherResult === expectedResult);
+      }
+      </code>
+    </pre>
+    It is assumed that each of these components would be thoroughly unit tested first
+    <br></br>
+    Notice that the test follows an <em>arrange</em>, <em>act</em>, <em>assert</em> pattern
+    <ol>
+      <li>arrange: first we set up the necessary components that would be used in the test</li>
+      <li>act: we performed the operations that we want to test</li>
+      <li>assert: we checked if the result of the act stage yielded the expected result</li>
+    </ol>
+    This is a generally accepted format for writing test cases, and it is best practice to follow this pattern
+    `
   },
   {
     "label": "System Testing",

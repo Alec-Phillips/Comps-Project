@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const StyledOption = styled.div`
     background: transparent;
-    background-color: ${props => props.active ? 'yellow' : 'white'};
+    background-color: ${props => props.active ? 'yellow' : 'rgb(192, 228, 240)'};
     border-radius: 5px;
     border: 2px solid lightblue;
     color: palevioletred;

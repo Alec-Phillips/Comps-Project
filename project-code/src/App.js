@@ -102,11 +102,7 @@ function App() {
         activeLearnSection.length ? (
           <ContentArea>
             {parse(activeLearnSection)}
-            {parse('<h1> hi there </h1>')}
           </ContentArea>
-          // <div>
-          //   <p>{activeLearnSection}</p>
-          // </div>
         ) : null
       }
       {
