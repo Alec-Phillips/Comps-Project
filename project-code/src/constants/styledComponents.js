@@ -12,8 +12,9 @@ export const ContentArea = styled.div`
 
 export const StyledHeader = styled.h1`
   text-align: center;
+  font-size: 30pt;
   background: transparent;
-  color: palevioletred;
+  color: white;
   &:hover {
     cursor: pointer;
     transform: scale(1.1);

@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 const StyledOption = styled.div`
   background: transparent;
-  background-color: ${props => props.active ? 'yellow' : 'rgb(192, 228, 240)'};
+  background-color: ${props => props.active ? 'lightyellow' : 'rgb(192, 228, 240)'};
   border-radius: 5px;
   border: 2px solid lightblue;
-  color: palevioletred;
+  color: black;
   margin: 0.5em 1em;
   padding: 0.25em 1em;
   width: 110px;
