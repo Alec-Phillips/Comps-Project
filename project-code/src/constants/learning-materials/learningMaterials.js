@@ -179,9 +179,90 @@ export const contentDescriptions = [
   },
   {
     "label": "System Testing",
-    "description": `End-to-end testing, or system testing, has to do with evaluating the code in its entirety. This
-    would involve providing inputs through the interface provided that an end user would be interacting with. The
-    motivation behind end-to-end tests should be to ensure that the system meets all technical specifications.`
+    "description": `
+    <h1>System/End-to-end Testing</h1>
+    <hr></hr>
+    <h3>Scope</h3>
+    <ul>
+      <li>These are the most zoomed out, in terms of the level that they are exercising the code</li>
+      <li>Interacting with the most exterior level of the system/application</li>
+      <li>The goal of these tests should be to determine if the system meets all technical specifications (the conditions that the application is supposed to meet)</li>
+    </ul>
+    <hr></hr>
+    <h3>Writing System tests</h3>
+    <ul>
+      <li>Think about the way the end user (whether this is the client or the consuming piece of software) is going to interact with the system</li>
+      <li>If there were technical specifications definted for the system, base the tests around those requirements</li>
+    </ul>
+    <hr></hr>
+    <h3>Example</h3>
+    Say our application is a basic image editing software
+    <br></br>
+    The technical specification may require:
+    <ul>
+      <li>Ability to crop and filter an image</li>
+      <li>Add overlays of shapes or other images</li>
+      <li>Compress and export the file</li>
+    </ul>
+    With this in mind, the exposed API for this system may look something like:
+    <pre>
+      <code>
+        class ImageEditor {
+
+          constructor(filePath) {
+            // assume this retrieves and instantaites a representation of the image at this location
+            this.image = new ImageInstance(filePath);
+          }
+
+          getImageDimensions() {}
+
+          cropImage(startX, startY, newHeight, newWidth) {}
+
+          filterImage(filterType) {}
+
+          addOverlayShape(targetCoordinate, overlayType, overlayDimensions) {}
+
+          compressImage(compressionFormat) {}
+        }
+      </code>
+    </pre>
+    Assume that there is some interface through which the user is interacting with the file, and as they make edits,
+    these methods are called according to the actions of the user
+    <br></br>
+    Note that these methods are the most external view of the system, and there would likely be other internal components
+    that get called and are relied upon within each of these external functions. However, at the stage of system testing,
+    we only care about exercising this outer layer API, as all the internal components should already be thoroughly tested
+    by this point.
+    <br></br>
+    One of our system tests may look something like:
+    <pre>
+      <code>
+        function testCropImage() {
+          // arrange:
+          const imagePath = './test-images/test-image-1.jpg';
+          const editorInstance = new ImageEditor(imagePath);
+
+          // act:
+          const oldDimensions = editorInstance.getDimensions();
+          editorInstance.cropImage(oldDimensions.xStart, oldDimensions.yStart + 5, oldDimensions.height * .75, oldDimensions.width * .5);
+
+          // assert:
+          const newDimensions = editorInstance.getDimensions();
+          const expectedDimensions = {
+            xStart: oldDimensions.xStart,
+            yStart: oldDimensions.yStart + 5,
+            height: oldDimensions.height * .75,
+            width: oldDimensions.width * .5,
+          }
+          assert(newDimensions === expectedDimensions); // cannot actually compare objects like this
+                                                        // would need to loop through attributes
+        }
+      </code>
+    </pre>
+    This process would repeat until we've thoroughly exercised each of the exposed methods
+    <br></br>
+    Also, a single test per method is likely not enough - it is important to think of edge cases here too
+    `
   },
   {
     "label": "Acceptance Testing",
