@@ -5,6 +5,10 @@ body {
 }
 
 .codeBlock {
+  border: 3px solid lightblue;
+}
+
+.typeOneCodeBlock {
   margin: auto;
   width: 50%;
   padding: 10px;

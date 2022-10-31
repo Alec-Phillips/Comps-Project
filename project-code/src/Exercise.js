@@ -102,7 +102,7 @@ function Exercise({ exercise }) {
       {exercise.label !== 'Introduction' ? (<hr></hr>) : (null)}
       <div className="exampleCodeArea">
         <SyntaxHighlighter 
-          className={exercise['input-type'] === 1 ? '' : "codeBlock"}
+          className={exercise['input-type'] === 1 ? 'codeBlock' : 'codeBlock typeOneCodeBlock'}
           language="javascript"
           style={xcode}
           customStyle={cs}
