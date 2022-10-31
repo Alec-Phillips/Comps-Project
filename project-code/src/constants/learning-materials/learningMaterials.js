@@ -1,15 +1,3 @@
-const parse = require('html-react-parser');
-
-const html = `<div>
-  <pre><code class="javascript"> def test_array_reverse_duplicate_values(): 
-  # arrange: 
-  vals = [4, 3, 2, 2, 1] 
-  # act: 
-  sort(vals) 
-  # assert: 
-  for i, val in enumerate(vals[1:]): 
-  assert(val {'>'}= vals[i-1] </code></pre> 
-</div>`;
 
 export const contentDescriptions = [
   {
@@ -266,56 +254,100 @@ export const contentDescriptions = [
   },
   {
     "label": "Acceptance Testing",
-    "description": `Acceptance testing is the process of determining if a system meets the expectations and approval of
-    the end-user. While end-to-end tests are used to verify that the system meets technical specifications, acceptance
-    tests verify that the product meets user requirements and expectations. Acceptance tests often take the form of user
-    testing. For example, an app may release a beta version to check for user approval.`
+    "description": `
+    <h1>Acceptance Testing</h1>
+    <hr></hr>
+    <h3>Details</h3>
+    <ul>
+      <li>Determining if a system meets the expectations and approval of
+      the end-user</li>
+      <li>There may also be predefined functionality requirements that can be checked with acceptance tests</li>
+    </ul>
+    `
   },
   {
-    "label": "Functional Testing",
-    "description": `Functional testing, or black box testing, involves writing tests that are blind to the internal
-    implementation of the code. They do not care about how the code performs the tasks it is doing, only that it
-    provides the correct output. For a function, this would look like simply providing some input, and checking that the
-    output is as expected.`
-  },
-  {
-    "label": "Structural Testing",
-    "description": "Structural testing, also called white box testing, is a category of tests that check internal features of the system implementation. They may check the processes and structures being used internally in the system. "
+    "label": "Functional vs. Structural",
+    "description": `
+    <h1>Functional vs. Structural Testing</h1>
+    <hr></hr>
+    <h3>Overview</h3>
+    The testing types in this section specify particular <em>styles</em> of tests that can be applied to any of the
+    previously discussed testing scopes. For instance, you can have functional or structural style tests that are unit
+    tests, system tests, etc. 
+    <hr></hr>
+    <h3>Functional Testing (Black Box Testing)</h3>
+    <ul>
+      <li>Tests that assume <em>no</em> knowledge of the internal implementation of the code</li>
+      <li>These are tests that could be written with only knowledge of the ourward facing interface provided by the code
+      (focus only on inputs and outputs of a function/module/system)</li>
+    </ul>
+    <hr></hr>
+    <h3>Structural Testing (White/Glass Box Testing)</h3>
+    <ul>
+      <li>Tests that <em>do</em> assume knowledge of internal implementation (data structures, algorithms, etc. that are
+        used in the internal code)</li>
+      <li>These tests may be used to check that the state of the structures in the code is correct at a particular point
+      in the execution</li>
+    </ul>
+    `
   },
   {
     "label": "Test-Driven Development",
-    "description": "Test-driven development, or TDD, is a style of software development that prioritizes testing. It aligns with the agile style of development that focuses on iterative improvements. TDD is commonly practiced in industry, and can be applied to any project that you do as well. The process of TDD is: <ol> <li>write test cases (that fail initially, because the code they are testing doesn’t yet exist)</li> <li>write the code that satisfies the test cases</li> <li>refactor the code</li> </ol> So, any time a new feature needs to be implemented, the process would consist of writing test cases first, and then actually implementing the feature. This puts the emphasis on writing tests, and ensures that tests are not an afterthought. "
+    "description": `
+    <h1>Test-Driven Development (TDD)</h1>
+    <hr></hr>
+    <h3>Overview</h3>
+    <ul>
+      <li>A style of software development that prioritizes testing</li>
+      <li>Commonly used in industry</li>
+      <li>Aligns with the agile development methodology that focuses on iterative development</li>
+    </ul>
+    <hr></hr>
+    <h3>TDD Steps</h3>
+    <ol> 
+      <li>write test cases (that fail initially, because the code they are testing doesn’t yet exist)</li>
+      <li>write the code that satisfies the test cases</li>
+      <li>refactor the code</li> 
+    </ol> 
+    So, any time a new feature needs to be implemented, the process would consist of writing test cases first, and then actually implementing the feature. This puts the emphasis on writing tests, and ensures that tests are not an afterthought.
+    It is important to understand that test-driven development does not just mean writing tests for your code, and that instead it is a specific and clearly defined strategy for developing software.
+    `
   },
   {
     "label": "Writing Tests",
-    "description": `<p>Assertions and Coverage General Testing Format: Just as normal code should follow certain guidelines
-    in order to be understandable and easily maintained, tests should follow this same principle. When you have a large 
-    suite of tests, it is important to be able to determine what is wrong with the system when tests fail. In general, 
-    test cases should be organized based on type and what area of the system they are testing. Each test case should be 
-    represented by a function, and, most importantly, each test case should test only one thing. Even if two tests are 
-    related, they should be represented in different functions. This is important because when a test fails, it is clear 
-    what went wrong, making it easier to address the underlying issue. Each test case function should also be clearly named 
-    in a way that indicates what it is doing. Format of a test case: Each test case should follow an arrange, act, assert 
-    format. The arrange step encompasses any set up that is needed to get the system into the state that you want to test. 
-    The act step involves providing the input or performing the interaction that you want to exercise the system with. 
-    Finally the assert step is where you check if the system correctly processed the input. This usually involves an 
-    assertion statement to check that the output is as expected. Example: Imagine we are writing a test case for a method 
-    that sorts the values in an array, specifically testing the edge case of whether it handles duplicate values correctly. 
-    Following the above steps, we would write something like:` 
-    + html +
-   `Assertions: An assertion test is a boolean expression that should evaluate to true if the code is functioning as 
-    expected. For example, if we have a function that should add two numbers, we may use an assertion to test that it is 
-    correct that looks like: 
-    assert(add_two_numbers(1, 2) == 3). 
+    "description": `
+    <h1>Fundamentals of Writing Tests</h1>
+    <hr></hr>
+    <h3>General Testing Format</h3>
+    Just as normal code should follow certain guidelines in order to be readable and easily maintained, tests should follow this same principle.
+    <ul>
+      <li>Each test case should be testing for one thing</li>
+      <li>Each test case should be held within its own function, with a name that clearly indicates what is being tested
+      (this is important because when a test fails, it is clear 
+        what went wrong, making it easier to address the underlying issue)</li>
+      <li>Each test case should follow the <em>arrange</em>, <em>act</em>, <em>assert</em> format
+    </ul>
+    <hr></hr>
+    <h3>Assertions</h3>
+    In most programming language, <code>assert()</code> is a built in function that takes a boolean condition. 
     The assertion statement will raise an error if the boolean expression evaluates to false, otherwise code execution 
-    will continue. An assertion will be the last step of every test case that you write.  Coverage: Test coverage refers 
-    to the percentage of lines of code that are interacted with by your test suite. It can also be broken down by the 
-    percentage of functions that are getting called by your tests, as well as the percentage of logical branches that are 
-    being interacted with. This provides a good baseline for determining how comprehensive your test suite is. HOWEVER, 
+    will continue. However, javascript does not have a built in assert function, however one has been provided here for 
+    the programming exercises in the practice section. 
+    <hr></hr>
+    <h3>Coverage</h3>
+    Test/code coverage is a measurement of how much of the code is exercised by a given test or series of tests.
+    <br></br>
+    Types of coverage measurements:
+    <ul>
+      <li>Line Coverage - the percentage of lines of code that are exercised by the test suite</li>
+      <li>Branch Coverage - the percentage of branches executed (each possible result of an if...else statement would be considered its own branch)</li>
+      <li>Path Coverage - each path is a possible route or control flow that a single execution of the code can follow</li>
+    </ul>
+    Test coverage provides a good baseline for determining how comprehensive your test suite is. However, 
     your tests should not be motivated solely by increasing test coverage, and a high test coverage does not indicate that 
     your tests are complete and of high quality. Test coverage is a useful metric that can help guide your testing, but 
     the motivation should be to exercise edge cases and consider how the system will be interacted with by the user or the 
-    other components that interface with the system.<p>`
+    other components that interface with the system.`
   }
 ];
 
