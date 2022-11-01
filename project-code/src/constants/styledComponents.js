@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ContentArea = styled.div`
-  border: 2px solid yellow;
+  border: 2px solid lightblue;
   background-color: white;
   margin: auto;
   margin-top: 10px;
@@ -12,8 +12,9 @@ export const ContentArea = styled.div`
 
 export const StyledHeader = styled.h1`
   text-align: center;
+  font-size: 30pt;
   background: transparent;
-  color: palevioletred;
+  color: white;
   &:hover {
     cursor: pointer;
     transform: scale(1.1);

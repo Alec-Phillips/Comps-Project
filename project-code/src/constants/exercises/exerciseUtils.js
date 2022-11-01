@@ -53,7 +53,7 @@ exerciseTestCases.set(1.2,
 exerciseTestCases.set(1.3,
   {
     testCase: (measurements) => {
-      const check = measurements.filter(item => item > 0);
+      const check = measurements.filter(item => item >= 0);
       return check.length === 0;
     },
     templateArgs: '',
@@ -66,20 +66,16 @@ exerciseTestCases.set(2.1,
   {
     testCase: (fn) => {
       const testInputs = [
-        ['', '', true],
-        ['a', 'a', true],
-        ['abc', 'abc', true],
-        ['123456790abcdefghijklmnopqrstuvwxyz', '123456790abcdefghijklmnopqrstuvwxyz', true],
-        ['', 'abc', false],
-        ['abc', '', false],
-        ['a', 'abc', false],
-        ['abc', 'a', false],
+        [1, ['fizzbuzz']],
+        [3, ['fizzbuzz', 'fizz']],
+        [5, ['fizzbuzz', 'fizz', 'buzz']],
+        [15, ['fizzbuzz', 'fizz', 'buzz', 'fizz', 'fizz', 'buzz', 'fizz', 'fizzbuzz']],
       ];
       for (const input of testInputs) {
-        if (fn(input[0], input[1]) !== input[2]) {
+        if (JSON.stringify(fn(input[0])) !== JSON.stringify(input[1])) {
           return {
             pass: false,
-            failedInput: `'${input[0]}', '${input[1]}'`,
+            failedInput: `'${input[0]}'`,
           }
         }
       }
@@ -88,8 +84,8 @@ exerciseTestCases.set(2.1,
         failedInput: null,
       }
     },
-    templateArgs: 's1, s2',
-    templateSuffix: 'return compareStrings(s1, s2);'
+    templateArgs: 'n',
+    templateSuffix: 'return fizzbuzz(n);'
   }
 )
 
@@ -97,21 +93,59 @@ exerciseTestCases.set(2.1,
 exerciseTestCases.set(2.2, 
   {
     testCase: (fn) => {
-      for (let i = 1; i < 10000; i ++) {
-        if (fn(i) !== i.toString(4)) {
+      const testInputs = [
+        [1, {fizz: 0, buzz: 0, fizzbuzz: 1}],
+        [3, {fizz: 1, buzz: 0, fizzbuzz: 1}],
+        [5, {fizz: 1, buzz: 1, fizzbuzz: 1}],
+        [15, {fizz: 4, buzz: 2, fizzbuzz: 2}],
+      ];
+      for (const input of testInputs) {
+        if (JSON.stringify(fn(input[0])) !== JSON.stringify(input[1])) {
           return {
             pass: false,
-            failedInput: `${i}`,
+            failedInput: `'${input[0]}'`,
           }
         }
       }
       return {
         pass: true,
         failedInput: null,
-      };
+      }
     },
     templateArgs: 'n',
-    templateSuffix: 'return intToBaseFour(n);',
+    templateSuffix: 'return fizzbuzzCounts(n);',
+  }
+);
+
+exerciseTestCases.set(2.3, 
+  {
+    testCase: (fn) => {
+      const testInputs = [
+        [[5,5,5,5,5], 5],
+        [[1,2,3,4,5], 3],
+        [[0,0,0,0,0], 0],
+        [[0,-1,0,-1], 0],
+        [[5,-1,5,-1,5], 5],
+        [[-1,-1], 0],
+        [[5,5,5,5,99999,100], 5],
+        [[5,-1,99999,5,-1], 5],
+        [[99999], 0],
+      ];
+      for (const input of testInputs) {
+        if (fn(input[0]) !== input[1]) {
+          return {
+            pass: false,
+            failedInput: `'${input[0]}'`,
+          }
+        }
+      }
+      return {
+        pass: true,
+        failedInput: null,
+      }
+    },
+    templateArgs: 'measurements',
+    templateSuffix: 'return rainfall(measurements);',
   }
 );
 

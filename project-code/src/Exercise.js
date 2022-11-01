@@ -4,7 +4,8 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { xcode } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
-import 'ace-builds/src-noconflict/theme-xcode';
+// import 'ace-builds/src-noconflict/theme-xcode';
+import 'ace-builds/src-noconflict/theme-vibrant_ink';
 import styled from 'styled-components';
 
 import Evaluator from './evaluator/evaluator';
@@ -100,15 +101,28 @@ function Exercise({ exercise }) {
       {parse(exercise.description)}
       {exercise.label !== 'Introduction' ? (<hr></hr>) : (null)}
       <div className="exampleCodeArea">
-        <SyntaxHighlighter 
-          className={exercise['input-type'] === 1 ? '' : "codeBlock"}
+        {
+          exercise['code'] ? (
+            <SyntaxHighlighter 
+              className={exercise['input-type'] === 1 ? 'codeBlock' : 'codeBlock typeOneCodeBlock'}
+              language="javascript"
+              style={xcode}
+              customStyle={cs}
+              codeTagProps={ctp}
+              >
+              {exercise.code}
+            </SyntaxHighlighter>
+          ) : ( null )
+        }
+        {/* <SyntaxHighlighter 
+          className={exercise['input-type'] === 1 ? 'codeBlock' : 'codeBlock typeOneCodeBlock'}
           language="javascript"
           style={xcode}
           customStyle={cs}
           codeTagProps={ctp}
           >
           {exercise.code}
-        </SyntaxHighlighter>
+        </SyntaxHighlighter> */}
         {
           exercise['input-type'] === 1 ? (
             <Fragment>
@@ -150,7 +164,7 @@ function Exercise({ exercise }) {
               className="editor"
               // placeholder={exercise['placeholder-code']}
               mode='javascript'
-              theme='xcode'
+              theme='vibrant_ink'
               name='basic-code-editor'
               onChange={(currentCode) => {
                   setEditorCode(currentCode);
@@ -178,61 +192,17 @@ function Exercise({ exercise }) {
                 Submit
               </StyledOption>
               <br></br>
-              {
-                Math.trunc(exercise.id) === 2 ? (
-                  <>
+                <Fragment>
                   {
-                    evalResult && evalResult.pass ? (
-                      <p>
-                        PASS!
-                      </p>
-                    ) : evalResult && (evalResult.pass === false) ? (
-                      <p>
-                        Failed on input: {evalResult.failedInput}
-                      </p>
-                    ) : (null)
+                    evalResult ? (
+                      <ResultDisplay 
+                        evalResult={evalResult}
+                        exerciseId={Math.trunc(exercise.id)}
+                      >
+                      </ResultDisplay>
+                    ) : ( null )
                   }
-                  </>
-                ) : Math.trunc(exercise.id) === 3 ? (
-                  <Fragment>
-                    {
-                      evalResult ? (
-                        <ResultDisplay 
-                          evalResult={evalResult}
-                        >
-                          
-                        </ResultDisplay>
-                      ) : ( null )
-                    }
-                  </Fragment>
-                  
-                  // <>
-                  // {
-                  //   evalResult && evalResult.pass ? (
-                  //     <p>
-                  //       PASS!
-                  //       <br></br>
-                  //       100% Coverage
-                  //       <br></br>
-                  //       Assertions Passed
-                  //     </p>
-                  //   ) : evalResult ? (
-                  //     <p>
-                  //       Failed:
-                  //       <br></br>
-                  //       {evalResult.coverageReport.coverage}% Coverage
-                  //       <br></br>
-                  //       Missing Branches: {evalResult.coverageReport.uncoveredBranches.length}
-                  //       <br></br>
-                  //       Failed Assertions: {evalResult.assertionReport.length}
-                  //     </p>
-                  //   ) : (null)
-                  // }
-                  // </>
-                ) : (
-                  null
-                )
-              }
+                </Fragment>
             </div>
             
           </div>
