@@ -101,7 +101,20 @@ function Exercise({ exercise }) {
       {parse(exercise.description)}
       {exercise.label !== 'Introduction' ? (<hr></hr>) : (null)}
       <div className="exampleCodeArea">
-        <SyntaxHighlighter 
+        {
+          exercise['code'] ? (
+            <SyntaxHighlighter 
+              className={exercise['input-type'] === 1 ? 'codeBlock' : 'codeBlock typeOneCodeBlock'}
+              language="javascript"
+              style={xcode}
+              customStyle={cs}
+              codeTagProps={ctp}
+              >
+              {exercise.code}
+            </SyntaxHighlighter>
+          ) : ( null )
+        }
+        {/* <SyntaxHighlighter 
           className={exercise['input-type'] === 1 ? 'codeBlock' : 'codeBlock typeOneCodeBlock'}
           language="javascript"
           style={xcode}
@@ -109,7 +122,7 @@ function Exercise({ exercise }) {
           codeTagProps={ctp}
           >
           {exercise.code}
-        </SyntaxHighlighter>
+        </SyntaxHighlighter> */}
         {
           exercise['input-type'] === 1 ? (
             <Fragment>

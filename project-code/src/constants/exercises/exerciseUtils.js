@@ -127,9 +127,12 @@ exerciseTestCases.set(2.3,
         [[0,-1,0,-1], 0],
         [[5,-1,5,-1,5], 5],
         [[-1,-1], 0],
+        [[5,5,5,5,99999,100], 5],
+        [[5,-1,99999,5,-1], 5],
+        [[99999], 0],
       ];
       for (const input of testInputs) {
-        if (JSON.stringify(fn(input[0])) !== JSON.stringify(input[1])) {
+        if (fn(input[0]) !== input[1]) {
           return {
             pass: false,
             failedInput: `'${input[0]}'`,

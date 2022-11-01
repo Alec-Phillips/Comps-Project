@@ -4,7 +4,6 @@ import { Fragment } from 'react';
 
 function ResultDisplay({ evalResult, exerciseId }) {
 
-
   const getRender = () => {
     if (evalResult.error) {
       return (
