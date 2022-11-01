@@ -41,6 +41,8 @@ function Exercise({ exercise }) {
 
   useEffect(() => {
     initInputArgs();
+    setEvalResult(null);
+    setAccepted(false);
   }, [exercise.id])
 
   const submitCode = () => {
