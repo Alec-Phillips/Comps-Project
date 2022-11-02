@@ -135,9 +135,6 @@ function fizzbuzzCounts(n) {
         "id": 1.3,
         "code": `
 function rainfall(measurements) {
-  if (measurements.length === 0) {
-    return 0;
-  }
   let total_rain = 0;
   let total_days = 0;
   for (let measurement of measurements) {
@@ -225,6 +222,9 @@ function rainfall(measurements) {
           <li>The incorrect code</li>
           <li>An editor where you will implement a correct version of the function</li>
         </ul>
+        Your job will be to identify the error in the function provided and implement a correct version in the editor provided
+        <br></br>
+        Your implementation should handle all inputs within the scope of the <em>defined behaviors</em>
         `,
         "input-type": "",
         "show-editor": false,
@@ -375,11 +375,9 @@ function fizzbuzzCounts(n) {
         of the function is to determine the average amount of rainfall, while ignoring negative values. This means
         days where a negative rainfall was measured should be completely ignored in the result. 
         <br></br>
-        In this version, if a measurement of 99999 is encountered, all following measurements should be ignored
+        In this version, if a measurement of 99999 is encountered, all subsequent measurements should be ignored
         <br></br>
-        Examine the code and identify the error. Then provide an input that exposes this error
-        <br></br>
-        Note that this function takes an array, so your input should be formatted as an array
+        Examine the code and identify the error. Then implement a correct version in the editor below
         <h4>Defined Behavior:</h4>
         <ul>
           <li>Any non-empty array containing any integer values</li>
@@ -433,7 +431,12 @@ function checkParity(n) {
 // passing assertions might be:
 
 assert(checkParity(2) === true);
-assert(checkParity(3) === false);`,
+assert(checkParity(3) === false);
+
+// the two logical branches of the
+// function are the if and else clauses
+// so at least two test cases are needed
+// to reach full branch coverage`,
         "description": `
         <h1>Introduction</h1>
         <hr></hr>
@@ -444,19 +447,22 @@ assert(checkParity(3) === false);`,
           <li>For each function, write a series of assertion statements</li>
           <li>Try to reach 100% branch coverage on the function</li>
         </ul>
+        If you need to review either assertions or branch coverage, see the Writing Tests section in the Learn module
+        <br></br>
         You will be given:
         <ul>
           <li>A description of the function you are testing</li>
           <li>Either the code of the function itself, or a stub for the function along
           with a description of defined and undefined behaviors</li>
         </ul>
+        Your test cases are responsible for covering anything within the scope of the <em>defined behaviors</em>
         <h4>Example</h4>
         `,
         "input-type": "",
         "show-editor": false,
       },
       {
-        "label": "Even/Odd",
+        "label": "Example: Even/Odd",
         "id": 3.1,
         "code": `
         function checkParity(n) {
@@ -467,16 +473,22 @@ assert(checkParity(3) === false);`,
           }
         }`,
         "description": `
-        <h3>Check Parity</h3>
-        To get a feel for the process of these exercises, the first question is the same as the one from
-        the example in the introduction. The <code>checkParity</code> function should check if an integer is even or odd,
+        <h1>Example Problem: Check Parity</h1>
+        <hr></hr>
+        The <code>checkParity</code> function should check if an integer <code>n</code> is even or odd,
         and return true for even
-        inputs and false for odd inputs. Write a series of assertion tests that cover all branches of the control flow.`,
+        inputs and false for odd inputs. Write a series of assertion tests that cover all branches of the control flow.
+        <br></br>
+        Defined Behaviors:
+        <ul>
+          <li>Any integer input</li>
+        </ul>
+        Complete the starter code in the editor
+        `,
         "input-type": "",
         "show-editor": true,
         "placeholder-code": `
 assert(checkParity() === );
-assert(...);
 `
       },
       {
@@ -485,24 +497,27 @@ assert(...);
         "code": `
 // function stub:
 
-function rainfal(measurements) {}`,
+function rainfall(measurements) {}`,
         "description": `
-        <h3>Rainfall</h3>
-        Once again you will be working with an altered version of rainfall
-        <br></br>
-        Function requirements:
+        <h1>Rainfall</h1>
+        <hr></hr>
+        This version of the rainfall problem should:
         <ul>
           <li>Return the average of the measurements in the input array</li>
           <li>Negative values should be ignored</li>
           <li>When 99999 is encountered, any remaining measurements should be ignored</li>
           <li>If the empty array is inputted, 0 should be returned</li>
         </ul>
+        Based on these requirements, write more assertions that fully cover the control flow of the function
+        <br></br>
+        For this problem you are not given the implementation, so you are responsible for reasoning about what test cases
+        are necessary
         `,
         "input-type": "",
         "show-editor": true,
         "placeholder-code": `
 
-assert(rainfall([...]) === ...);
+assert(rainfall([5,5,5,5,5]) === 5);
 
 `},
     ],
