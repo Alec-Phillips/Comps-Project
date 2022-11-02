@@ -30,6 +30,7 @@ body {
 
 .editor {
   border: 3px solid lightblue;
+  max-width: 550px;
 }
 
 #codeFeedbackArea {
@@ -67,6 +68,12 @@ code {
 
 
 @media (max-width: 1000px) {
+
+  .typeOneCodeBlock {
+    margin: auto;
+    width: 95%;
+    padding: 10px;
+  }
 
   .exampleCodeArea {
     display: flex;
