@@ -13,26 +13,7 @@ export const exerciseInfo = [
       {
         "label": "Introduction",
         "id": 1.0,
-        "code": 
-        `
-        // your goal is to identify the error in this code
-
-        function fizzbuzz(n) {
-          const output = [];
-          for (let i = 0; i <= n; i ++) {
-            if (i % 3 === 0 && i % 5 === 0) {
-              output.push('fizzbuzz');
-            } else if (i % 3 === 0) {
-              output.push('fizz');
-            } else {
-              output.push('buzz');
-            }
-          }
-          return output;
-        }
-        
-        // the issue here is that 'buzz' should only be pushed to the array
-        // when i is divisible by 5`,
+        "code": "",
         "description": `
         <h1>Introduction</h1>
         <hr></hr>
@@ -48,30 +29,15 @@ export const exerciseInfo = [
         </ul>
         Your job is to provide an input within the scope of the <em>defined behaviors</em> of the function that exposes the error in the code.
         So to pass each exercise, the input that you provide should create an incorrect output.
-        <hr></hr>
-        <h3>Example Problem: Fizzbuzz</h3>
-        <h4>Function Description:</h4>
-        Fizzbuzz is a well known coding problem where a positive integer n is given as input, and for
-        each number from 0 through n, if that number is divisible by 3, 'fizz' is printed, if it is divisible by 5, 'buzz'
-        is printed, and if it is divisible by 3 and 5, 'fizzbuzz' is printed. In this case, the values are just being 
-        pushed to an array, which is then returned. Provide an input n that causes this code to return an incorrect
-        output.
-        <h4>Defined Behavior:</h4>
-        <ul>
-          <li>Any positive integer input</li>
-        </ul>
-        <h4>Undefined Behavior:</h4>
-        <ul>
-          <li>Any non-integer or non-positive integer inputs</li>
-        </ul>
         `,
         "input-type": "",
         "show-editor": false,
       },
       {
-        "label": "Fizzbuzz",
+        "label": "Example: Fizzbuzz",
         "id": 1.1,
         "code": `
+// this implementation fails on all inputs
 function fizzbuzz(n) {
   const output = [];
   for (let i = 0; i <= n; i ++) {
@@ -80,18 +46,26 @@ function fizzbuzz(n) {
     } else if (i % 3 === 0) {
       output.push('fizz');
     } else {
+      // this is the error
+      // this should be an else if
+      // that is only entered when i
+      // is divisible by 5
       output.push('buzz');
     }
   }
   return output;
 }`,
         "description": `
-        <h3>Fizzbuzz</h3>
-        Fizzbuzz is a well known coding problem where a positive integer n is given as input, and for
-        each number from 0 through n, if that number is divisible by 3, 'fizz' is printed, if it is divisible by 5, 'buzz'
-        is printed, and if it is divisible by 3 and 5, 'fizzbuzz' is printed. In this case, the values are just being 
-        pushed to an array, which is then returned. Provide an input n that causes this code to return an incorrect
-        output.
+        <h1>Example Problem: Fizzbuzz</h1>
+        <hr></hr>
+        Fizzbuzz is a well known coding problem that asks for a function that takes a positive integer n, and loops through
+        each number from 0 through n. For each of these values, if it is divisible by 3 and 5, 'fizzbuzz' should be printed,
+        if it is divisible by only 3, then 'fizz' should be printed, and if it is divisible by only 5, then 'buzz' should be
+        printed. 
+        <br></br>
+        In this variation, instead of printing the strings, they are pushed to the array <code>output</code> which is then returned.
+        <br></br>
+        Examine the code and identify the error. Then provide an input that exposes this error
         <h4>Defined Behavior:</h4>
         <ul>
           <li>Any positive integer input</li>
@@ -99,7 +73,8 @@ function fizzbuzz(n) {
         <h4>Undefined Behavior:</h4>
         <ul>
           <li>Any non-integer or non-positive integer inputs</li>
-        </ul>`,
+        </ul>
+        Since this is an example, the comments in the code snipped explain the error`,
         "input-type": 1,
         "param-types": [1],
         "num-inputs": 1,
@@ -129,11 +104,18 @@ function fizzbuzzCounts(n) {
   return counts;
 }`,
         "description": `
-        <h3>Fizzbuzz Counts</h3>
-        This variant of the fizzbuzz problem is simply trying to count the number of times that each
-        word would be printed. This means that for each value from 0 up to and including n, if the value
+        <h1>Fizzbuzz Counts</h1>
+        <hr></hr>
+        This is a variation of the popular fizzbuzz problem. This function also takes a positive integer input and loops
+        through all values from 0 up to and including n. This time, the function should return a <code>counts</code> object
+        that counts how many times the strings 'fizz', 'buzz', and 'fizzbuzz' would be encountered. This means that for 
+        each value from 0 through n, if the value
         is divisible by 3 and 5, the count for 'fizzbuzz' should be incremented, if it is divisible by just 3
         then 'fizz' is incremented, and if the value is only divisible by 5 then the count for 'buzz' is incremented.
+        <br></br>
+        Examine the code and identify the error. Then provide an input that exposes this error
+        <br></br>
+        If you are unfamiliar with javascript objects, see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects" target="_blank">this documentation</a>
         <h4>Defined Behavior:</h4>
         <ul>
           <li>Any positive integer input</li>
@@ -167,9 +149,15 @@ function rainfall(measurements) {
   return total_rain / total_days;
 }`,
         "description": `
-        <h3>Rainfall</h3>
-        The goal of this function is to determine the average rainfall from an array of rainfall measurements.
-        Additionally, negative numbers should be ignored. Provide an input array that causes this function to fail.
+        <h1>Rainfall</h1>
+        <hr></hr>
+        Rainfall is a function that takes an array of integers representing measurements of rainfall amounts across days. The goal
+        of the function is to determine the average amount of rainfall, while ignoring negative values. This means
+        days where a negative rainfall was measured should be completely ignored in the result. 
+        <br></br>
+        Examine the code and identify the error. Then provide an input that exposes this error
+        <br></br>
+        Note that this function takes an array, so your input should be formatted as an array
         <h4>Defined Behavior:</h4>
         <ul>
           <li>Any non-empty array containing any integer values</li>
@@ -184,7 +172,7 @@ function rainfall(measurements) {
         "param-types": [2.1],
         "num-inputs": 1,
         "show-editor": false,
-        "placeholder-code": "// [...]",
+        "placeholder-code": "[1,2,3,4,5]",
       },
 //       {
 //         "label": "Object Keys",
@@ -242,7 +230,7 @@ function rainfall(measurements) {
         "show-editor": false,
       },
       {
-        "label": "Fizzbuzz",
+        "label": "Example: Fizzbuzz",
         "id": 2.1,
         "code": `
         function fizzbuzz(n) {
@@ -253,19 +241,31 @@ function rainfall(measurements) {
             } else if (i % 3 === 0) {
               output.push('fizz');
             } else {
+              // hint:
+              // this should be an else if block
               output.push('buzz');
             }
           }
           return output;
         }`,
         "description": `
-        <h3>Fizzbuzz</h3>
-        To review, this function takes a positive integer n and for each value from 0 up to and including n, pushes 
-        'fizzbuzz' to the array if the value is divisible by 3 and 5, pushes 'fizz' if the value is only divisible by 3,
-        and pushes 'buzz' if the value is only divisible by 5.
-        <h4>Defined Behavior</h4>
+        <h1>Example Problem: Fizzbuzz</h1>
+        <hr></hr>
+        Fizzbuzz is a well known coding problem that asks for a function that takes a positive integer n, and loops through
+        each number from 0 through n. For each of these values, if it is divisible by 3 and 5, 'fizzbuzz' should be printed,
+        if it is divisible by only 3, then 'fizz' should be printed, and if it is divisible by only 5, then 'buzz' should be
+        printed. 
+        <br></br>
+        In this variation, instead of printing the strings, they are pushed to the array <code>output</code> which is then returned.
+        <br></br>
+        Examine the code and identify the error, and then implement a correct version in the editor below
+        <h4>Defined Behavior:</h4>
         <ul>
           <li>Any positive integer input</li>
+        </ul>
+        <h4>Undefined Behavior:</h4>
+        <ul>
+          <li>Any non-integer or non-positive integer inputs</li>
         </ul>
         `,
         "input-type": "",
@@ -308,14 +308,25 @@ function fizzbuzz(n) {
           return counts;
         }`,
         "description": `
-        <h3>Fizzbuzz Counts</h3>
-        To review, this function should check all values 0 up to and including n, incrementing the count associated with
-        each value - for each value divisible by 5 and 3, increment the <code>fizzbuzz</code> attribute, for each value
-        only divisible by 3 increment the <code>fizz</code> attribute, and for each value only divisible by 5 increment
-        the <code>buzz</code> attribute.
-        <h4>Defined Behavior</h4>
+        <h1>Fizzbuzz Counts</h1>
+        <hr></hr>
+        This is a variation of the popular fizzbuzz problem. This function also takes a positive integer input and loops
+        through all values from 0 up to and including n. This time, the function should return a <code>counts</code> object
+        that counts how many times the strings 'fizz', 'buzz', and 'fizzbuzz' would be encountered. This means that for 
+        each value from 0 through n, if the value
+        is divisible by 3 and 5, the count for 'fizzbuzz' should be incremented, if it is divisible by just 3
+        then 'fizz' is incremented, and if the value is only divisible by 5 then the count for 'buzz' is incremented.
+        <br></br>
+        Examine the code and identify the error, then implement a correct version in the editor below
+        <br></br>
+        If you are unfamiliar with javascript objects, see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects" target="_blank">this documentation</a>
+        <h4>Defined Behavior:</h4>
         <ul>
-          <li>Any positive integer value</li>
+          <li>Any positive integer input</li>
+        </ul>
+        <h4>Undefined Behavior:</h4>
+        <ul>
+          <li>Any non-integer or non-positive integer inputs</li>
         </ul>
         `,
         "input-type": "",
@@ -358,12 +369,26 @@ function fizzbuzzCounts(n) {
           return total_rain / total_days;
         }`,
         "description": `
-        <h3>Rainfall</h3>
-        This version of the rainfall problem should still calculate the average rainfall in the array, ignoring negative
-        measurements. Additionally, this version should terminate if the value <code>99999</code> is encountered.
-        <h4>Defined Behavior</h4>
+        <h1>Rainfall</h1>
+        <hr></hr>
+        Rainfall is a function that takes an array of integers representing measurements of rainfall amounts across days. The goal
+        of the function is to determine the average amount of rainfall, while ignoring negative values. This means
+        days where a negative rainfall was measured should be completely ignored in the result. 
+        <br></br>
+        In this version, if a measurement of 99999 is encountered, all following measurements should be ignored
+        <br></br>
+        Examine the code and identify the error. Then provide an input that exposes this error
+        <br></br>
+        Note that this function takes an array, so your input should be formatted as an array
+        <h4>Defined Behavior:</h4>
         <ul>
           <li>Any non-empty array containing any integer values</li>
+        </ul>
+        <h4>Undefined Behavior:</h4>
+        <ul>
+          <li>Any non-array inputs</li>
+          <li>An input array of length 0</li>
+          <li>Any array containing non-integer values</li>
         </ul>
         `,
         "input-type": "",

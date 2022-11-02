@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import OptionButton from './OptionButton';
 import ContentOptionButton from './ContentOptionButton';
 import Exercise from './Exercise';
@@ -86,16 +86,19 @@ function App() {
       </OptionArea>
       {
         learnAreaContent.length ? (
-          <OptionArea>
-            {learnAreaContent.map(
-              (label, ind) => <ContentOptionButton
-                label={label}
-                key={`${ind}-${label}`}
-                active={activeLearnSection === contentDescriptions[ind].description}
-                setContentSection={() => setActiveLearnSection(contentDescriptions[ind].description)}
-                ></ContentOptionButton>
-            )}
-          </OptionArea>
+          <Fragment>
+            <hr className="mainHr"></hr>
+            <OptionArea>
+              {learnAreaContent.map(
+                (label, ind) => <ContentOptionButton
+                  label={label}
+                  key={`${ind}-${label}`}
+                  active={activeLearnSection === contentDescriptions[ind].description}
+                  setContentSection={() => setActiveLearnSection(contentDescriptions[ind].description)}
+                  ></ContentOptionButton>
+              )}
+            </OptionArea>
+          </Fragment>
         ) : null
       }
       {
@@ -107,39 +110,45 @@ function App() {
       }
       {
         practiceAreaContent.length ? (
-          <OptionArea>
-            {practiceAreaContent.map(
-              (label, ind) => 
-                <ContentOptionButton
-                  label={label}
-                  active={currentExerciseType === ind + 1}
-                  key={`${ind}-${label}`}
-                  setContentSection={() => {
-                    setActiveExercise(null);
-                    setCurrentExerciseType(ind + 1);
-                  }}
-                ></ContentOptionButton>
-            )}
-          </OptionArea>
+          <Fragment>
+            <hr className="mainHr"></hr>
+            <OptionArea>
+              {practiceAreaContent.map(
+                (label, ind) => 
+                  <ContentOptionButton
+                    label={label}
+                    active={currentExerciseType === ind + 1}
+                    key={`${ind}-${label}`}
+                    setContentSection={() => {
+                      setActiveExercise(null);
+                      setCurrentExerciseType(ind + 1);
+                    }}
+                  ></ContentOptionButton>
+              )}
+            </OptionArea>
+          </Fragment>
         ) : null
       }
       {
         currentExerciseType ? (
-          <OptionArea>
-            {exerciseInfo.filter(obj => obj.type === currentExerciseType).flatMap(obj => {
-              return obj.exercises;}).map(
-              (obj, ind) => {
-                return (
-                <ContentOptionButton
-                  label={obj.label}
-                  active={activeExercise && activeExercise.label === obj.label}
-                  key={`${ind}-${obj.label}`}
-                  setContentSection={() => {
-                    setActiveExercise(obj);
-                  }}
-                  ></ContentOptionButton>)
-                })}
-          </OptionArea>
+          <Fragment>
+            <hr className="mainHr"></hr>
+            <OptionArea>
+              {exerciseInfo.filter(obj => obj.type === currentExerciseType).flatMap(obj => {
+                return obj.exercises;}).map(
+                (obj, ind) => {
+                  return (
+                  <ContentOptionButton
+                    label={obj.label}
+                    active={activeExercise && activeExercise.label === obj.label}
+                    key={`${ind}-${obj.label}`}
+                    setContentSection={() => {
+                      setActiveExercise(obj);
+                    }}
+                    ></ContentOptionButton>)
+                  })}
+            </OptionArea>
+          </Fragment>
         ) : null
       }
       {

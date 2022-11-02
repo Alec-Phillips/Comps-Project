@@ -59,3 +59,26 @@ input {
 code {
   font-size: 11pt;
 }
+
+.mainHr {
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+
+@media (max-width: 1000px) {
+
+  .exampleCodeArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .editorArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+}

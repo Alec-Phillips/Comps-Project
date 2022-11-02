@@ -165,6 +165,7 @@ function Exercise({ exercise }) {
             <AceEditor
               className="editor"
               // placeholder={exercise['placeholder-code']}
+              width='50%'
               mode='javascript'
               theme='vibrant_ink'
               name='basic-code-editor'
