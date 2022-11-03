@@ -71,6 +71,6 @@ inputParseFuncs.set(2, (arg, elementType) => {
 const inputValidators = new Map();
 
 inputValidators.set(1, arg => {
-  const re = new RegExp('^-*[0-9]+$');
+  const re = new RegExp('^ ?-*[0-9]+$');
   return arg.match(re) !== null;
 });
