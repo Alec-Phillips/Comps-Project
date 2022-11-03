@@ -16,11 +16,12 @@ import { Fragment } from 'react';
 const parse = require('html-react-parser');
 
 
-function Exercise({ exercise }) {
+function Exercise({ exercise, updateCompletedExercises, completed }) {
   const [editorCode, setEditorCode] = useState(exercise['placeholder-code']);
   const [inputArgs, setInputArgs] = useState(['']);
   const [evalResult, setEvalResult] = useState(null);
-  const [accepted, setAccepted] = useState(false);
+  const [accepted, setAccepted] = useState(completed);
+
   const ev = exercise['label'] !== 'Introduction' ? new Evaluator(exercise.id) : null;
 
   const initInputArgs = () => {
@@ -36,14 +37,20 @@ function Exercise({ exercise }) {
   useEffect(() => {
     setEditorCode(exercise['placeholder-code']);
     setEvalResult(null);
-    setAccepted(false);
+    setAccepted(completed);
   }, [exercise['placeholder-code']]);
 
   useEffect(() => {
     initInputArgs();
     setEvalResult(null);
-    setAccepted(false);
-  }, [exercise.id])
+    setAccepted(completed);
+  }, [exercise.id]);
+
+  useEffect(() => {
+    if (accepted) {
+      updateCompletedExercises(exercise.id);
+    }
+  }, [accepted]);
 
   const submitCode = () => {
     let newResult = null;

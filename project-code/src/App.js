@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import OptionButton from './OptionButton';
 import ContentOptionButton from './ContentOptionButton';
 import Exercise from './Exercise';
@@ -49,6 +49,24 @@ function App() {
   const [practiceAreaContent, setPracticeAreaContent] = useState([]);
   const [currentExerciseType, setCurrentExerciseType] = useState(0);
   const [activeExercise, setActiveExercise] = useState(null);
+  const [completedExercises, setCompletedExercises] = useState(new Set());
+
+  // setting up the completedExercises state aspect
+  // query localStorage to get saved completedExercises
+  useEffect(() => {
+    const lsCompletedExercises = localStorage.getItem('completedExercises');
+    if (lsCompletedExercises !== null) {
+      setCompletedExercises(new Set(JSON.parse(lsCompletedExercises)));
+    }
+  }, []);
+
+  // a callback to update the set of completed exercises as well as the localStorage
+  const updateCompletedExercises = (exerciseId) => {
+    const tempCompletedExercises = new Set(completedExercises);
+    tempCompletedExercises.add(exerciseId);
+    setCompletedExercises(tempCompletedExercises);
+    localStorage.setItem('completedExercises', JSON.stringify([...tempCompletedExercises]));
+  }
 
   return (
     <div className="App">
@@ -141,6 +159,7 @@ function App() {
                   <ContentOptionButton
                     label={obj.label}
                     active={activeExercise && activeExercise.label === obj.label}
+                    completed={completedExercises.has(obj.id)}
                     key={`${ind}-${obj.label}`}
                     setContentSection={() => {
                       setActiveExercise(obj);
@@ -156,8 +175,8 @@ function App() {
           <div>
             <Exercise
               exercise={activeExercise}
-              // description={activeExercise.description}
-              // code={activeExercise.code}
+              updateCompletedExercises={updateCompletedExercises}
+              completed={completedExercises.has(activeExercise.id)}
             ></Exercise>
           </div>
         ) : null
