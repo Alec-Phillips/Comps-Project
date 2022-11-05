@@ -1,9 +1,9 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import OptionButton from './OptionButton';
 import ContentOptionButton from './ContentOptionButton';
 import Exercise from './Exercise';
 import { contentDescriptions } from './constants/learning-materials/learningMaterials';
-import { exerciseInfo } from './constants/exercises/exerciseInfo';
+import { exerciseGraph, exerciseInfo } from './constants/exercises/exerciseInfo';
 
 import './App.css';
 import {
@@ -11,36 +11,8 @@ import {
   OptionArea,
   ContentArea,
 } from './constants/styledComponents';
-import styled from 'styled-components';
 
 const parse = require('html-react-parser');
-
-
-// const StyledHeader = styled.h1`
-//   text-align: center;
-//   background: transparent;
-//   color: palevioletred;
-//   &:hover {
-//     cursor: pointer;
-//     transform: scale(1.1);
-//   }
-// `
-
-// const OptionArea = styled.div`
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: center;
-//   align-items: center;
-// `
-
-// const ContentArea = styled.div`
-//   border: 2px solid yellow;
-//   background-color: white;
-//   margin: auto;
-//   margin-top: 10px;
-//   width: 75%;
-//   padding: 0px;
-// `
 
 function App() {
 
@@ -49,6 +21,57 @@ function App() {
   const [practiceAreaContent, setPracticeAreaContent] = useState([]);
   const [currentExerciseType, setCurrentExerciseType] = useState(0);
   const [activeExercise, setActiveExercise] = useState(null);
+  const [completedExercises, setCompletedExercises] = useState(new Set());
+  const [unlockedExercises, setUnlockedExercises] = useState(new Set());
+  const [unlockedExerciseTypes, setUnlockedExerciseTypes] = useState(new Set());
+
+  // setting up the completedExercises state aspect
+  // query localStorage to get saved completedExercises
+  useEffect(() => {
+    const lsCompletedExercises = localStorage.getItem('completedExercises');
+    if (lsCompletedExercises !== null) {
+      setCompletedExercises(new Set(JSON.parse(lsCompletedExercises)));
+    }
+    buildUnlockedExercises(JSON.parse(lsCompletedExercises));
+  }, []);
+
+  // function to initialize the unlocked exercises set
+  const buildUnlockedExercises = (lsCompletedExercises) => {
+    let tempUnlockedExercises = [1.0, 1.1, 2.0, 3.0];
+    if (lsCompletedExercises) {
+      for (const completedExercise of lsCompletedExercises) {
+        tempUnlockedExercises.push(completedExercise);
+        tempUnlockedExercises = tempUnlockedExercises.concat(exerciseGraph.get(completedExercise));
+      }
+    }
+    setUnlockedExercises(new Set(tempUnlockedExercises));
+    buildUnlockedExerciseTypes(tempUnlockedExercises);
+  }
+
+  const buildUnlockedExerciseTypes = (tempUnlockedExercises) => {
+    const tempUnlockedExerciseTypes = [1];
+    for (const unlockedExercise of tempUnlockedExercises) {
+      if (unlockedExercise - Math.floor(unlockedExercise) != 0) {
+        tempUnlockedExerciseTypes.push(Math.trunc(unlockedExercise));
+      }
+    }
+    setUnlockedExerciseTypes(new Set(tempUnlockedExerciseTypes));
+  }
+
+  // a callback to update the set of completed exercises as well as the localStorage
+  const updateCompletedExercises = (exerciseId) => {
+    const tempCompletedExercises = new Set(completedExercises);
+    tempCompletedExercises.add(exerciseId);
+    setCompletedExercises(tempCompletedExercises);
+    localStorage.setItem('completedExercises', JSON.stringify([...tempCompletedExercises]));
+
+    // update the unlocked exercises as well
+    let tempUnlockedExercises = [...new Set(unlockedExercises)];
+    tempUnlockedExercises = tempUnlockedExercises.concat(exerciseGraph.get(exerciseId));
+    setUnlockedExercises(new Set(tempUnlockedExercises));
+
+    buildUnlockedExerciseTypes(tempUnlockedExercises);
+  }
 
   return (
     <div className="App">
@@ -118,6 +141,7 @@ function App() {
                   <ContentOptionButton
                     label={label}
                     active={currentExerciseType === ind + 1}
+                    locked={! unlockedExerciseTypes.has(ind + 1)}
                     key={`${ind}-${label}`}
                     setContentSection={() => {
                       setActiveExercise(null);
@@ -141,6 +165,8 @@ function App() {
                   <ContentOptionButton
                     label={obj.label}
                     active={activeExercise && activeExercise.label === obj.label}
+                    completed={completedExercises.has(obj.id)}
+                    locked={! unlockedExercises.has(obj.id)}
                     key={`${ind}-${obj.label}`}
                     setContentSection={() => {
                       setActiveExercise(obj);
@@ -156,8 +182,8 @@ function App() {
           <div>
             <Exercise
               exercise={activeExercise}
-              // description={activeExercise.description}
-              // code={activeExercise.code}
+              updateCompletedExercises={updateCompletedExercises}
+              completed={completedExercises.has(activeExercise.id)}
             ></Exercise>
           </div>
         ) : null

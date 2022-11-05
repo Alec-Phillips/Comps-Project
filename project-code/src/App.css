@@ -1,4 +1,15 @@
+
+/* html {
+  min-height: 100%;
+} */
+
 body {
+  /* background: linear-gradient(
+      to bottom,
+      rgba(30, 42, 44, 0.836),
+      rgba(30, 42, 44, 0.7),
+      rgba(30, 42, 44, 0.75)
+    ) no-repeat; */
   background-color: rgba(30, 42, 44, 0.836);
   /* font-family: Andale Mono, monospace; */
   font-family: Helvetica, Courier, monospace;

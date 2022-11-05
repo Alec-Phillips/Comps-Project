@@ -33,7 +33,7 @@ export const StyledOption = styled.div`
   background-color: ${props => props.accepted ? 'lightgreen' : 'white'};
   border-radius: 5px;
   border: 2px solid lightblue;
-  color: palevioletred;
+  color: black;
   margin: 0.5em 1em;
   padding: 0.25em 1em;
   width: 110px;

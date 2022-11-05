@@ -5,6 +5,15 @@
 //    - 3: String
 //    - 4: Object
 
+export const exerciseGraph = new Map();
+exerciseGraph.set(1.1, [1.2, 2.1]);
+exerciseGraph.set(1.2, [1.3, 2.2]);
+exerciseGraph.set(1.3, [2.3]);
+exerciseGraph.set(2.1, []);
+exerciseGraph.set(2.2, []);
+exerciseGraph.set(2.3, [3.1]);
+exerciseGraph.set(3.1, [3.2]);
+
 export const exerciseInfo = [
   {
     "type": 1,
@@ -32,6 +41,7 @@ export const exerciseInfo = [
         `,
         "input-type": "",
         "show-editor": false,
+        "next-exercises": null,
       },
       {
         "label": "Example: Fizzbuzz",
@@ -80,6 +90,7 @@ function fizzbuzz(n) {
         "num-inputs": 1,
         "show-editor": false,
         "placeholder-code": "// input n here",
+        "next-exercises": [1.2, 2.1],
         "acceptance-description": "This code fails for all inputs, because the else block always appends 'buzz'",
       },
       {
@@ -129,6 +140,7 @@ function fizzbuzzCounts(n) {
         "num-inputs": 1,
         "show-editor": false,
         "placeholder-code": "// input n here",
+        "next-exercises": [1.3, 2.2],
       },
       {
         "label": "Rainfall",
@@ -170,6 +182,7 @@ function rainfall(measurements) {
         "num-inputs": 1,
         "show-editor": false,
         "placeholder-code": "[1,2,3,4,5]",
+        "next-exercises": [2.3],
       },
 //       {
 //         "label": "Object Keys",
@@ -232,6 +245,7 @@ function rainfall(measurements) {
       {
         "label": "Example: Fizzbuzz",
         "id": 2.1,
+        "next-exercises": [],
         "code": `
         function fizzbuzz(n) {
           const output = [];
@@ -289,6 +303,7 @@ function fizzbuzz(n) {
       {
         "label": "Fizzbuzz Counts",
         "id": 2.2,
+        "next-exercises": [],
         "code": `
         function fizzbuzzCounts(n) {
           const counts = {
@@ -353,6 +368,7 @@ function fizzbuzzCounts(n) {
       {
         "label": "Rainfall",
         "id": 2.3,
+        "next-exercises": [3.1],
         "code": `
         function rainfall(measurements) {
           if (measurements.length === 0) {
@@ -464,6 +480,7 @@ assert(checkParity(3) === false);
       {
         "label": "Example: Even/Odd",
         "id": 3.1,
+        "next-exercises": [3.2],
         "code": `
         function checkParity(n) {
           if (n % 2 === 0) {
