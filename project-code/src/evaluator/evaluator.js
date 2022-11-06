@@ -10,6 +10,7 @@ class Evaluator {
   }
 
   evaluate(code) {
+    code = escapeLoops(code);
     const fn = Function(this.templateArgs, code + this.templateSuffix);
     const evalResult = this.runTests(fn);
     return evalResult;
@@ -37,6 +38,27 @@ class Evaluator {
 }
 
 export default Evaluator;
+
+
+// handle infinite loops in user code:
+function escapeLoops(code) {
+  code = 'let infiniteLoopCounter = 0;\n' + code;
+  const ESCAPE_PREFIX = 'infiniteLoopCounter = 0;\n';
+  const ESCAPE_BODY = '\ninfiniteLoopCounter ++;\nif (infiniteLoopCounter > 10000) {\nthrow new Error("timeout - infinite loop detected");\n}\n';
+  const re = /(for *\(.*;.*;.*\) *{|while *\(.*\) *{)/gm;
+  let codePtr = 0;
+  const codeSegments = [];
+  let currMatch;
+  while ((currMatch = re.exec(code)) !== null) {
+    let matchStr = currMatch[0];
+    codeSegments.push(code.substring(codePtr, currMatch.index)
+    + ESCAPE_PREFIX
+    + code.substring(currMatch.index, currMatch.index + matchStr.length)
+    + ESCAPE_BODY);
+    codePtr = currMatch.index + matchStr.length;
+  }
+  return codeSegments.join('') + code.substring(codePtr);
+}
 
 
 const inputParseFuncs = new Map();
