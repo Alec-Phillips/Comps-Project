@@ -37,7 +37,7 @@ function App() {
 
   // function to initialize the unlocked exercises set
   const buildUnlockedExercises = (lsCompletedExercises) => {
-    let tempUnlockedExercises = [1.0, 1.1, 2.0, 3.0];
+    let tempUnlockedExercises = [1.0, 1.1, 2.0, 3.0, 3.1];
     if (lsCompletedExercises) {
       for (const completedExercise of lsCompletedExercises) {
         tempUnlockedExercises.push(completedExercise);

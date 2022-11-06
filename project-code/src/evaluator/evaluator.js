@@ -55,15 +55,32 @@ inputParseFuncs.set(1, (arg) => {
 });
 inputParseFuncs.set(2, (arg, elementType) => {
   // validate arg first
-
-  // convert to array
-  const arr = arg.substring(1, arg.length - 1).split(',');
-  const parsedArr = arr.map(item => inputParseFuncs.get(elementType)(item));
+  if (inputValidators.get(2)(arg)) {
+    // convert to array
+    const arr = arg.substring(1, arg.length - 1).split(',');
+    const parsedArr = arr.map(item => inputParseFuncs.get(elementType)(item));
+    return {
+      arg: parsedArr.map(item => item.arg),
+      error: parsedArr.filter(item => item.error).length ? true : false,
+    }
+  }
   return {
-    arg: parsedArr.map(item => item.arg),
-    error: parsedArr.filter(item => item.error).length ? true : false,
+    arg: 0,
+    error: true,
   }
 });
+inputParseFuncs.set(3, (arg) => {
+  if (inputValidators.get(3)(arg)) {
+    return {
+      arg: arg.substring(1, arg.length - 1),
+      error: false,
+    };
+  };
+  return {
+    arg: 0,
+    error: true,
+  }
+})
 
 
 
@@ -72,5 +89,13 @@ const inputValidators = new Map();
 
 inputValidators.set(1, arg => {
   const re = new RegExp('^ ?-*[0-9]+$');
+  return arg.match(re) !== null;
+});
+inputValidators.set(2, arg => {
+  const re = /^\[.*]$/gm;
+  return arg.match(re) !== null;
+});
+inputValidators.set(3, arg => {
+  const re = /(^'.*'$|^".*"$)/gm;
   return arg.match(re) !== null;
 });

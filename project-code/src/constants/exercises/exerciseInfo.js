@@ -8,11 +8,13 @@
 export const exerciseGraph = new Map();
 exerciseGraph.set(1.1, [1.2, 2.1]);
 exerciseGraph.set(1.2, [1.3, 2.2]);
-exerciseGraph.set(1.3, [2.3]);
+exerciseGraph.set(1.3, [1.4, 2.3]);
+exerciseGraph.set(1.4, [2.4]);
 exerciseGraph.set(2.1, []);
 exerciseGraph.set(2.2, []);
 exerciseGraph.set(2.3, [3.1]);
 exerciseGraph.set(3.1, [3.2]);
+exerciseGraph.set(3.2, [3.3]);
 
 export const exerciseInfo = [
   {
@@ -183,6 +185,55 @@ function rainfall(measurements) {
         "show-editor": false,
         "placeholder-code": "[1,2,3,4,5]",
         "next-exercises": [2.3],
+      },
+      {
+        "label": "Letter Groups",
+        "id": 1.4,
+        "input-type": 1,
+        "param-types": [3],
+        "num-inputs": 1,
+        "show-editor": false,
+        "placeholder-code": 'abcd',
+        "description": `
+        <h1>Letter Groups</h1>
+        <hr></hr>
+        The <code>letterGroups</code> function takes a String and identifies the longest substring of the same character
+        <br></br>
+        Additional requirements are:
+        <ul>
+          <li>If there is a tie for longest substring, return the one that comes first <a href='https://en.wikipedia.org/wiki/Lexicographic_order' target="_blank">lexicographically</a></li>
+        </ul>
+        Examples:
+        <ul>
+          <li><code>letterGroups('aabbbc')</code> returns <code>'bbb'</code></li>
+          <li><code>letterGroups('zyxwvu')</code> returns <code>'z'</code></li>
+          <li><code>letterGroups('123555bcaaa')</code> returns <code>'555'</code></li>
+        </ul>
+        Defined Behavior:
+        <ul>
+          <li>Any string of length >= 0</li>
+        </ul>
+        `,
+        "code": `
+function letterGroups(letters) {
+  let returnGroup = '';
+  let i = 0;
+  while (i < letters.length) {
+    const currLetter = letters.charAt(i);
+    let j = i + 1;
+    while (j < letters.length &&
+           letters.charAt(j) === currLetter) {
+      j += 1;
+    }
+    const newSequence = letters.substring(i, j);
+    if (newSequence.length > returnGroup.length) {
+      returnGroup = newSequence;
+    }
+    i = j;
+  }
+  return returnGroup;
+}
+        `,
       },
 //       {
 //         "label": "Object Keys",
@@ -422,6 +473,70 @@ function rainfall(measurements) {
   }
   return total_rain / total_days;
 }`,
+      },
+      {
+        "label": "Letter Groups",
+        "id": 2.4,
+        "code": `
+        function letterGroups(letters) {
+          let returnGroup = '';
+          let i = 0;
+          while (i < letters.length) {
+            const currLetter = letters.charAt(i);
+            let j = i + 1;
+            while (j < letters.length &&
+                   letters.charAt(j) === currLetter) {
+              j += 1;
+            }
+            const newSequence = letters.substring(i, j);
+            if (newSequence.length > returnGroup.length) {
+              returnGroup = newSequence;
+            }
+            i = j;
+          }
+          return returnGroup;
+        }`,
+        "description": `
+        <h1>Letter Groups</h1>
+        <hr></hr>
+        The <code>letterGroups</code> function takes a String and identifies the longest substring of the same character
+        <br></br>
+        Additional requirements are:
+        <ul>
+          <li>If there is a tie for longest substring, return the one that comes first <a href='https://en.wikipedia.org/wiki/Lexicographic_order' target="_blank">lexicographically</a></li>
+        </ul>
+        Examples:
+        <ul>
+          <li><code>letterGroups('aabbbc')</code> returns <code>'bbb'</code></li>
+          <li><code>letterGroups('zyxwvu')</code> returns <code>'z'</code></li>
+          <li><code>letterGroups('123555bcaaa')</code> returns <code>'555'</code></li>
+        </ul>
+        Defined Behavior:
+        <ul>
+          <li>Any string of length >= 0</li>
+        </ul>
+        `,
+        "input-type": "",
+        "show-editor": true,
+        "placeholder-code": `
+function letterGroups(letters) {
+  let returnGroup = '';
+  let i = 0;
+  while (i < letters.length) {
+    const currLetter = letters.charAt(i);
+    let j = i + 1;
+    while (j < letters.length &&
+           letters.charAt(j) === currLetter) {
+      j += 1;
+    }
+    const newSequence = letters.substring(i, j);
+    if (newSequence.length > returnGroup.length) {
+      returnGroup = newSequence;
+    }
+    i = j;
+  }
+  return returnGroup;
+}`,
       }
     ],
   },
@@ -513,7 +628,8 @@ assert(checkParity() === );
         "id": 3.2,
         "code": `
 // function stub:
-
+// in  -> Array[Number] measurements
+// out -> Number
 function rainfall(measurements) {}`,
         "description": `
         <h1>Rainfall</h1>
@@ -536,7 +652,41 @@ function rainfall(measurements) {}`,
 
 assert(rainfall([5,5,5,5,5]) === 5);
 
-`},
+`     },
+      {
+        "label": "Letter Groups",
+        "id": 3.3,
+        "input-type": "",
+        "show-editor": true,
+        "placeholder-code": `
+assert(letterGroups() === );
+`,
+        "code": `
+// function stub:
+// in  -> String letters
+// out -> String
+function letterGroups(letters) {}`,
+        "description": `
+        <h1>Letter Groups</h1>
+        <hr></hr>
+        The <code>letterGroups</code> function takes a String and identifies the longest substring of the same character
+        <br></br>
+        Additional requirements are:
+        <ul>
+          <li>If there is a tie for longest substring, return the one that comes first <a href='https://en.wikipedia.org/wiki/Lexicographic_order' target="_blank">lexicographically</a></li>
+        </ul>
+        Examples:
+        <ul>
+          <li><code>letterGroups('aabbbc')</code> returns <code>'bbb'</code></li>
+          <li><code>letterGroups('zyxwvu')</code> returns <code>'z'</code></li>
+          <li><code>letterGroups('123555bcaaa')</code> returns <code>'555'</code></li>
+        </ul>
+        Defined Behavior:
+        <ul>
+          <li>Any string of length >= 0</li>
+        </ul>
+        `,
+      },
     ],
   }
 ];
