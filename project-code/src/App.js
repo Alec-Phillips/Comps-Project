@@ -1,4 +1,8 @@
 import { Fragment, useEffect, useState } from 'react';
+
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { xcode } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+
 import OptionButton from './OptionButton';
 import ContentOptionButton from './ContentOptionButton';
 import Exercise from './Exercise';
@@ -73,6 +77,53 @@ function App() {
     buildUnlockedExerciseTypes(tempUnlockedExercises);
   }
 
+  // format the learn section content around the examples
+  const formatSection = (content) => {
+    const re = /-codeSegmentStart-/gm;
+    const segments = [];
+    let currMatch;
+    let matchStr;
+    let matchInd;
+    let contentPtr = 0;
+    let explorePtr;
+    const cs = {
+      fontSize: "80%"
+    }
+    
+    const ctp = {
+      style: {
+        lineHeight: "inherit",
+        fontSize: "inherit"
+      }
+    }
+    while ((currMatch = re.exec(content)) !== null) {
+      matchStr = currMatch[0];
+      matchInd = currMatch.index;
+      segments.push(parse(content.substring(contentPtr, matchInd)));
+      explorePtr = matchInd + matchStr.length;
+      while (content.substring(explorePtr, explorePtr + 16) !== '-codeSegmentEnd-') {
+        explorePtr ++;
+        if (explorePtr >= content.length) {
+          throw new Error('section formatter broken');
+        }
+      }
+      segments.push(
+        <SyntaxHighlighter 
+          className={'codeBlock'}
+          language="javascript"
+          style={xcode}
+          customStyle={cs}
+          codeTagProps={ctp}
+          >
+          {content.substring(matchInd + matchStr.length, explorePtr)}
+        </SyntaxHighlighter>
+      );
+      contentPtr = explorePtr + 18;
+    }
+    segments.push(parse(content.substring(contentPtr)));
+    return segments;
+  }
+
   return (
     <div className="App">
       <StyledHeader
@@ -127,7 +178,7 @@ function App() {
       {
         activeLearnSection.length ? (
           <ContentArea>
-            {parse(activeLearnSection)}
+            {formatSection(activeLearnSection)}
           </ContentArea>
         ) : null
       }
