@@ -41,7 +41,7 @@ function App() {
 
   // function to initialize the unlocked exercises set
   const buildUnlockedExercises = (lsCompletedExercises) => {
-    let tempUnlockedExercises = [1.0, 1.1, 2.0, 3.0, 3.1];
+    let tempUnlockedExercises = [1.0, 1.1, 3.0, 3.1];
     if (lsCompletedExercises) {
       for (const completedExercise of lsCompletedExercises) {
         tempUnlockedExercises.push(completedExercise);
@@ -188,8 +188,11 @@ function App() {
             <hr className="mainHr"></hr>
             <OptionArea>
               {practiceAreaContent.map(
-                (label, ind) => 
-                  <ContentOptionButton
+                (label, ind) => {
+                  if (ind === 1) {
+                    return null;
+                  }
+                  return (<ContentOptionButton
                     label={label}
                     active={currentExerciseType === ind + 1}
                     locked={! unlockedExerciseTypes.has(ind + 1)}
@@ -198,7 +201,8 @@ function App() {
                       setActiveExercise(null);
                       setCurrentExerciseType(ind + 1);
                     }}
-                  ></ContentOptionButton>
+                  ></ContentOptionButton>)
+                }
               )}
             </OptionArea>
           </Fragment>
