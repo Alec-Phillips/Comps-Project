@@ -113,7 +113,7 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
         {
           exercise['code'] ? (
             <SyntaxHighlighter 
-              className={exercise['input-type'] === 1 ? 'codeBlock' : 'codeBlock typeOneCodeBlock'}
+              className={exercise['input-type'] === 1 ? 'codeBlock typeOneCodeBlock' : 'codeBlock typeOneCodeBlock'}
               language="javascript"
               style={xcode}
               customStyle={cs}

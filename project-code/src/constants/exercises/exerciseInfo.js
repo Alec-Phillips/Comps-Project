@@ -10,9 +10,11 @@ exerciseGraph.set(1.1, [2.1]);
 exerciseGraph.set(1.2, [2.2]);
 exerciseGraph.set(1.3, [2.3]);
 exerciseGraph.set(1.4, [2.4]);
+exerciseGraph.set(1.5, [2.5]);
 exerciseGraph.set(2.1, [1.2]);
 exerciseGraph.set(2.2, [1.3]);
 exerciseGraph.set(2.3, [1.4]);
+exerciseGraph.set(2.4, [1.5]);
 exerciseGraph.set(3.1, [3.2]);
 exerciseGraph.set(3.2, [3.3]);
 
@@ -482,7 +484,145 @@ function letterGroups(letters) {
   }
   return returnGroup;
 }`,
-      }
+      },
+      {
+        "label": "Letter Frequencies",
+        "id": 1.5,
+        "input-type": 1,
+        "param-types": [3],
+        "num-inputs": 1,
+        "show-editor": false,
+        "placeholder-code": '"abcd"',
+        "description": `
+        <h1>Letter Frequencies</h1>
+        <hr></hr>
+        <code>frequentTargets</code> takes a string and returns a 
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set" target="_blank">Set</a> 
+        containing the letters that appear most frequently. However, this function only cares about the letters 'a', 'b', 'c', and 'd',
+        so if a letter other than these is the most frequent, it should be ignored
+        <br></br>
+        Examples:
+        <ul>
+          <li><code>frequentTargets('abc') returns <code>{ 'a', 'b', 'c' }</code></li>
+          <li><code>frequentTargets('abbc') returns <code>{ 'b' }</code></li>
+          <li><code>frequentTargets('azzzzbbccc') returns <code>{ 'c' }</code></li>
+        </ul>
+        `,
+        "code": `
+function frequentTargets(letters) {
+  const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
+  let currLetter;
+  for (let i = 0; i < letters.length; i ++) {
+    currLetter = letters.charAt(i);
+    targets.set(currLetter, targets.get(currLetter) + 1);
+  }
+  let mostFrequent = new Set();
+  let largestCount = null;
+  for (let i = 0; i < letters.length; i ++) {
+    currLetter = letters.charAt(i);
+    if (largestCount === null || targets.get(currLetter) > largestCount) {
+      mostFrequent.clear();
+      mostFrequent.add(currLetter);
+      largestCount = targets.get(currLetter);
+    } else if (targets.get(currLetter) === largestCount) {
+      mostFrequent.add(currLetter);
+    }
+  }
+  return mostFrequent;
+}
+        `,
+      },
+      {
+        "label": "Letter Freq. Debug",
+        "id": 2.5,
+        "input-type": "",
+        "param-types": "",
+        "num-inputs": "",
+        "show-editor": true,
+        "placeholder-code": `
+function frequentTargets(letters) {
+  const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
+  let currLetter;
+  for (let i = 0; i < letters.length; i ++) {
+    currLetter = letters.charAt(i);
+    targets.set(currLetter, targets.get(currLetter) + 1);
+  }
+  let mostFrequent = new Set();
+  let largestCount = null;
+  for (let i = 0; i < letters.length; i ++) {
+    currLetter = letters.charAt(i);
+    if (largestCount === null || targets.get(currLetter) > largestCount) {
+      mostFrequent.clear();
+      mostFrequent.add(currLetter);
+      largestCount = targets.get(currLetter);
+    } else if (targets.get(currLetter) === largestCount) {
+      mostFrequent.add(currLetter);
+    }
+  }
+  return mostFrequent;
+}
+        `,
+        "description": `
+        <h1>Letter Frequencies</h1>
+        <hr></hr>
+        From the previous problem, you may have noticed that the <code>frequentTargets</code> method fails when the input
+        string begins with a character that is not in the target map. This has to do with how the javascript 
+        <code>Map.get(&ltkey&gt)</code> method handles non-existent key lookups. 
+        <br></br>
+        When debugging this function, you have two tasks:
+        <ul>
+          <li>Handle the edge case that you identified in the previous exercise</li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw" target="_blank">Throw</a>
+              an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#examples" target="_blank">Error</a>
+              object if <em>no</em> letters within the targets map are present in the input string.
+              This error should have the message: 'no valid input letters'</li>
+        </ul>
+        <br></br>
+        Examples:
+        <ul>
+          <li><code>frequentTargets('abc')</code> returns <code>{ 'a', 'b', 'c' }</code></li>
+          <li><code>frequentTargets('abbc')</code> returns <code>{ 'b' }</code></li>
+          <li><code>frequentTargets('azzzzbbccc')</code> returns <code>{ 'c' }</code></li>
+          <li><code>frequentTargets('zzabc')</code> returns <code>{ 'a', 'b', 'c' }</code></li>
+          <li><code>frequentTargets('xyz')</code> <em>throws</em> <code>new Error('no valid input letters')</code></li>
+        </ul>
+        `,
+        "code": `
+        function frequentTargets(letters) {
+          const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
+          let currLetter;
+          for (let i = 0; i < letters.length; i ++) {
+            currLetter = letters.charAt(i);
+            targets.set(currLetter, targets.get(currLetter) + 1);
+          }
+          let mostFrequent = new Set();
+          let largestCount = null;
+          for (let i = 0; i < letters.length; i ++) {
+            currLetter = letters.charAt(i);
+            if (largestCount === null || targets.get(currLetter) > largestCount) {
+              mostFrequent.clear();
+              mostFrequent.add(currLetter);
+              largestCount = targets.get(currLetter);
+            } else if (targets.get(currLetter) === largestCount) {
+              mostFrequent.add(currLetter);
+            }
+          }
+          return mostFrequent;
+        }
+        `,
+      },
+
+      // {
+      //   "label": "",
+      //   "id": 0,
+      //   "input-type": 0,
+      //   "param-types": [0],
+      //   "num-inputs": 0,
+      //   "show-editor": false,
+      //   "placeholder-code": '"abcd"',
+      //   "description": ``,
+      //   "code": ``,
+      // }
 //       {
 //         "label": "Object Keys",
 //         "id": 1.4,
@@ -964,6 +1104,56 @@ function letterGroups(letters) {}`,
         <ul>
           <li>Any string of length >= 0</li>
         </ul>
+        `,
+      },
+      {
+        "label": "Letter Frequencies",
+        "id": 3.4,
+        "input-type": "",
+        "param-types": "",
+        "num-inputs": "",
+        "show-editor": true,
+        "placeholder-code": `
+assert()
+`,
+        "description": `
+        <h1>Letter Frequencies</h1>
+        <hr></hr>
+        This problem requires you to test the functionality of the given function as well as test for an
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#examples" target="_blank">error</a>
+        that the function
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw" target="_blank">throws</a>.  
+        <br></br>
+        The <code>frequentTargets</code> function should:
+        <ul>
+          <li>Return a 
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set" target="_blank">Set</a> 
+          object</li>
+          <li>This set should contain the letters that occur most frequently in the input string</li>
+          <li>The function only cares about the <em>target</em> letters: 'a', 'b', 'c', and 'd', meaning that any other
+          letters should be ignored</li>
+          <li>Finally, if none of the target letters occur in the input string, an Error is thrown</li>
+        </ul>
+        For Example:
+        <ul>
+          <li><code>frequentTargets('azzzzbbccc')</code> returns <code>{ 'c' }</code></li>
+          <li><code>frequentTargets('zzabc')</code> returns <code>{ 'a', 'b', 'c' }</code></li>
+          <li><code>frequentTargets('xyz')</code> <em>throws</em> <code>new Error('no valid input letters')</code></li>
+        </ul>
+        Hints:
+        <ul>
+          <li>Set objects cannot be compared with the equality operators (==, ===), so you will need to come up with a
+          thoughtful way to check if the output is correct</li>
+          <li>To test for the error that is thrown, see this documentation on the 
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch" target="_blank">try catch statement</a></li>
+        </ul>
+        `,
+        "code": `
+        // function stub:
+        // in  -> String
+        // out -> Set object
+        // throws -> Error('no valid input letters')
+        frequentTargets(letters) {}
         `,
       },
     ],

@@ -111,6 +111,20 @@ exerciseTestCases.set(1.4,
   }
 );
 
+exerciseTestCases.set(1.5,
+  {
+    testCase: (letters) => {
+      if (letters.length === 0) {
+        return false;
+      }
+      const targetSet = new Set(['a', 'b', 'c', 'd']);
+      return !targetSet.has(letters.charAt(0));
+    },
+    templateArgs: '',
+    templateSuffix: '',
+  }
+);
+
 
 exerciseTestCases.set(2.1,
   {
@@ -225,6 +239,45 @@ exerciseTestCases.set(2.4,
     },
     templateArgs: 'letters',
     templateSuffix: 'return letterGroups(letters);',
+  }
+);
+
+exerciseTestCases.set(2.5, 
+  {
+    testCase: (fn) => {
+      const testInputs = [
+        ['abc', new Set(['a', 'b', 'c'])],
+        ['aabc', new Set(['a'])],
+        ['abbccc', new Set(['c'])],
+        ['zzabc', new Set(['a', 'b', 'c'])],
+        ['zxy', new Error('no valid input letters')],
+      ];
+      for (const input of testInputs) {
+        try {
+          let res = fn(input[0]);
+          if (!(res.size === input[1].size &&
+                [...res].every(val => input[1].has(val)))) {
+            return {
+              pass: false,
+              failedInput: `'${input[0]}'`,
+            }
+          }
+        } catch (e) {
+          if (JSON.stringify(e) !== JSON.stringify(input[1])) {
+            return {
+              pass: false,
+              failedInput: `'${input[0]}'`,
+            }
+          }
+        }
+      }
+      return {
+        pass: true,
+        failedInput: null,
+      }
+    },
+    templateArgs: 'letters',
+    templateSuffix: 'return frequentTargets(letters);',
   }
 );
 
@@ -432,26 +485,56 @@ exerciseTestCases.set(3.3,
   }
 );
 
-function letterGroups(letters) {
-  let returnGroup = '';
-  let i = 0;
-  while (i < letters.length) {
-    const currLetter = letters.charAt(i);
-    let j = i + 1;
-    while (j < letters.length && letters.charAt(j) === currLetter) {
-      j += 1;
-    }
-    const newSequence = letters.substring(i, j);
-    if (newSequence.length > returnGroup.length) {
-      returnGroup = newSequence;
-    } else if (newSequence.length === returnGroup.length) {
-      if (newSequence < returnGroup) {
-        returnGroup = newSequence;
+exerciseTestCases.set(3.4,
+  {
+    testCase: (fn) => {
+      const coverageCheck = [];
+      const assertionResults = [[]];
+      initCoverageCheck(coverageCheck, 7);
+      const frequentTargets = (letters) => {
+        const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
+        let seenTargets = 0;
+        let currLetter;
+        for (let i = 0; i < letters.length; i ++) {
+          currLetter = letters.charAt(i);
+          if (targets.has(currLetter)) {
+            coverageCheck[0] = true;
+            seenTargets ++;
+            targets.set(currLetter, targets.get(currLetter) + 1);
+          } else {
+            coverageCheck[1] = true;
+          }
+        }
+        if (seenTargets === 0) {
+          coverageCheck[2] = true;
+          throw new Error('no valid input letters');
+        } else {
+          coverageCheck[3] = true;
+        }
+        let mostFrequent = new Set();
+        let largestCount = 0;
+        for (let i = 0; i < letters.length; i ++) {
+          currLetter = letters.charAt(i);
+          if (targets.get(currLetter) > largestCount) {
+            coverageCheck[4] = true;
+            mostFrequent.clear();
+            mostFrequent.add(currLetter);
+            largestCount = targets.get(currLetter);
+          } else if (targets.get(currLetter) === largestCount) {
+            coverageCheck[5] = true;
+            mostFrequent.add(currLetter);
+          } else {
+            coverageCheck[6] = true;
+          }
+        }
+        return mostFrequent;
       }
-    }
-    i = j;
+      fn(frequentTargets, coverageCheck, assertionResults);
+      return buildEvalResult(coverageCheck, assertionResults);
+    },
+    templateArgs: 'frequentTargets, coverageCheck, assertionResults',
+    templateSuffix: assert,
   }
-  return returnGroup;
-}
+);
 
 export { exerciseTestCases };
