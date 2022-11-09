@@ -17,6 +17,7 @@ exerciseGraph.set(2.3, [1.4]);
 exerciseGraph.set(2.4, [1.5]);
 exerciseGraph.set(3.1, [3.2]);
 exerciseGraph.set(3.2, [3.3]);
+exerciseGraph.set(3.3, [3.4]);
 
 export const exerciseInfo = [
   {
