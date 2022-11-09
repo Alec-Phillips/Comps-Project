@@ -4,8 +4,8 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { xcode } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
-// import 'ace-builds/src-noconflict/theme-xcode';
-import 'ace-builds/src-noconflict/theme-vibrant_ink';
+import 'ace-builds/src-noconflict/theme-xcode';
+// import 'ace-builds/src-noconflict/theme-vibrant_ink';
 import styled from 'styled-components';
 
 import Evaluator from './evaluator/evaluator';
@@ -113,7 +113,7 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
         {
           exercise['code'] ? (
             <SyntaxHighlighter 
-              className={exercise['input-type'] === 1 ? 'codeBlock' : 'codeBlock typeOneCodeBlock'}
+              className={exercise['input-type'] === 1 ? 'codeBlock typeOneCodeBlock' : 'codeBlock typeOneCodeBlock'}
               language="javascript"
               style={xcode}
               customStyle={cs}
@@ -174,7 +174,7 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
               // placeholder={exercise['placeholder-code']}
               width='100%'
               mode='javascript'
-              theme='vibrant_ink'
+              theme='xcode'
               name='basic-code-editor'
               onChange={(currentCode) => {
                   setEditorCode(currentCode);

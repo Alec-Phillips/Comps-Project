@@ -62,6 +62,70 @@ exerciseTestCases.set(1.3,
 );
 
 
+exerciseTestCases.set(1.4,
+  {
+    testCase: (letters) => {
+      const correct = (letters) => {
+        let returnGroup = '';
+        let i = 0;
+        while (i < letters.length) {
+          const currLetter = letters.charAt(i);
+          let j = i + 1;
+          while (j < letters.length &&
+                 letters.charAt(j) === currLetter) {
+            j += 1;
+          }
+          const newSequence = letters.substring(i, j);
+          if (newSequence.length > returnGroup.length) {
+            returnGroup = newSequence;
+          } else if (newSequence.length === returnGroup.length) {
+            if (newSequence < returnGroup) {
+              returnGroup = newSequence;
+            }
+          }
+          i = j;
+        }
+        return returnGroup;
+      }
+      const incorrect = (letters) => {
+        let returnGroup = '';
+        let i = 0;
+        while (i < letters.length) {
+          const currLetter = letters.charAt(i);
+          let j = i + 1;
+          while (j < letters.length && letters.charAt(j) === currLetter) {
+            j += 1;
+          }
+          const newSequence = letters.substring(i, j);
+          if (newSequence.length > returnGroup.length) {
+            returnGroup = newSequence;
+          }
+          i = j;
+        }
+        return returnGroup;
+      }
+      return correct(letters) !== incorrect(letters);
+    },
+    templateArgs: '',
+    templateSuffix: '',
+  }
+);
+
+exerciseTestCases.set(1.5,
+  {
+    testCase: (letters) => {
+      if (letters.length === 0) {
+        return false;
+      }
+      const targetSet = new Set(['a', 'b', 'c', 'd']);
+      return !targetSet.has(letters.charAt(0));
+    },
+    templateArgs: '',
+    templateSuffix: '',
+  }
+);
+
+
 exerciseTestCases.set(2.1,
   {
     testCase: (fn) => {
@@ -146,6 +210,74 @@ exerciseTestCases.set(2.3,
     },
     templateArgs: 'measurements',
     templateSuffix: 'return rainfall(measurements);',
+  }
+);
+
+exerciseTestCases.set(2.4, 
+  {
+    testCase: (fn) => {
+      const testInputs = [
+        ['abc', 'a'],
+        ['cba', 'a'],
+        ['abbc', 'bb'],
+        ['abbccc', 'ccc'],
+        ['cccbbaaa', 'aaa'],
+        ['aaabbb111', '111'],
+      ];
+      for (const input of testInputs) {
+        if (fn(input[0]) !== input[1]) {
+          return {
+            pass: false,
+            failedInput: `'${input[0]}'`,
+          }
+        }
+      }
+      return {
+        pass: true,
+        failedInput: null,
+      }
+    },
+    templateArgs: 'letters',
+    templateSuffix: 'return letterGroups(letters);',
+  }
+);
+
+exerciseTestCases.set(2.5, 
+  {
+    testCase: (fn) => {
+      const testInputs = [
+        ['abc', new Set(['a', 'b', 'c'])],
+        ['aabc', new Set(['a'])],
+        ['abbccc', new Set(['c'])],
+        ['zzabc', new Set(['a', 'b', 'c'])],
+        ['zxy', new Error('no valid input letters')],
+      ];
+      for (const input of testInputs) {
+        try {
+          let res = fn(input[0]);
+          if (!(res.size === input[1].size &&
+                [...res].every(val => input[1].has(val)))) {
+            return {
+              pass: false,
+              failedInput: `'${input[0]}'`,
+            }
+          }
+        } catch (e) {
+          if (JSON.stringify(e) !== JSON.stringify(input[1])) {
+            return {
+              pass: false,
+              failedInput: `'${input[0]}'`,
+            }
+          }
+        }
+      }
+      return {
+        pass: true,
+        failedInput: null,
+      }
+    },
+    templateArgs: 'letters',
+    templateSuffix: 'return frequentTargets(letters);',
   }
 );
 
@@ -271,32 +403,136 @@ exerciseTestCases.set(3.2,
 );
 
 // add test cases for 2.2
+// exerciseTestCases.set(3.3, 
+//   {
+//     testCase: (fn) => {
+//       const coverageCheck = [];
+//       const assertionResults = [[]];
+//       initCoverageCheck(coverageCheck, 3);
+//       const sort = (vals) => {
+//         for (let i = 0; i < vals.length; i ++) {
+//           coverageCheck[0] = true;
+//           let min_val_ind = i;
+//           for (let j = i + 1; j < vals.length; j ++) {
+//             coverageCheck[1] = true;
+//             if (vals[j] < vals[min_val_ind]) {
+//               coverageCheck[2] = true;
+//               min_val_ind = j;
+//             }
+//           }
+//           let saved = vals[i];
+//           vals[i] = vals[min_val_ind];
+//           vals[min_val_ind] = saved;
+//         }
+//       }
+//       fn(sort, coverageCheck, assertionResults);
+//       return buildEvalResult(coverageCheck, assertionResults);
+//     },
+//     templateArgs: 'sort, coverageCheck, assertionResults',
+//     templateSuffix: assert,
+//   }
+// );
+
 exerciseTestCases.set(3.3, 
   {
     testCase: (fn) => {
       const coverageCheck = [];
       const assertionResults = [[]];
-      initCoverageCheck(coverageCheck, 3);
-      const sort = (vals) => {
-        for (let i = 0; i < vals.length; i ++) {
+      initCoverageCheck(coverageCheck, 9);
+      const letterGroups = (letters) => {
+        let returnGroup = '';
+        let i = 0;
+        if (i < letters.length) {
           coverageCheck[0] = true;
-          let min_val_ind = i;
-          for (let j = i + 1; j < vals.length; j ++) {
-            coverageCheck[1] = true;
-            if (vals[j] < vals[min_val_ind]) {
+          while (i < letters.length) {
+            const currLetter = letters.charAt(i);
+            let j = i + 1;
+            if (j < letters.length && letters.charAt(j) === currLetter) {
               coverageCheck[2] = true;
-              min_val_ind = j;
+              while (j < letters.length && letters.charAt(j) === currLetter) {
+                j += 1;
+              }
+            } else {
+              coverageCheck[3] = true;
             }
+            const newSequence = letters.substring(i, j);
+            if (newSequence.length > returnGroup.length) {
+              coverageCheck[4] = true
+              returnGroup = newSequence;
+            } else if (newSequence.length === returnGroup.length) {
+              coverageCheck[5] = true;
+              if (newSequence < returnGroup) {
+                coverageCheck[7] = true;
+                returnGroup = newSequence;
+              } else {
+                coverageCheck[8] = true;
+              }
+            } else {
+              coverageCheck[6] = true;
+            }
+            i = j;
           }
-          let saved = vals[i];
-          vals[i] = vals[min_val_ind];
-          vals[min_val_ind] = saved;
+        } else {
+          coverageCheck[1] = true; 
         }
+        return returnGroup;
       }
-      fn(sort, coverageCheck, assertionResults);
+      fn(letterGroups, coverageCheck, assertionResults);
       return buildEvalResult(coverageCheck, assertionResults);
     },
-    templateArgs: 'sort, coverageCheck, assertionResults',
+    templateArgs: 'letterGroups, coverageCheck, assertionResults',
+    templateSuffix: assert,
+  }
+);
+
+exerciseTestCases.set(3.4,
+  {
+    testCase: (fn) => {
+      const coverageCheck = [];
+      const assertionResults = [[]];
+      initCoverageCheck(coverageCheck, 7);
+      const frequentTargets = (letters) => {
+        const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
+        let seenTargets = 0;
+        let currLetter;
+        for (let i = 0; i < letters.length; i ++) {
+          currLetter = letters.charAt(i);
+          if (targets.has(currLetter)) {
+            coverageCheck[0] = true;
+            seenTargets ++;
+            targets.set(currLetter, targets.get(currLetter) + 1);
+          } else {
+            coverageCheck[1] = true;
+          }
+        }
+        if (seenTargets === 0) {
+          coverageCheck[2] = true;
+          throw new Error('no valid input letters');
+        } else {
+          coverageCheck[3] = true;
+        }
+        let mostFrequent = new Set();
+        let largestCount = 0;
+        for (let i = 0; i < letters.length; i ++) {
+          currLetter = letters.charAt(i);
+          if (targets.get(currLetter) > largestCount) {
+            coverageCheck[4] = true;
+            mostFrequent.clear();
+            mostFrequent.add(currLetter);
+            largestCount = targets.get(currLetter);
+          } else if (targets.get(currLetter) === largestCount) {
+            coverageCheck[5] = true;
+            mostFrequent.add(currLetter);
+          } else {
+            coverageCheck[6] = true;
+          }
+        }
+        return mostFrequent;
+      }
+      fn(frequentTargets, coverageCheck, assertionResults);
+      return buildEvalResult(coverageCheck, assertionResults);
+    },
+    templateArgs: 'frequentTargets, coverageCheck, assertionResults',
     templateSuffix: assert,
   }
 );

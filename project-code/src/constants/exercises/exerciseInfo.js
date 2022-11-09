@@ -6,18 +6,23 @@
 //    - 4: Object
 
 export const exerciseGraph = new Map();
-exerciseGraph.set(1.1, [1.2, 2.1]);
-exerciseGraph.set(1.2, [1.3, 2.2]);
+exerciseGraph.set(1.1, [2.1]);
+exerciseGraph.set(1.2, [2.2]);
 exerciseGraph.set(1.3, [2.3]);
-exerciseGraph.set(2.1, []);
-exerciseGraph.set(2.2, []);
-exerciseGraph.set(2.3, [3.1]);
+exerciseGraph.set(1.4, [2.4]);
+exerciseGraph.set(1.5, [2.5]);
+exerciseGraph.set(2.1, [1.2]);
+exerciseGraph.set(2.2, [1.3]);
+exerciseGraph.set(2.3, [1.4]);
+exerciseGraph.set(2.4, [1.5]);
 exerciseGraph.set(3.1, [3.2]);
+exerciseGraph.set(3.2, [3.3]);
+exerciseGraph.set(3.3, [3.4]);
 
 export const exerciseInfo = [
   {
     "type": 1,
-    "label": "Edge Cases",
+    "label": "Edge Cases & Debugging",
     "exercises": [
       {
         "label": "Introduction",
@@ -27,7 +32,10 @@ export const exerciseInfo = [
         <h1>Introduction</h1>
         <hr></hr>
         <h3>Overview</h3>
-        In this section you will be identifying errors or edge cases
+        In this section you will be identifying errors or edge cases in functions and then fixing these errors
+        <br></br>
+        This will provide good practice with reasoning about code correctness, and will also give you practice familiarizing
+        yourself with the javascript language
         <br></br>
         Each exercise will include:
         <ul>
@@ -94,156 +102,7 @@ function fizzbuzz(n) {
         "acceptance-description": "This code fails for all inputs, because the else block always appends 'buzz'",
       },
       {
-        "label": "Fizzbuzz Counts",
-        "id": 1.2,
-        "code": `
-function fizzbuzzCounts(n) {
-  const counts = {
-    fizz: 0,
-    buzz: 0,
-    fizzbuzz: 0,
-  };
-  for (let i = 0; i < n; i ++) {
-    if (i % 3 === 0 && i % 5 === 0) {
-      counts.fizzbuzz ++;
-    } else if (i % 3 === 0) {
-      counts.fizz ++;
-    } else if (i % 5 === 0) {
-      counts.buzz ++;
-    }
-  }
-  return counts;
-}`,
-        "description": `
-        <h1>Fizzbuzz Counts</h1>
-        <hr></hr>
-        This is a variation of the popular fizzbuzz problem. This function also takes a positive integer input and loops
-        through all values from 0 up to and including n. This time, the function should return a <code>counts</code> object
-        that counts how many times the strings 'fizz', 'buzz', and 'fizzbuzz' would be encountered. This means that for 
-        each value from 0 through n, if the value
-        is divisible by 3 and 5, the count for 'fizzbuzz' should be incremented, if it is divisible by just 3
-        then 'fizz' is incremented, and if the value is only divisible by 5 then the count for 'buzz' is incremented.
-        <br></br>
-        Examine the code and identify the error. Then provide an input that exposes this error
-        <br></br>
-        If you are unfamiliar with javascript objects, see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects" target="_blank">this documentation</a>
-        <h4>Defined Behavior:</h4>
-        <ul>
-          <li>Any positive integer input</li>
-        </ul>
-        <h4>Undefined Behavior:</h4>
-        <ul>
-          <li>Any non-integer or non-positive integer inputs</li>
-        </ul>`,
-        "input-type": 1,
-        "param-types": [1],
-        "num-inputs": 1,
-        "show-editor": false,
-        "placeholder-code": "// input n here",
-        "next-exercises": [1.3, 2.2],
-      },
-      {
-        "label": "Rainfall",
-        "id": 1.3,
-        "code": `
-function rainfall(measurements) {
-  let total_rain = 0;
-  let total_days = 0;
-  for (let measurement of measurements) {
-    if (measurement >= 0) {
-      total_rain += measurement;
-      total_days += 1;
-    }
-  }
-  return total_rain / total_days;
-}`,
-        "description": `
-        <h1>Rainfall</h1>
-        <hr></hr>
-        Rainfall is a function that takes an array of integers representing measurements of rainfall amounts across days. The goal
-        of the function is to determine the average amount of rainfall, while ignoring negative values. This means
-        days where a negative rainfall was measured should be completely ignored in the result. 
-        <br></br>
-        Examine the code and identify the error. Then provide an input that exposes this error
-        <br></br>
-        Note that this function takes an array, so your input should be formatted as an array
-        <h4>Defined Behavior:</h4>
-        <ul>
-          <li>Any non-empty array containing any integer values</li>
-        </ul>
-        <h4>Undefined Behavior:</h4>
-        <ul>
-          <li>Any non-array inputs</li>
-          <li>An input array of length 0</li>
-          <li>Any array containing non-integer values</li>
-        </ul>`,
-        "input-type": 1,
-        "param-types": [2.1],
-        "num-inputs": 1,
-        "show-editor": false,
-        "placeholder-code": "[1,2,3,4,5]",
-        "next-exercises": [2.3],
-      },
-//       {
-//         "label": "Object Keys",
-//         "id": 1.4,
-//         "code": `
-// function multiplyObjects(obj1, obj2) {
-//   if (obj1 !== obj2) {
-//     for (const key in obj1) {
-//       if (typeof obj1[key] === 'number' && typeof obj2[key] === 'number') {
-//         obj1[key] = obj1[key] * obj2[key];
-//       } else {
-//         return obj1;
-//       }
-//     }
-//     return obj1;
-//   } else {
-//     return obj1;
-//   }
-// }`,
-//         "description": `This function takes two objects that both have properties a, b, and c, and multiplies the values
-//         associated with each property together and returns the result. Constraints: 1. the objects should not have the
-//         same values for each key, or else the original object is returned. 2: The values should only be numbers. The code
-//         is responsible for checking that these constraints are met.`,
-//         "input-type": 1,
-//         "num-inputs": 2,
-//         "show-editor": false,
-//         "placeholder-code": "// {a: ..., b: ..., c: ...}",
-//       }
-    ]
-  },
-  {
-    "type": 2,
-    "label": "Debugging",
-    "exercises": [
-      {
-        "label": "Introduction",
-        "id": 2.0,
-        "code": "",
-        "description": `
-        <h1>Introduction</h1>
-        <hr></hr>
-        <h3>Overview</h3>
-        In this section you will be debugging the functions from the previous section. The motivation behind this section 
-        is to allow you to practice reasoning about some common bugs so that you can avoid them in your own implementations.
-        <br></br>
-        Each exercise will include:
-        <ul>
-          <li>A description of the function that you will be dubugging</li>
-          <li>Defined behavior that you implementation should take into account</li>
-          <li>The incorrect code</li>
-          <li>An editor where you will implement a correct version of the function</li>
-        </ul>
-        Your job will be to identify the error in the function provided and implement a correct version in the editor provided
-        <br></br>
-        Your implementation should handle all inputs within the scope of the <em>defined behaviors</em>
-        `,
-        "input-type": "",
-        "show-editor": false,
-      },
-      {
-        "label": "Example: Fizzbuzz",
+        "label": "Fizzbuzz Debug",
         "id": 2.1,
         "next-exercises": [],
         "code": `
@@ -302,6 +161,55 @@ function fizzbuzz(n) {
       },
       {
         "label": "Fizzbuzz Counts",
+        "id": 1.2,
+        "code": `
+function fizzbuzzCounts(n) {
+  const counts = {
+    fizz: 0,
+    buzz: 0,
+    fizzbuzz: 0,
+  };
+  for (let i = 0; i < n; i ++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      counts.fizzbuzz ++;
+    } else if (i % 3 === 0) {
+      counts.fizz ++;
+    } else if (i % 5 === 0) {
+      counts.buzz ++;
+    }
+  }
+  return counts;
+}`,
+        "description": `
+        <h1>Fizzbuzz Counts</h1>
+        <hr></hr>
+        This is a variation of the popular fizzbuzz problem. This function also takes a positive integer input and loops
+        through all values from 0 up to and including n. This time, the function should return a <code>counts</code> object
+        that counts how many times the strings 'fizz', 'buzz', and 'fizzbuzz' would be encountered. This means that for 
+        each value from 0 through n, if the value
+        is divisible by 3 and 5, the count for 'fizzbuzz' should be incremented, if it is divisible by just 3
+        then 'fizz' is incremented, and if the value is only divisible by 5 then the count for 'buzz' is incremented.
+        <br></br>
+        Examine the code and identify the error. Then provide an input that exposes this error
+        <br></br>
+        If you are unfamiliar with javascript objects, see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects" target="_blank">this documentation</a>
+        <h4>Defined Behavior:</h4>
+        <ul>
+          <li>Any positive integer input</li>
+        </ul>
+        <h4>Undefined Behavior:</h4>
+        <ul>
+          <li>Any non-integer or non-positive integer inputs</li>
+        </ul>`,
+        "input-type": 1,
+        "param-types": [1],
+        "num-inputs": 1,
+        "show-editor": false,
+        "placeholder-code": "// input n here",
+        "next-exercises": [1.3, 2.2],
+      },
+      {
+        "label": "Fizzbuzz Counts Debug",
         "id": 2.2,
         "next-exercises": [],
         "code": `
@@ -367,6 +275,48 @@ function fizzbuzzCounts(n) {
       },
       {
         "label": "Rainfall",
+        "id": 1.3,
+        "code": `
+function rainfall(measurements) {
+  let total_rain = 0;
+  let total_days = 0;
+  for (let measurement of measurements) {
+    if (measurement >= 0) {
+      total_rain += measurement;
+      total_days += 1;
+    }
+  }
+  return total_rain / total_days;
+}`,
+        "description": `
+        <h1>Rainfall</h1>
+        <hr></hr>
+        Rainfall is a function that takes an array of integers representing measurements of rainfall amounts across days. The goal
+        of the function is to determine the average amount of rainfall, while ignoring negative values. This means
+        days where a negative rainfall was measured should be completely ignored in the result. 
+        <br></br>
+        Examine the code and identify the error. Then provide an input that exposes this error
+        <br></br>
+        Note that this function takes an array, so your input should be formatted as an array
+        <h4>Defined Behavior:</h4>
+        <ul>
+          <li>Any non-empty array containing any integer values</li>
+        </ul>
+        <h4>Undefined Behavior:</h4>
+        <ul>
+          <li>Any non-array inputs</li>
+          <li>An input array of length 0</li>
+          <li>Any array containing non-integer values</li>
+        </ul>`,
+        "input-type": 1,
+        "param-types": [2.1],
+        "num-inputs": 1,
+        "show-editor": false,
+        "placeholder-code": "[1,2,3,4,5]",
+        "next-exercises": [2.3],
+      },
+      {
+        "label": "Rainfall Debug",
         "id": 2.3,
         "next-exercises": [3.1],
         "code": `
@@ -422,9 +372,594 @@ function rainfall(measurements) {
   }
   return total_rain / total_days;
 }`,
-      }
-    ],
+      },
+      {
+        "label": "Letter Groups",
+        "id": 1.4,
+        "input-type": 1,
+        "param-types": [3],
+        "num-inputs": 1,
+        "show-editor": false,
+        "placeholder-code": '"abcd"',
+        "description": `
+        <h1>Letter Groups</h1>
+        <hr></hr>
+        The <code>letterGroups</code> function takes a String and identifies the longest substring of the same character
+        <br></br>
+        Additional requirements are:
+        <ul>
+          <li>If there is a tie for longest substring, return the one that comes first <a href='https://en.wikipedia.org/wiki/Lexicographic_order' target="_blank">lexicographically</a></li>
+        </ul>
+        Examples:
+        <ul>
+          <li><code>letterGroups('aabbbc')</code> returns <code>'bbb'</code></li>
+          <li><code>letterGroups('zyxwvu')</code> returns <code>'z'</code></li>
+          <li><code>letterGroups('123555bcaaa')</code> returns <code>'555'</code></li>
+        </ul>
+        Defined Behavior:
+        <ul>
+          <li>Any string of length >= 0</li>
+        </ul>
+        `,
+        "code": `
+function letterGroups(letters) {
+  let returnGroup = '';
+  let i = 0;
+  while (i < letters.length) {
+    const currLetter = letters.charAt(i);
+    let j = i + 1;
+    while (j < letters.length &&
+           letters.charAt(j) === currLetter) {
+      j += 1;
+    }
+    const newSequence = letters.substring(i, j);
+    if (newSequence.length > returnGroup.length) {
+      returnGroup = newSequence;
+    }
+    i = j;
+  }
+  return returnGroup;
+}
+        `,
+      },
+      {
+        "label": "Letter Groups Debug",
+        "id": 2.4,
+        "code": `
+        function letterGroups(letters) {
+          let returnGroup = '';
+          let i = 0;
+          while (i < letters.length) {
+            const currLetter = letters.charAt(i);
+            let j = i + 1;
+            while (j < letters.length &&
+                   letters.charAt(j) === currLetter) {
+              j += 1;
+            }
+            const newSequence = letters.substring(i, j);
+            if (newSequence.length > returnGroup.length) {
+              returnGroup = newSequence;
+            }
+            i = j;
+          }
+          return returnGroup;
+        }`,
+        "description": `
+        <h1>Letter Groups</h1>
+        <hr></hr>
+        The <code>letterGroups</code> function takes a String and identifies the longest substring of the same character
+        <br></br>
+        Additional requirements are:
+        <ul>
+          <li>If there is a tie for longest substring, return the one that comes first <a href='https://en.wikipedia.org/wiki/Lexicographic_order' target="_blank">lexicographically</a></li>
+        </ul>
+        Examples:
+        <ul>
+          <li><code>letterGroups('aabbbc')</code> returns <code>'bbb'</code></li>
+          <li><code>letterGroups('zyxwvu')</code> returns <code>'z'</code></li>
+          <li><code>letterGroups('123555bcaaa')</code> returns <code>'555'</code></li>
+        </ul>
+        Defined Behavior:
+        <ul>
+          <li>Any string of length >= 0</li>
+        </ul>
+        `,
+        "input-type": "",
+        "show-editor": true,
+        "placeholder-code": `
+function letterGroups(letters) {
+  let returnGroup = '';
+  let i = 0;
+  while (i < letters.length) {
+    const currLetter = letters.charAt(i);
+    let j = i + 1;
+    while (j < letters.length &&
+          letters.charAt(j) === currLetter) {
+      j += 1;
+    }
+    const newSequence = letters.substring(i, j);
+    if (newSequence.length > returnGroup.length) {
+      returnGroup = newSequence;
+    }
+    i = j;
+  }
+  return returnGroup;
+}`,
+      },
+      {
+        "label": "Letter Frequencies",
+        "id": 1.5,
+        "input-type": 1,
+        "param-types": [3],
+        "num-inputs": 1,
+        "show-editor": false,
+        "placeholder-code": '"abcd"',
+        "description": `
+        <h1>Letter Frequencies</h1>
+        <hr></hr>
+        <code>frequentTargets</code> takes a string and returns a 
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set" target="_blank">Set</a> 
+        containing the letters that appear most frequently. However, this function only cares about the letters 'a', 'b', 'c', and 'd',
+        so if a letter other than these is the most frequent, it should be ignored
+        <br></br>
+        Examples:
+        <ul>
+          <li><code>frequentTargets('abc') returns <code>{ 'a', 'b', 'c' }</code></li>
+          <li><code>frequentTargets('abbc') returns <code>{ 'b' }</code></li>
+          <li><code>frequentTargets('azzzzbbccc') returns <code>{ 'c' }</code></li>
+        </ul>
+        `,
+        "code": `
+function frequentTargets(letters) {
+  const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
+  let currLetter;
+  for (let i = 0; i < letters.length; i ++) {
+    currLetter = letters.charAt(i);
+    targets.set(currLetter, targets.get(currLetter) + 1);
+  }
+  let mostFrequent = new Set();
+  let largestCount = null;
+  for (let i = 0; i < letters.length; i ++) {
+    currLetter = letters.charAt(i);
+    if (largestCount === null || targets.get(currLetter) > largestCount) {
+      mostFrequent.clear();
+      mostFrequent.add(currLetter);
+      largestCount = targets.get(currLetter);
+    } else if (targets.get(currLetter) === largestCount) {
+      mostFrequent.add(currLetter);
+    }
+  }
+  return mostFrequent;
+}
+        `,
+      },
+      {
+        "label": "Letter Freq. Debug",
+        "id": 2.5,
+        "input-type": "",
+        "param-types": "",
+        "num-inputs": "",
+        "show-editor": true,
+        "placeholder-code": `
+function frequentTargets(letters) {
+  const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
+  let currLetter;
+  for (let i = 0; i < letters.length; i ++) {
+    currLetter = letters.charAt(i);
+    targets.set(currLetter, targets.get(currLetter) + 1);
+  }
+  let mostFrequent = new Set();
+  let largestCount = null;
+  for (let i = 0; i < letters.length; i ++) {
+    currLetter = letters.charAt(i);
+    if (largestCount === null || targets.get(currLetter) > largestCount) {
+      mostFrequent.clear();
+      mostFrequent.add(currLetter);
+      largestCount = targets.get(currLetter);
+    } else if (targets.get(currLetter) === largestCount) {
+      mostFrequent.add(currLetter);
+    }
+  }
+  return mostFrequent;
+}
+        `,
+        "description": `
+        <h1>Letter Frequencies</h1>
+        <hr></hr>
+        From the previous problem, you may have noticed that the <code>frequentTargets</code> method fails when the input
+        string begins with a character that is not in the target map. This has to do with how the javascript 
+        <code>Map.get(&ltkey&gt)</code> method handles non-existent key lookups. 
+        <br></br>
+        When debugging this function, you have two tasks:
+        <ul>
+          <li>Handle the edge case that you identified in the previous exercise</li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw" target="_blank">Throw</a>
+              an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#examples" target="_blank">Error</a>
+              object if <em>no</em> letters within the targets map are present in the input string.
+              This error should have the message: 'no valid input letters'</li>
+        </ul>
+        <br></br>
+        Examples:
+        <ul>
+          <li><code>frequentTargets('abc')</code> returns <code>{ 'a', 'b', 'c' }</code></li>
+          <li><code>frequentTargets('abbc')</code> returns <code>{ 'b' }</code></li>
+          <li><code>frequentTargets('azzzzbbccc')</code> returns <code>{ 'c' }</code></li>
+          <li><code>frequentTargets('zzabc')</code> returns <code>{ 'a', 'b', 'c' }</code></li>
+          <li><code>frequentTargets('xyz')</code> <em>throws</em> <code>new Error('no valid input letters')</code></li>
+        </ul>
+        `,
+        "code": `
+        function frequentTargets(letters) {
+          const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
+          let currLetter;
+          for (let i = 0; i < letters.length; i ++) {
+            currLetter = letters.charAt(i);
+            targets.set(currLetter, targets.get(currLetter) + 1);
+          }
+          let mostFrequent = new Set();
+          let largestCount = null;
+          for (let i = 0; i < letters.length; i ++) {
+            currLetter = letters.charAt(i);
+            if (largestCount === null || targets.get(currLetter) > largestCount) {
+              mostFrequent.clear();
+              mostFrequent.add(currLetter);
+              largestCount = targets.get(currLetter);
+            } else if (targets.get(currLetter) === largestCount) {
+              mostFrequent.add(currLetter);
+            }
+          }
+          return mostFrequent;
+        }
+        `,
+      },
+
+      // {
+      //   "label": "",
+      //   "id": 0,
+      //   "input-type": 0,
+      //   "param-types": [0],
+      //   "num-inputs": 0,
+      //   "show-editor": false,
+      //   "placeholder-code": '"abcd"',
+      //   "description": ``,
+      //   "code": ``,
+      // }
+//       {
+//         "label": "Object Keys",
+//         "id": 1.4,
+//         "code": `
+// function multiplyObjects(obj1, obj2) {
+//   if (obj1 !== obj2) {
+//     for (const key in obj1) {
+//       if (typeof obj1[key] === 'number' && typeof obj2[key] === 'number') {
+//         obj1[key] = obj1[key] * obj2[key];
+//       } else {
+//         return obj1;
+//       }
+//     }
+//     return obj1;
+//   } else {
+//     return obj1;
+//   }
+// }`,
+//         "description": `This function takes two objects that both have properties a, b, and c, and multiplies the values
+//         associated with each property together and returns the result. Constraints: 1. the objects should not have the
+//         same values for each key, or else the original object is returned. 2: The values should only be numbers. The code
+//         is responsible for checking that these constraints are met.`,
+//         "input-type": 1,
+//         "num-inputs": 2,
+//         "show-editor": false,
+//         "placeholder-code": "// {a: ..., b: ..., c: ...}",
+//       }
+// {
+//   "label": "Introduction",
+//   "id": 2.0,
+//   "code": "",
+//   "description": `
+//   <h1>Introduction</h1>
+//   <hr></hr>
+//   <h3>Overview</h3>
+//   In this section you will be debugging the functions from the previous section. The motivation behind this section 
+//   is to allow you to practice reasoning about some common bugs so that you can avoid them in your own implementations.
+//   <br></br>
+//   Each exercise will include:
+//   <ul>
+//     <li>A description of the function that you will be dubugging</li>
+//     <li>Defined behavior that you implementation should take into account</li>
+//     <li>The incorrect code</li>
+//     <li>An editor where you will implement a correct version of the function</li>
+//   </ul>
+//   Your job will be to identify the error in the function provided and implement a correct version in the editor provided
+//   <br></br>
+//   Your implementation should handle all inputs within the scope of the <em>defined behaviors</em>
+//   `,
+//   "input-type": "",
+//   "show-editor": false,
+// },
+
+
+
+    ]
   },
+  {
+    "type": 2,
+  },
+//   {
+//     "type": 2,
+//     "label": "Debugging",
+//     "exercises": [
+//       {
+//         "label": "Introduction",
+//         "id": 2.0,
+//         "code": "",
+//         "description": `
+//         <h1>Introduction</h1>
+//         <hr></hr>
+//         <h3>Overview</h3>
+//         In this section you will be debugging the functions from the previous section. The motivation behind this section 
+//         is to allow you to practice reasoning about some common bugs so that you can avoid them in your own implementations.
+//         <br></br>
+//         Each exercise will include:
+//         <ul>
+//           <li>A description of the function that you will be dubugging</li>
+//           <li>Defined behavior that you implementation should take into account</li>
+//           <li>The incorrect code</li>
+//           <li>An editor where you will implement a correct version of the function</li>
+//         </ul>
+//         Your job will be to identify the error in the function provided and implement a correct version in the editor provided
+//         <br></br>
+//         Your implementation should handle all inputs within the scope of the <em>defined behaviors</em>
+//         `,
+//         "input-type": "",
+//         "show-editor": false,
+//       },
+//       {
+//         "label": "Example: Fizzbuzz",
+//         "id": 2.1,
+//         "next-exercises": [],
+//         "code": `
+//         function fizzbuzz(n) {
+//           const output = [];
+//           for (let i = 0; i <= n; i ++) {
+//             if (i % 3 === 0 && i % 5 === 0) {
+//               output.push('fizzbuzz');
+//             } else if (i % 3 === 0) {
+//               output.push('fizz');
+//             } else {
+//               // hint:
+//               // this should be an else if block
+//               output.push('buzz');
+//             }
+//           }
+//           return output;
+//         }`,
+//         "description": `
+//         <h1>Example Problem: Fizzbuzz</h1>
+//         <hr></hr>
+//         Fizzbuzz is a well known coding problem that asks for a function that takes a positive integer n, and loops through
+//         each number from 0 through n. For each of these values, if it is divisible by 3 and 5, 'fizzbuzz' should be printed,
+//         if it is divisible by only 3, then 'fizz' should be printed, and if it is divisible by only 5, then 'buzz' should be
+//         printed. 
+//         <br></br>
+//         In this variation, instead of printing the strings, they are pushed to the array <code>output</code> which is then returned.
+//         <br></br>
+//         Examine the code and identify the error, and then implement a correct version in the editor below
+//         <h4>Defined Behavior:</h4>
+//         <ul>
+//           <li>Any positive integer input</li>
+//         </ul>
+//         <h4>Undefined Behavior:</h4>
+//         <ul>
+//           <li>Any non-integer or non-positive integer inputs</li>
+//         </ul>
+//         `,
+//         "input-type": "",
+//         "show-editor": true,
+//         "placeholder-code": `
+// function fizzbuzz(n) {
+//   const output = [];
+//   for (let i = 0; i <= n; i ++) {
+//     if (i % 3 === 0 && i % 5 === 0) {
+//       output.push('fizzbuzz');
+//     } else if (i % 3 === 0) {
+//       output.push('fizz');
+//     } else {
+//       output.push('buzz');
+//     }
+//   }
+//   return output;
+// }
+//         `
+//       },
+//       {
+//         "label": "Fizzbuzz Counts",
+//         "id": 2.2,
+//         "next-exercises": [],
+//         "code": `
+//         function fizzbuzzCounts(n) {
+//           const counts = {
+//             fizz: 0,
+//             buzz: 0,
+//             fizzbuzz: 0,
+//           };
+//           for (let i = 0; i < n; i ++) {
+//             if (i % 3 === 0 && i % 5 === 0) {
+//               counts.fizzbuzz ++;
+//             } else if (i % 3 === 0) {
+//               counts.fizz ++;
+//             } else if (i % 5 === 0) {
+//               counts.buzz ++;
+//             }
+//           }
+//           return counts;
+//         }`,
+//         "description": `
+//         <h1>Fizzbuzz Counts</h1>
+//         <hr></hr>
+//         This is a variation of the popular fizzbuzz problem. This function also takes a positive integer input and loops
+//         through all values from 0 up to and including n. This time, the function should return a <code>counts</code> object
+//         that counts how many times the strings 'fizz', 'buzz', and 'fizzbuzz' would be encountered. This means that for 
+//         each value from 0 through n, if the value
+//         is divisible by 3 and 5, the count for 'fizzbuzz' should be incremented, if it is divisible by just 3
+//         then 'fizz' is incremented, and if the value is only divisible by 5 then the count for 'buzz' is incremented.
+//         <br></br>
+//         Examine the code and identify the error, then implement a correct version in the editor below
+//         <br></br>
+//         If you are unfamiliar with javascript objects, see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects" target="_blank">this documentation</a>
+//         <h4>Defined Behavior:</h4>
+//         <ul>
+//           <li>Any positive integer input</li>
+//         </ul>
+//         <h4>Undefined Behavior:</h4>
+//         <ul>
+//           <li>Any non-integer or non-positive integer inputs</li>
+//         </ul>
+//         `,
+//         "input-type": "",
+//         "show-editor": true,
+//         "placeholder-code":`
+// function fizzbuzzCounts(n) {
+//   const counts = {
+//     fizz: 0,
+//     buzz: 0,
+//     fizzbuzz: 0,
+//   };
+//   for (let i = 0; i < n; i ++) {
+//     if (i % 3 === 0 && i % 5 === 0) {
+//       counts.fizzbuzz ++;
+//     } else if (i % 3 === 0) {
+//       counts.fizz ++;
+//     } else if (i % 5 === 0) {
+//       counts.buzz ++;
+//     }
+//   }
+//   return counts;
+// }`,
+//       },
+//       {
+//         "label": "Rainfall",
+//         "id": 2.3,
+//         "next-exercises": [3.1],
+//         "code": `
+//         function rainfall(measurements) {
+//           if (measurements.length === 0) {
+//             return 0;
+//           }
+//           let total_rain = 0;
+//           let total_days = 0;
+//           for (let measurement of measurements) {
+//             if (measurement >= 0) {
+//               total_rain += measurement;
+//               total_days += 1;
+//             }
+//           }
+//           return total_rain / total_days;
+//         }`,
+//         "description": `
+//         <h1>Rainfall</h1>
+//         <hr></hr>
+//         Rainfall is a function that takes an array of integers representing measurements of rainfall amounts across days. The goal
+//         of the function is to determine the average amount of rainfall, while ignoring negative values. This means
+//         days where a negative rainfall was measured should be completely ignored in the result. 
+//         <br></br>
+//         In this version, if a measurement of 99999 is encountered, all subsequent measurements should be ignored
+//         <br></br>
+//         Examine the code and identify the error. Then implement a correct version in the editor below
+//         <h4>Defined Behavior:</h4>
+//         <ul>
+//           <li>Any non-empty array containing any integer values</li>
+//         </ul>
+//         <h4>Undefined Behavior:</h4>
+//         <ul>
+//           <li>Any non-array inputs</li>
+//           <li>An input array of length 0</li>
+//           <li>Any array containing non-integer values</li>
+//         </ul>
+//         `,
+//         "input-type": "",
+//         "show-editor": true,
+//         "placeholder-code":`
+// function rainfall(measurements) {
+//   if (measurements.length === 0) {
+//     return 0;
+//   }
+//   let total_rain = 0;
+//   let total_days = 0;
+//   for (let measurement of measurements) {
+//     if (measurement >= 0) {
+//       total_rain += measurement;
+//       total_days += 1;
+//     }
+//   }
+//   return total_rain / total_days;
+// }`,
+//       },
+//       {
+//         "label": "Letter Groups",
+//         "id": 2.4,
+//         "code": `
+//         function letterGroups(letters) {
+//           let returnGroup = '';
+//           let i = 0;
+//           while (i < letters.length) {
+//             const currLetter = letters.charAt(i);
+//             let j = i + 1;
+//             while (j < letters.length &&
+//                    letters.charAt(j) === currLetter) {
+//               j += 1;
+//             }
+//             const newSequence = letters.substring(i, j);
+//             if (newSequence.length > returnGroup.length) {
+//               returnGroup = newSequence;
+//             }
+//             i = j;
+//           }
+//           return returnGroup;
+//         }`,
+//         "description": `
+//         <h1>Letter Groups</h1>
+//         <hr></hr>
+//         The <code>letterGroups</code> function takes a String and identifies the longest substring of the same character
+//         <br></br>
+//         Additional requirements are:
+//         <ul>
+//           <li>If there is a tie for longest substring, return the one that comes first <a href='https://en.wikipedia.org/wiki/Lexicographic_order' target="_blank">lexicographically</a></li>
+//         </ul>
+//         Examples:
+//         <ul>
+//           <li><code>letterGroups('aabbbc')</code> returns <code>'bbb'</code></li>
+//           <li><code>letterGroups('zyxwvu')</code> returns <code>'z'</code></li>
+//           <li><code>letterGroups('123555bcaaa')</code> returns <code>'555'</code></li>
+//         </ul>
+//         Defined Behavior:
+//         <ul>
+//           <li>Any string of length >= 0</li>
+//         </ul>
+//         `,
+//         "input-type": "",
+//         "show-editor": true,
+//         "placeholder-code": `
+// function letterGroups(letters) {
+//   let returnGroup = '';
+//   let i = 0;
+//   while (i < letters.length) {
+//     const currLetter = letters.charAt(i);
+//     let j = i + 1;
+//     while (j < letters.length &&
+//            letters.charAt(j) === currLetter) {
+//       j += 1;
+//     }
+//     const newSequence = letters.substring(i, j);
+//     if (newSequence.length > returnGroup.length) {
+//       returnGroup = newSequence;
+//     }
+//     i = j;
+//   }
+//   return returnGroup;
+// }`,
+//       }
+//     ],
+//   },
   {
     "type": 3,
     "label": "Unit Tests",
@@ -513,7 +1048,8 @@ assert(checkParity() === );
         "id": 3.2,
         "code": `
 // function stub:
-
+// in  -> Array[Number] measurements
+// out -> Number
 function rainfall(measurements) {}`,
         "description": `
         <h1>Rainfall</h1>
@@ -536,7 +1072,91 @@ function rainfall(measurements) {}`,
 
 assert(rainfall([5,5,5,5,5]) === 5);
 
-`},
+`     },
+      {
+        "label": "Letter Groups",
+        "id": 3.3,
+        "input-type": "",
+        "show-editor": true,
+        "placeholder-code": `
+assert(letterGroups() === );
+`,
+        "code": `
+// function stub:
+// in  -> String letters
+// out -> String
+function letterGroups(letters) {}`,
+        "description": `
+        <h1>Letter Groups</h1>
+        <hr></hr>
+        The <code>letterGroups</code> function takes a String and identifies the longest substring of the same character
+        <br></br>
+        Additional requirements are:
+        <ul>
+          <li>If there is a tie for longest substring, return the one that comes first <a href='https://en.wikipedia.org/wiki/Lexicographic_order' target="_blank">lexicographically</a></li>
+        </ul>
+        Examples:
+        <ul>
+          <li><code>letterGroups('aabbbc')</code> returns <code>'bbb'</code></li>
+          <li><code>letterGroups('zyxwvu')</code> returns <code>'z'</code></li>
+          <li><code>letterGroups('123555bcaaa')</code> returns <code>'555'</code></li>
+        </ul>
+        Defined Behavior:
+        <ul>
+          <li>Any string of length >= 0</li>
+        </ul>
+        `,
+      },
+      {
+        "label": "Letter Frequencies",
+        "id": 3.4,
+        "input-type": "",
+        "param-types": "",
+        "num-inputs": "",
+        "show-editor": true,
+        "placeholder-code": `
+assert()
+`,
+        "description": `
+        <h1>Letter Frequencies</h1>
+        <hr></hr>
+        This problem requires you to test the functionality of the given function as well as test for an
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#examples" target="_blank">error</a>
+        that the function
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw" target="_blank">throws</a>.  
+        <br></br>
+        The <code>frequentTargets</code> function should:
+        <ul>
+          <li>Return a 
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set" target="_blank">Set</a> 
+          object</li>
+          <li>This set should contain the letters that occur most frequently in the input string</li>
+          <li>The function only cares about the <em>target</em> letters: 'a', 'b', 'c', and 'd', meaning that any other
+          letters should be ignored</li>
+          <li>Finally, if none of the target letters occur in the input string, an Error is thrown</li>
+        </ul>
+        For Example:
+        <ul>
+          <li><code>frequentTargets('azzzzbbccc')</code> returns <code>{ 'c' }</code></li>
+          <li><code>frequentTargets('zzabc')</code> returns <code>{ 'a', 'b', 'c' }</code></li>
+          <li><code>frequentTargets('xyz')</code> <em>throws</em> <code>new Error('no valid input letters')</code></li>
+        </ul>
+        Hints:
+        <ul>
+          <li>Set objects cannot be compared with the equality operators (==, ===), so you will need to come up with a
+          thoughtful way to check if the output is correct</li>
+          <li>To test for the error that is thrown, see this documentation on the 
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch" target="_blank">try catch statement</a></li>
+        </ul>
+        `,
+        "code": `
+        // function stub:
+        // in  -> String
+        // out -> Set object
+        // throws -> Error('no valid input letters')
+        frequentTargets(letters) {}
+        `,
+      },
     ],
   }
 ];

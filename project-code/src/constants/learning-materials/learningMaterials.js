@@ -45,8 +45,7 @@ export const contentDescriptions = [
     <hr></hr>
     <h3>Example</h3>
     Say you have the function:
-    <pre>
-      <code>
+    -codeSegmentStart-
       function getMax(array) {
         let max = array[0];
         for (let i = 1; i < array.length; i ++) {
@@ -56,19 +55,16 @@ export const contentDescriptions = [
         }
         return max;
       }
-      </code>
-    </pre>
+    -codeSegmentEnd-
     Unit tests usually involve an <code>assert</code> statement. This is a statement that expects a certain condition to
     be true. This is a way of saying that we expect our function to output a specific result.
     <br></br>
     Unit tests for this may look like:
-    <pre>
-      <code class='javascript'>
+    -codeSegmentStart-
       assert(getMax([1,2,3,4,5]) === 5);
       assert(getMax([5,4,3,2,1]) === 5);
       assert(getMax([]) === null);
-      </code>
-    </pre>
+    -codeSegmentEnd-
     These unit tests would expose a bug in the code: the empty array input is not handled. This makes it clear where the
     error is located and the code can be easily adjusted. 
 
@@ -103,8 +99,7 @@ export const contentDescriptions = [
       <li>Mechanism for retrieving weather information based on the user input</li>
     </ul>
     Say the interface for the input formatter looks like:
-    <pre>
-      <code>
+    -codeSegmentStart-
       class InputHandler {
 
         format(input) {
@@ -114,11 +109,9 @@ export const contentDescriptions = [
           //    will retrieve the one that is not provided from a database
         }
       }
-      </code>
-    </pre>
+      -codeSegmentEnd-
     And the interface for the weather retrieval system looks like:
-    <pre>
-      <code>
+    -codeSegmentStart-
       class GetWeather {
 
         retrieve(locationData) {
@@ -127,11 +120,9 @@ export const contentDescriptions = [
           // returns the weather data
         }
       }
-      </code>
-    </pre>
+      -codeSegmentEnd-
     A possible test case that exercises the integration of these components:
-    <pre>
-      <code>
+    -codeSegmentStart-
       function TestInputHanderGetWeatherIntegration1() {
         // create instance of input handler
         const inputHandler = new InputHandler();
@@ -152,8 +143,7 @@ export const contentDescriptions = [
         const expectedResult = '79 degrees';
         assert(weatherResult === expectedResult);
       }
-      </code>
-    </pre>
+      -codeSegmentEnd-
     It is assumed that each of these components would be thoroughly unit tested first
     <br></br>
     Notice that the test follows an <em>arrange</em>, <em>act</em>, <em>assert</em> pattern
@@ -193,8 +183,7 @@ export const contentDescriptions = [
       <li>Compress and export the file</li>
     </ul>
     With this in mind, the exposed API for this system may look something like:
-    <pre>
-      <code>
+    -codeSegmentStart-
         class ImageEditor {
 
           constructor(filePath) {
@@ -212,8 +201,7 @@ export const contentDescriptions = [
 
           compressImage(compressionFormat) {}
         }
-      </code>
-    </pre>
+        -codeSegmentEnd-
     Assume that there is some interface through which the user is interacting with the file, and as they make edits,
     these methods are called according to the actions of the user
     <br></br>
@@ -223,8 +211,7 @@ export const contentDescriptions = [
     by this point.
     <br></br>
     One of our system tests may look something like:
-    <pre>
-      <code>
+    -codeSegmentStart-
         function testCropImage() {
           // arrange:
           const imagePath = './test-images/test-image-1.jpg';
@@ -245,8 +232,7 @@ export const contentDescriptions = [
           assert(newDimensions === expectedDimensions); // cannot actually compare objects like this
                                                         // would need to loop through attributes
         }
-      </code>
-    </pre>
+        -codeSegmentEnd-
     This process would repeat until we've thoroughly exercised each of the exposed methods
     <br></br>
     Also, a single test per method is likely not enough - it is important to think of edge cases here too
