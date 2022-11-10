@@ -1,1 +1,13 @@
+# General:
 .DS_Store
+
+# ./comps-paper:
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
