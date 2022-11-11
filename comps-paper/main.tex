@@ -10,12 +10,12 @@
 
 % include metadata in the generated pdf file
 \pdfinfo{
-    /Title (Comps Proposal)
+    /Title (Comps Paper)
     /Author (Alec Phillips)
 }
 
 % set the title and author information
-\title{Comps Proposal}
+\title{Comps Paper}
 \author{Alec Phillips}
 \affiliation{Occidental College}
 \email{aphillips2@oxy.edu}
@@ -35,7 +35,7 @@ efficient test cases that create confidence in one's code. Thus, this skill shou
 other programming techniques. Software testing is also nuanced and there are numerous testing techniques that are 
 important for students to learn about and have experience putting into practice. The importance of software testing 
 serves as the motivation behind my comps project idea; I would like to create a web application that teahches software 
-testing and the strategy of test-driven development. 
+testing techniques and exposes introductory to intermediate level students to related concepts. 
 
 A web application that teaches software testing would be beneficial to computer science education in general because 
 it could be added to a standard computer science curriculum to help students get exposure to the concept. My goal is to 
@@ -46,11 +46,13 @@ software testing techniques.
 \section{Technical Background}
 
 This section will cover the relevant terminology that is critical for understanding the technical side of my project as
-well as the general goals of my application. These include general software testing techniques, as well as the framework 
-of test-driven development. It is also important to distinguish between software testing strategies and software 
-development frameworks, and how these concepts interact.
+well as the general goals of my application. These include general software testing techniques, as well as related topics
+such as test-driven development, error handling, edge case identification, and debugging. It is important that students
+view testing as an important aspect of software development.
 
 \subsection{Software Testing Techniques}
+
+\subsubsection{Scopes of Testing}
 
 Testing is a nuanced aspect of software development, and there are several key techniques that are commonly employed for 
 writing tests. These different techniques are often used together to comprehensively exercise code, as they work 
@@ -61,16 +63,23 @@ test. These categories are unit testing, integration testing, end-to-end testing
 \cite{Luo2001Article}. These are the four categories of testing that I plan to teach in my application, so it is 
 important to elaborate on them in this section. 
 
-Unit tests are those that have the narrowest 
-scope. These are tests that apply to individual modules of code. Defining a specific unit of the code is up to the 
-developer, but it is standard for unit tests to apply to specific functions, although it can also apply to an entire 
-module. Integration testing checks that the individual units are interacting as expected. This means that the interfaces 
-between the units as well as the general information flow between them should be exercised. System, or end-to-end 
-testing evaluates the overall requirements of the entire application. System tests would generally involve providing 
-inputs at the most general or external level, and evaluating that the outputs are as expected. For these tests to pass, 
-all the internal processes of the aspect being tested must be functioning correctly. Acceptance testing is the final 
-step, in which it is determined if the piece of software conforms to the general specification requirements, and also 
-aligns with what the client or user is expecting \cite{Luo2001Article}. 
+\begin{itemize}
+    \item{Unit tests are those that have the narrowest 
+    scope. These are tests that apply to individual modules of code. Defining a specific unit of the code is up to the 
+    developer, but it is standard for unit tests to apply to specific functions, although it can also apply to an entire 
+    module.}
+    \item{Integration testing checks that the individual units are interacting as expected. This means that the interfaces 
+    between the units as well as the general information flow between them should be exercised.}
+    \item{System, or end-to-end 
+    testing evaluates the overall requirements of the entire application. System tests would generally involve providing 
+    inputs at the most general or external level, and evaluating that the outputs are as expected. For these tests to pass, 
+    all the internal processes of the aspect being tested must be functioning correctly.}
+    \item{Acceptance testing is the final 
+    step, in which it is determined if the piece of software conforms to the general specification requirements, and also 
+    aligns with what the client or user is expecting \cite{Luo2001Article}. }
+\end{itemize}
+   
+\subsubsection{Styles of Testing}
 
 In addition to the four categories of testing discussed above, there are also two styles of tests that serve different 
 purposes, and can each be applied to a either subset or all of the above categories. Once again, it is important to know 
@@ -85,87 +94,100 @@ implementation to make sure that the internal code is operating as expected. Thi
 outputs, but instead at the operations taking place within the code. Unit tests, integration tests, and system tests 
 can all be structural, however acceptance tests cannot. This is because acceptance tests evaluate whether the system's 
 bahavior aligns with what the end user is expecting, and the user or client will (likely) not have any understanding of 
-the internal implementation of the code \cite{Sawant2012Article}. My intention is to expose students to both of these 
-testing styles in my application.
+the internal implementation of the code \cite{Sawant2012Article}.
+
+\subsubsection{Arrange, Act, Assert}
+
+Along with these types/styles of testing, my application includes information on testing best practices. These include
+the \textit{arrange}, \textit{act}, \textit{assert} style of writing tests. This is the generally accepted format of 
+structuring each test case. 
+\begin{enumerate}
+    \item{The arrange step involves setting up any context necessary to run the test - this could 
+    include initializing objects and variables that will be involved in the test.}
+    \item{In the act step, function calls are made that exercise the behavior under test. Results of these calls are set
+    to variables.}
+    \item{The variables resulting from the act step are then checked for correctness in the assert step. This involves
+    some form of \textit{assertion} statement that will see if the act step resulted in the expected values and throw
+    an error if the result is not as expected.}
+\end{enumerate}
+
+\subsubsection{Error Handling}
+
+Finally, the application exposes students to the concept of error handling in code. This is more tangentially related to 
+testing but is still important to understand. It relates to software testing because the appropriate use of error handling 
+makes code easier to test and debug. My application focuses on error handling to the extent of including a content section
+that goes into detail on how to raise errors in javascript, how to catch and handle these errors, as well as how to test
+for errors being raised. It can be easily overlooked that test cases can be dedicated to checking for a particular type 
+of error being raised in a certain situation, so it is important and relevant for students to learn about how to test 
+for raised errors in this way. 
 
 \subsection{Test-Driven Development}
 
-This section will provide an overview of test-driven development, elaborating on how this software strategy is put into 
-practice, its general goals, and how it fits into context with specific testing methods and other software 
-development techniques. It is important to understand that test-driven development is not a testing strategy, such as 
-the ones discussed in the prior section. Instead, it is a software development framework, meaning
-that it informs the entire software development process, not just the testing aspect \cite{George2004Article}. This is 
-an important distinction to make, as it is critical to understanding the general aims of test-driven development. This 
-section will also discuss some of the benefits and shortcomings of test-driven development. 
+Initially, I had wanted my application to specifically have students practice the process of test-driven development. 
+However, after beginning to develop coding exercises, it became clear that it is difficult to have users practice this 
+development strategy within the confines of an application. This is because the process of test-driven development inverts
+the standard order of writing and then testing code, and can be abstract. I decided that it would be more engaging for students to be able to 
+immediately run their test cases against a specific function. Thus, I did not include exercises specifically on test-driven
+development, but it is still explained in the Learn section of my application. Because TDD is increasingly being used in 
+industry, students should have an understanding of the general process. 
 
-Test-driven development lays out a detailed approach to developing software that is centered around allowing 
-code testing to push forward the project. The general idea is that test cases are written that in turn motivate the code 
-that needs to be written. The general steps in test-driven development are: 1 - write test cases for the next unit of 
-code being added to the project, 2 - write the code that the first test case is exercising (until it satisfies the test 
-case), 3 - refactor the code as needed, 4 - re-run all existing test cases to check for regressions in the code base 
-\cite{Bhat2006Article}. This process then repeats until the project is complete. Thus, this process informs the 
-development of the entire project, not just the testing aspect. 
+It is important to understand that test-driven development is not a testing strategy, such as 
+the ones discussed in the prior section. Instead, it is a software development framework, meaning
+that it informs the entire software development process, not just the testing aspect \cite{George2004Article}.
 
 Test-driven development fits within the Agile approach of software development \cite{Janzen2005Article}. Agile 
 strategies tend to involve an iterative process that repeats until a project is complete, and is a common industry 
 practice. This sits in contrast to older styles of development, such as Waterfall, which have more upfront design 
-prior to coding. With Agile methods, design is incorporated into each iteration of development, making thee approaches 
-more adaptive. This is beneficial if challenges come up, as design decisions can change more easily as 
-needed. With a strategy like Waterfall, where all the design takes place before coding, it becomes more difficult to 
-adjust design decisions later on in the project. Test-driven development is also considered a practice of extreme 
+prior to coding. Test-driven development is also considered a practice of extreme 
 programming, or XP, which takes basic development principles, such as testing, and emphasizes them to drive the entire 
-development process \cite{Desai2008Article}. 
+development process \cite{Desai2008Article}.
 
-It is also important to acknowledge that there are downsides to test-driven development. These shortcomings are valuable 
-for me to understand before incorporating test-driven 
-development as an main aspect of what my application will teach, as well as for users to understand. I do not want to 
-present the concept as the ultimate or only way to approach software development, however I believe it is useful for 
-students to be exposed to the concept and that it a valuable way for students to learn the importance of software testing. The main 
-limitations of test-driven development stem from the fact that there is little emphasis on overall system design 
-\cite{George2004Article}. This can necessitate heavy code refactoring later on, since everything is developed in small 
-chunks. Thus, it is important that my application conveys the importance of overall system design so that students are 
-aware of its importance. I want users of my application to be aware of these considerations, should they choose to practice test-driven 
-development in their own projects. 
+Test-driven development lays out a detailed approach to developing software that is centered around allowing 
+code testing to push forward the project, in the sense that test cases are written that in turn motivate the code 
+that needs to be written. 
+
+\subsubsection*{Steps of TDD:}
+\begin{enumerate}
+    \item write test cases for the next unit of code being added to the project
+    \item write the code that the first test case is exercising (until it satisfies the test case)
+    \item refactor the code as needed (both function and test case)
+    \item re-run all existing test cases to check for regressions in the code base \cite{Bhat2006Article}
+\end{enumerate}
+This process then repeats until the project is complete. Thus, this process informs the 
+development of the entire project, not just the testing aspect. 
+
+ 
+% TODO:
+%   Can't talk about this unless I add to the TDD section of the Learn area to talk about some of the downsides/limitations
+%   of TDD
+
+% It is also important to acknowledge that there are downsides to test-driven development. These shortcomings are valuable 
+% for me to understand before incorporating test-driven 
+% development as an main aspect of what my application will teach, as well as for users to understand. I do not want to 
+% present the concept as the ultimate or only way to approach software development, however I believe it is useful for 
+% students to be exposed to the concept and that it a valuable way for students to learn the importance of software testing. The main 
+% limitations of test-driven development stem from the fact that there is little emphasis on overall system design 
+% \cite{George2004Article}. This can necessitate heavy code refactoring later on, since everything is developed in small 
+% chunks. Thus, it is important that my application conveys the importance of overall system design so that students are 
+% aware of its importance. I want users of my application to be aware of these considerations, should they choose to practice test-driven 
+% development in their own projects. 
 
 \section{Prior Work}
 
-There is a considerable amount of existing research into the effectiveness of test-driven development. There have been 
-several studies examining test-driven development in industry. This section will use these to get a better sense of the 
-concept and its efficacy. Additionally, there is some research into the addition of test-driven development to 
-academic curricula. This research will help me evaluate how best to integrate test-driven development into an 
-educational application. 
+This section explores some of the literature on incorporating software testing in to computer science education, as well 
+as some of the areas that this can be improved. This research helped guide and motivate my project in terms of helping me 
+determine what my application should focus on and the gaps that it is helping to fill.
 
-\subsection{Test-Driven Development in Industry}
+% TODO:
+%   same as below, this can be discussed IF I improve the Learn section on TDD
 
-I looked at two studies exploring the effectivenss of test-driven devlopment in industry. Both of these compared a group 
-that used test-driven development and a control group that employed their standard development practices. The first 
-study looked at two divisions in Microsoft (Windows and MSN). This study looked at effects of test-driven development on 
-code quality as well as total development time. Code quality was calculated by number of code defects as well as 
-KLOC (thousands of lines of code) between teams using test-driven development and teams in the control group. 
-Using these metrics, the study found that, for both departments, code quality was higher with test-driven development, 
-while development time was also higher; the Windows division had 2.6 times higher code quality and the MSN team had 4.2 
-times higher code quality using test-driven development, but also experienced 35 and 15 percent increases in development 
-time respectively \cite{Bhat2006Article}. It is encouraging that the implementation of test-driven development increased 
-code quality, and interesting that it also raised development times. The reason behind this could just be that the 
-developers were more accostomed to the workflows of their previous development strategy, so they were slightly slower 
-when using test-driven development. However, this difference in efficiency is fairly significant, so it is worth 
-considering the balance between code quality and work efficiency. 
-
-The second study took programmers from three companies and had them pair program a bowling game. The programmers were 
-split into test-driven development groups and control groups. They were evaluated on their ability to pass a set of test 
-cases that they were not allowed to test against before submitting, and also their ability to write their own comprehensive test cases. 
-Their time spent to complete the project was also assessed. This study found quite similar results; the test-driven 
-development groups passed more of the test cases, but took longer to develop the project by 16 percent 
-\cite{George2004Article}. This aligns with the findings in the previous study, and it is interesting that once again the 
-test-driven development groups took longer to develop the project than the control groups. However, it is positive that
-in both studies, the use of test-driven development seemed to lead to fewer errors. Another interesting finding from this 
-study is that all but one of the control groups failed to provide comprehensive test cases for their code, despite being 
-directed to do so \cite{George2004Article}. I find this to be particularly interesting, because even professional 
-developers chose not to thoroughly test their code when it was not built in as a part of their development process. This 
-emphasizes the value of test-driven development's integration of testing into the coding process, because even 
-professionals are not always inclined to thoroughly test their code. 
+% This section will also briefly look at some research into the effectiveness of test-drivenuse these to get a better sense of the 
+% concept and its efficacy. 
 
 \subsection{Software Testing in Education} 
+
+% TODO:
+%   this whole section needs to be re-framed to focus less on TDD and more on just learning testing...
 
 This section will discuss some of the strategies that have been used to teach software testing and test-driven 
 development in the past. This will inform the approach that I take for teaching software testing in my application. 
@@ -202,6 +224,40 @@ be unrealistic to implement in a classroom setting, because it would likely put 
 espcially when computer science classes are already time consuming and challenging. However, I can base the exercises in 
 my application around this idea, requiring students to write code along with test cases that must reach a certain amount 
 of coverage of their code, or catch certain edge cases. 
+
+% TODO:
+%   don't add this until the section in the application on TDD is improved
+%   this section is not currently very relevant to my application...
+
+% \subsection{Test-Driven Development in Industry}
+
+% I looked at two studies exploring the effectivenss of test-driven devlopment in industry. Both of these compared a group 
+% that used test-driven development and a control group that employed their standard development practices. The first 
+% study looked at two divisions in Microsoft (Windows and MSN). This study looked at effects of test-driven development on 
+% code quality as well as total development time. Code quality was calculated by number of code defects as well as 
+% KLOC (thousands of lines of code) between teams using test-driven development and teams in the control group. 
+% Using these metrics, the study found that, for both departments, code quality was higher with test-driven development, 
+% while development time was also higher; the Windows division had 2.6 times higher code quality and the MSN team had 4.2 
+% times higher code quality using test-driven development, but also experienced 35 and 15 percent increases in development 
+% time respectively \cite{Bhat2006Article}. It is encouraging that the implementation of test-driven development increased 
+% code quality, and interesting that it also raised development times. The reason behind this could just be that the 
+% developers were more accostomed to the workflows of their previous development strategy, so they were slightly slower 
+% when using test-driven development. However, this difference in efficiency is fairly significant, so it is worth 
+% considering the balance between code quality and work efficiency. 
+
+% The second study took programmers from three companies and had them pair program a bowling game. The programmers were 
+% split into test-driven development groups and control groups. They were evaluated on their ability to pass a set of test 
+% cases that they were not allowed to test against before submitting, and also their ability to write their own comprehensive test cases. 
+% Their time spent to complete the project was also assessed. This study found quite similar results; the test-driven 
+% development groups passed more of the test cases, but took longer to develop the project by 16 percent 
+% \cite{George2004Article}. This aligns with the findings in the previous study, and it is interesting that once again the 
+% test-driven development groups took longer to develop the project than the control groups. However, it is positive that
+% in both studies, the use of test-driven development seemed to lead to fewer errors. Another interesting finding from this 
+% study is that all but one of the control groups failed to provide comprehensive test cases for their code, despite being 
+% directed to do so \cite{George2004Article}. I find this to be particularly interesting, because even professional 
+% developers chose not to thoroughly test their code when it was not built in as a part of their development process. This 
+% emphasizes the value of test-driven development's integration of testing into the coding process, because even 
+% professionals are not always inclined to thoroughly test their code. 
 
 \section{Ethical Considerations}
 
