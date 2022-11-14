@@ -359,67 +359,134 @@ information in danger.
 
 \subsection{Implementation}
 
-The implementation of this project will have three main parts: the front-end code, the server-side code, and the 
-database. To build this, I plan to use React, Express, and mySQL. The two most nuanced aspects of the implementation 
-will likely be the integration of an in-page text editor and the evaluation of student code from coding exercises. For the 
-text editor, I have found a tutorial that I will be using for how to implement this using React. The alternative to this 
-approach would be to have users submit files containing their code, instead of having them type directly into an editor 
-in the webpage. I would prefer to offer the in-page editor because I think it would be more intuitive for users. 
-However, the option of having users submit files is a potential backup if incorporating an editor proves to be rather 
-challenging. As for code evaluation, at this point I do not 
-have a specific approach for its implementation, but it is at least valuable to 
-be aware that this aspect will be challenging. When it comes time to start coding, I will know to prioritize this part 
-of the project. 
+The project is build fully using React.js and javascript, along with CSS and HTML. Originally, I intended to have a server-side 
+API running that would process code submissions, as well as a database to store the excercises as well as user progress. This 
+would require the application to have a login page, and the code evaluation would need to involve using subprocesses or something 
+analogous in order to asynchronously run users' code submissions. Additionally, running user generated code on the server-side 
+is inherently dangerous, because they gain access to the file system and OS of the server. In order to safely run their code,
+I would have needed to either restrict what the user is allowed to write in the code editor, or heavily verify their submissions. 
+This would be very difficult and time consuming to do sufficiently, and would take away from the ability to focus on other aspects 
+of the application like usability. 
 
-\subsection{Design}
+All of these factors lead me to end up choosing to build the application as a server-less web-page. This way, the user generated 
+code is only running in their web-browser, and so they have no ability to break a remote server with their code. Additionally, 
+this takes away the reliance on having a network connection to submit code, and there is no need to handle multiple submissions 
+asynchronously, as would be necessary if a back-end were implemented. This also makes the application very fast, since it is 
+independent of the speed of the network. One drawback of this design is that all coding exercises had to be in javascript, 
+because that is the only language that can run in the web-browser, without the use of some sort of cross-compiler that would 
+convert from another language into javascript. I had initially wanted to have the exercises be in python, however javascript 
+is also a good language for students to get introduced to, especially if they are interested in going into front-end development. 
 
-I would like to allow the application to be interacted with by users with accounts where their progress on materials and
-exercises is preserved, as well as by users without accounts, where all the materials and exercises are still accessible 
-but their progress is not saved. This is inspired by \href{https://codingbat.com/java}{CodingBat}, which is one of my favorite online computer science 
-education resources \cite{CodingBat}. This cite was created by a Stanford professor for his introductory computer 
-science students. It offers the option for users to create an account and save their progress, but users who do not wish 
-to create an account can still access all of the instructional material. I also find the overall experience of using the 
-website to be intuitive and simple. The user interface is bare-bones and easy to navigate. I think the main way 
-that I would like my interface design to differ from CodingBat is in the organization of the exercises in relation to 
-the supplementary content explanations; I would like to place more emphasis on pairing together the exercises and 
-explanations, and also offer a more clear path through the material so that the content can build on itself. A diagram 
-of my desired site layout can be found in figure \ref{UI-flow-diagram}.
+% TODO:
+%   talk about how I got around not having a db, how I store user progress, etc. 
+One main drawback that the serverless design posed was the lack of a database. My main concern without a database was figuring
+out how to store the content descriptions and exercises, as well as storing user progress. However, I realized that another 
+way to achieve the storing of user progress was through the browser's localStorage feature. This is a structure stored by the 
+browser that each webpage can access through a simple get/set API. I leveraged this to store a list of exerciseIds corresponding 
+to the exercises that the user has completed. Upon a correct exercise submission, the application updates this list, which is 
+saved and loaded on subsequent visits to the application. In order to get around storing other data that would have been put 
+into a database, I stored the data in javascript objects. This simulates the way that the data would be stored in a non-relational
+database. I looked into serverless database options, but after learning that the localStorage option was available, I chose to go 
+down that route because it seemed more feasible for the scale of the application. 
 
-\begin{figure}[!ht]
-    \includegraphics[scale=.7]{./images/UI-Flow-Diagram}
-    \caption{Intended Application UI/Page Flow}
-    \label{UI-flow-diagram}
-\end{figure}
+Additionally, the lack of a server came along with several advantages for usability as well as ease of development. The general
+usability is improved because the lack of a back-end system means that the application is very quick and responsive, because 
+there is no reliance on network connection speeds in sending information back and forth. Additionally, since all the data 
+that the application needs in order to run is held in the browser upon initial loading, if network connection is subsequently 
+lost, the application is still fully usable. This is advantageous because it makes the application more usable for individuals 
+with less stable internet connections. In terms of ease of development, the lack of a server-side made the application much 
+easier to deploy; I was able to deploy through github pages, which was a very simple process. This ease of deployment made 
+it easier to have an initial deployment out earlier, meaning I was able to do a first round of user evaluations fairly early, 
+allowing me more time to iterate on feedback and get input from users. 
 
-\subsection{Hands on Research}
-% TODO: go more in depth on the specific questions that I will ask in these interviews
 
-To inform my decisions for this project, I will conduct interviews with both computer science educators as well as 
-industry professionals. This will allow me to get important perspectives on what I should aim to accomplish with my 
-application. By interviewing professors, I will have a better sense of what material I should emphasize in order to 
-fill in the gaps of what may be missing from computer science curricula regarding software testing. I plan to interview 
-the professors in the Occidental computer science department. I would like to ask questions about what aspects of 
-computer science testing they think are most important for students to learn, and what materials relevant to software 
-testing would best complement their own course content without overlapping with what their students are already 
-learning. This way, my application can fit with what instructors are looking for, so that it can be something that 
-could get used to accompany a computer science course. 
+\subsection{Interface Design}
 
-Through interviewing 
-professional software developers, I will be able to see what practices are most important for students to learn before 
-entering the industry so that they can be well prepared. Specifically, I would ask questions about what software testing skills are most 
-useful for students to have to be prepared for the industry, what styles of software testing are most common, and what 
-types of software development strategies are most commonly utilized in a professional setting. This will inform what 
-material will be most beneficial for my application to teach. 
+My main motivation with the interface was to have a simple but still visually appealing design, focusing more on having 
+a very intuitive page layout. My general design was inspired by \href{https://codingbat.com/java}{CodingBat}, which is one 
+of my favorite online computer science education resources \cite{CodingBat}. This cite was created by a Stanford professor 
+for his introductory computer science students. I find the overall experience of using the 
+website to be intuitive and simple. The user interface is bare-bones and easy to navigate.
+
+One difference that I wanted for my application was to have a more clear path through the material so that the content can
+build on itself. I wanted this for my application because I want the user to be working through the exercises in order so 
+that they can draw on topics introduced earlier on in order to solve later problems. Additionally, since it is intended to 
+be a first exploration of software testing as well as the javascript language, I believe that it makes sense for users to 
+work through the problems from the beginning. In order to enforce this, I added the feature of unlocking exercises; at 
+the beginning, the first exercise of each section is unlocked, and subsequent exercises become unlocked as the user 
+completes the problems. I also believe that this makes the application more fun, because it gamify the user experience. 
+
+
+% This figure is no longer relevant, but could choose to include a different UI diagram...
+
+% figure \ref{UI-flow-diagram}.
+% \begin{figure}[!ht]
+%     \includegraphics[scale=.7]{./images/UI-Flow-Diagram}
+%     \caption{Intended Application UI/Page Flow}
+%     \label{UI-flow-diagram}
+% \end{figure}
+
+
+\subsection{Content Design} 
+% TODO:
+%   here, justify the design of the content, specifically the way the Learn materials are presented, as well as the 
+%   decision to include both edge case & debugging exercises (to give an entry point into learning javascript and reasoning abt correctness)
+%   talk about the process of designing exercises
+%   connect to the previous section on Hands on Research
+%   etc. 
+
+As an educational application, a critical piece of my project was designing the content and programming exercises.
+I made sure to talk to many individuals about what would be most helpful to include and focus on in the application.
+The main takeaways were that it is important to include hands-on exercises as well as detailed 
+examples, as opposed to simply having descriptions on types of testing. However, it was also emphasized that the materials should be concise to avoid being overwhelming. This was important 
+to me as well, because I want this to be a concise but useful introduction to the nuances and types of software testing. 
+One helpful piece of advice that I recieved on designing the exercises was to focus on common errors, such as off by one 
+and improper input formats. By focusing on commonly occuring errors, users of the application will be able to gain 
+familiarity with some of these and be better prepared to avoid them in the future. 
+
+In terms of the specific types of exercises included in the application, I had initially wanted to focus on implementing 
+a combination of unit and system-style testing exercises. However, some aspects of development that I had overlooked took 
+more time than expected, and I ended up focusing more on including a combination of edge-case identification and unit testing 
+exercises, with minimal system test exercises. This ended up being more feasible within the time constraints of the semester. 
+However, I believe that the application still holds value as a teaching tool or for general student use. The edge-case 
+identification exercises are still beneficial because it teaches students to reason about code correctness and consider 
+the range of possible inputs and deeply understand the code presented. Additionally, these exercises prompt users to both 
+identify an input that causes a function to break, and then actually debug the code. This is useful for gaining a deeper 
+ability to reason about code, and offers an entry point into learning javascript for the user. 
+
+The test-writing exercises involve writing test cases that use assertion statements, with the goal of maximizing branch 
+coverage on a given function. In the initial warm-up problems, the code being tested is provided, so the user can step 
+through the function and more easily determine what inputs to provide to fully cover the branches. However, in subsequent 
+exercises, a description of the behavior of the function is provided, but the actual code is obscured. This forces the 
+user to consider how the function would be implemented in terms of the necessary control flow. To aid the user in this 
+task, on a given submission attempt, they are given feedback on the percentage of branches that their code covered, as 
+well as whether any of their assertion statements failed. 
+
+% TODO: 
+%   add more to the above section once I implement a system level test exercise...
 
 \subsection{Iterative Project Improvement}
 
-I plan to
-iteratively evaluate and improve my project throughout the semester. This will allow me to get consistent feedback and 
-see growth and improvement in my project over time. It would also incentivise me to have a prototype version of the 
-application completed early, so that it is more feasible to get actual user testing of the application before the final 
-project deadline. To do this, I would like to perform two rounds of evaluation prior to the submission of the 
-project (see proposed timeline for specific target dates). For each round, I will perform the survey step, synthesize 
-the results, and make appropriate adjustments based on feedback. 
+Since I was able to deploy an early version of the project, I had time to do two rounds of user evaluations, allowing me 
+to make iterative improvements to my project based on user feedback. In my first round of feedback, I used a survey that 
+gauged the quality of the teaching content, the clarity of the exercise directions, the difficulty of several of the 
+exercises, as well as overall user experience. From this first round of evaluations, I learned that the directions for 
+the exercises could be made more clear, and that it would be helpful to include hints for some of the more difficult 
+exercises. Additionally, it was noted that the feedback on coding exercises could be more detailed so that the user 
+has more of a sense of what they did wrong. Specifically, this meant displaying all failing test cases on debugging 
+exercises, or more information on which assertions failed on unit-test exercises. 
+
+In addition to using a survey, I watched individuals interact with the application to get a sense of how clear it is to 
+use and where individuals get confused. One main takeaway from this was that users sometimes found it difficult to know 
+where to start with the coding exercises. The exercises are displayed in rows, and I intended for them to be attempted 
+from top-left to bottom-right. However, I noticed that this was not always intuitive, and this informed my decision to 
+add the feature of locking/unlocking exercises as the user progresses. This enforces the order and provides a clear visual
+of where to start. Additionally, it was indicated by one user that it would be helpful for the exercises to have difficulty 
+ratings that are clearly visible, as this would also help to inform a user about what to expect from the exercises. Both 
+of these points of feedback were helpful and reflected in the final version of my project. 
+
+% Talk about feedback gained after a second round of feedback too. 
+
 
 \section{Evaluation}
 
