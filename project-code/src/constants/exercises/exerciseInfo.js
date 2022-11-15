@@ -44,8 +44,8 @@ export const exerciseInfo = [
           <li>A description of defined behaviors; inputs that the function <em>should</em> be able to handle</li>
           <li>A description of undefined behaviors; inputs that are outside of the scope of the problem and don't need to be tested</li>
         </ul>
-        Your job is to provide an input within the scope of the <em>defined behaviors</em> of the function that exposes the error in the code.
-        So to pass each exercise, the input that you provide should create an incorrect output.
+        For each function, there will be one exercise where your goal is to provide an input within the scope of the <em>defined behaviors</em> of the function that exposes the error in the code,
+        followed by another exercise where your job is to debug the function. 
         `,
         "input-type": "",
         "show-editor": false,
