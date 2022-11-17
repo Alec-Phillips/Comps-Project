@@ -15,6 +15,7 @@ const StyledOption = styled.div`
     props => props.locked ? `
     background-image: url(${lockImg});
     opacity: .3;
+    color: rgba(0, 0, 0, 0.3);;
     ` : null
   }
   ${
@@ -33,7 +34,7 @@ const StyledOption = styled.div`
   transform: ${props => props.active ? 'scale(1.2)' : 'scale(1)'};
   border-radius: 5px;
   border: 2px solid lightblue;
-  color: black;
+  // color: black;
   margin: 0.5em 1em;
   padding: 0.25em 1em;
   width: 110px;
