@@ -1,19 +1,35 @@
 
 import { exerciseTestCases } from '../constants/exercises/exerciseUtils';
+import { runCode } from '../constants/exercises/system-testing/courseScheduler';
 
 
 class Evaluator {
   constructor(exerciseId) {
-    this.runTests = exerciseTestCases.get(exerciseId).testCase;
-    this.templateArgs = exerciseTestCases.get(exerciseId).templateArgs;
-    this.templateSuffix = exerciseTestCases.get(exerciseId).templateSuffix;
+    if (exerciseId < 4) {
+      this.runTests = exerciseTestCases.get(exerciseId).testCase;
+      this.templateArgs = exerciseTestCases.get(exerciseId).templateArgs;
+      this.templateSuffix = exerciseTestCases.get(exerciseId).templateSuffix;
+    } else {
+      // TODO
+    }
+    this.exerciseId = exerciseId;
   }
 
   evaluate(code) {
     code = escapeLoops(code);
-    const fn = Function(this.templateArgs, code + this.templateSuffix);
-    const evalResult = this.runTests(fn);
-    return evalResult;
+    if (this.exerciseId >= 4) {
+      return this.evaluateSystemTest(code);
+    } else {
+      const fn = Function(this.templateArgs, code + this.templateSuffix);
+      const evalResult = this.runTests(fn);
+      return evalResult;
+    }
+    
+  }
+
+  evaluateSystemTest(code) {
+    console.log("evaling system test");
+    return runCode(code);
   }
 
   // evaluate the non-code submissions for edge case exercises

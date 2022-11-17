@@ -1158,5 +1158,41 @@ assert()
         `,
       },
     ],
+  },
+  {
+    "label": "System Tests",
+    "type": 4,
+    "exercises": [
+      {
+        "label": "Course Scheduler",
+        "id": 4.1,
+        "input-type": "",
+        "show-editor": true,
+        "placeholder-code": `
+assert(letterGroups() === );
+`,
+        "code": `
+// function stub:
+// in  -> String letters
+// out -> String
+function letterGroups(letters) {}`,
+        "description": `
+        <h1>Course Scheduler</h1>
+        <hr></hr>
+        This exercise will involve writing a set of <em>system scale</em> tests on a mock system
+        <br></br>
+        Examples:
+        <ul>
+          <li><code>letterGroups('aabbbc')</code> returns <code>'bbb'</code></li>
+          <li><code>letterGroups('zyxwvu')</code> returns <code>'z'</code></li>
+          <li><code>letterGroups('123555bcaaa')</code> returns <code>'555'</code></li>
+        </ul>
+        Defined Behavior:
+        <ul>
+          <li>Any string of length >= 0</li>
+        </ul>
+        `,
+      },
+    ]
   }
 ];
