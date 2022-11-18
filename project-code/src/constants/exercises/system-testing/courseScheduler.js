@@ -1,5 +1,6 @@
 
 function initCoverageCheck(coverageCheck, numBranches) {
+  coverageCheck.length = 0;
   for (let _ = 0; _ < numBranches; _ ++) {
     coverageCheck.push(false);
   }
@@ -50,12 +51,11 @@ const coverageCheck = [];
 
 export function runCode(code) {
   const assertionResults = [[]];
+  initCoverageCheck(coverageCheck, 22);
   function assert(condition) {
     assertionResults[0].push({assertion: condition});
   }
   eval(code);
-  console.log(assertionResults);
-  console.log(coverageCheck);
   return buildEvalResult(coverageCheck, assertionResults);
 }
 
@@ -75,6 +75,13 @@ const mockDb = {
       'total-enrolled': 0,
       'total-waitlisted': 0,
       'prerequisites': ['CS1'],
+    },
+    {
+      'course-name': 'CS3',
+      'total-seats': 5,
+      'total-enrolled': 0,
+      'total-waitlisted': 0,
+      'prerequisites': ['CS2'],
     },
   ],
   students: [
@@ -130,6 +137,7 @@ class CourseScheduler {
 
   getStudent(studentName) {
     if (this.activeStudentNames.has(studentName)) {
+      coverageCheck[1] = true;
       return {
         error: true,
         errorMsg: 'student is already active',
@@ -138,6 +146,7 @@ class CourseScheduler {
     }
     let studentData;
     if (typeof (studentData = this.mockDb.students.find(student => student['student-name'] === studentName)) !== 'undefined') {
+      coverageCheck[2] = true;
       const newStudent = new Student(null, studentData);
       this.activeStudents.add(newStudent);
       this.activeStudentNames.add(studentName);
@@ -147,6 +156,7 @@ class CourseScheduler {
         student: newStudent,
       }
     } else {
+      coverageCheck[3] = true;
       return {
         error: true,
         errorMsg: 'student does not exist',
@@ -157,6 +167,7 @@ class CourseScheduler {
 
   createStudent(studentName) {
     if (this.activeStudentNames.has(studentName)) {
+      coverageCheck[4] = true;
       return {
         error: true,
         errorMsg: 'student is already active',
@@ -165,12 +176,14 @@ class CourseScheduler {
     }
     let studentData;
     if (typeof (studentData = this.mockDb.students.find(student => student['student-name'] === studentName)) !== 'undefined') {
+      coverageCheck[5] = true;
       return {
         error: true,
         errorMsg: 'student already exists',
         student: null,
       }
     } else {
+      coverageCheck[6] = true;
       const newStudent = new Student(studentName, null);
       this.activeStudents.add(newStudent);
       this.activeStudentNames.add(studentName);
@@ -183,33 +196,36 @@ class CourseScheduler {
   }
 
   enrollInCourse(student, courseName) {
-    console.log(this.mockDb.courses.find(course => course['course-name'] === courseName));
-    console.log('enrolling');
     let courseData;
-    if (typeof (courseData = this.mockDb.courses.find(course => course['course-name'] === courseName)) === 'undefined') {
+    if (typeof (courseData = this.mockDb.courses.find(course => course['course-name'] === courseName)) === 'undefined') {  
+      coverageCheck[7] = true;
       return {
         error: true,
         errorMsg: 'course does not exist',
       }
     } 
     if (courseData['total-enrolled'] === courseData['total-seats']) {
+      coverageCheck[8] = true;
       return {
         error: true,
         errorMsg: 'course is full',
       }
     }
     if (student.enrolledCourses.includes(courseName)) {
+      coverageCheck[9] = true;
       return {
         error: true,
         errorMsg: 'student is already enrolled in this course',
       }
     }
     if (! this.__checkPrerequisites(student.coursesTaken, courseData['prerequisites'])) {
+      coverageCheck[10] = true;
       return {
         error: true,
         errorMsg: 'prerequisites not met',
       }
     }
+    coverageCheck[11] = true;
     const targetCourse = this.mockDb.courses.find(course => course['course-name'] === courseName);
     targetCourse['total-enrolled'] ++;
     student.enrolledCourses.push(courseName);
@@ -220,7 +236,9 @@ class CourseScheduler {
   }
 
   incrementSemester() {
+    coverageCheck[12] = true;
     for (const student of this.activeStudents) {
+      coverageCheck[13] = true;
       const studentToUpdate = this.mockDb.students.find(student => student['student-name'] === student.name);
       studentToUpdate['courses-taken'].push(...student.enrolledCourses);
       student.coursesTaken.push(...student.enrolledCourses);
@@ -230,17 +248,25 @@ class CourseScheduler {
   }
 
   __checkPrerequisites(coursesTaken, prerequisites) {
+    coverageCheck[14] = true;
     for (const prerequisite of prerequisites) {
-      if (coursesTaken.find(courseName => courseName === prerequisite) === null) {
+      coverageCheck[15] = true;
+      if (typeof coursesTaken.find(courseName => courseName === prerequisite) === 'undefined') {
+        coverageCheck[16] = true;
         return false;
       }
+      coverageCheck[17] = true;
       let courseData = this.mockDb.courses.find(course => course['course-name'] === prerequisite);
       if (courseData['prerequisites'].length) {
+        coverageCheck[18] = true;
         if (! this.__checkPrerequisites(coursesTaken, courseData['prerequisites'])) {
+          coverageCheck[19] = true;
           return false;
         }
+        coverageCheck[20] = true;
       }
     }
+    coverageCheck[21] = true;
     return true;
   }
 }

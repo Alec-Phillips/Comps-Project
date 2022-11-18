@@ -28,7 +28,6 @@ class Evaluator {
   }
 
   evaluateSystemTest(code) {
-    console.log("evaling system test");
     return runCode(code);
   }
 
