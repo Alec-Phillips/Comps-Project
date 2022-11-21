@@ -18,6 +18,7 @@ exerciseGraph.set(2.4, [1.5]);
 exerciseGraph.set(3.1, [3.2]);
 exerciseGraph.set(3.2, [3.3]);
 exerciseGraph.set(3.3, [3.4]);
+exerciseGraph.set(3.4, [4.1]);
 
 export const exerciseInfo = [
   {
@@ -1158,5 +1159,122 @@ assert()
         `,
       },
     ],
+  },
+  {
+    "label": "System Tests",
+    "type": 4,
+    "exercises": [
+      {
+        "label": "Course Scheduler",
+        "id": 4.1,
+        "input-type": "",
+        "show-editor": true,
+        "placeholder-code": `
+// initialize an instance of the CourseScheduler
+const scheduler = new CourseScheduler();
+
+// retrieve a student
+const bobResponse = scheduler.getStudent('Bob');
+
+// check that there was no error in the retrieval
+assert(bobResponse.error === false);
+
+// enroll Bob in a course
+const bob = bobResponse.student;
+scheduler.enrollInCourse(bob, 'CS1');
+`,
+        "code": `
+// below is the API that you will be interacting with:
+class CourseScheduler {
+  getStudent(studentName){
+    /*
+    in -> String studentName
+    out -> Object {
+      error: Boolean,
+      errorMsg: String,
+      student: Student
+    }
+    retrieves an existing student
+    error attribute will be true if:
+    - the student does not exist
+    - the student has already been retrieved
+    */
+  }
+  createStudent(studentName){
+    /*
+    in -> String studentName
+    out -> Object {
+      error: Boolean,
+      errorMsg: String,
+      student: Student
+    }
+    creates a new student who can then be
+    enrolled in courses
+    */
+  }
+  enrollInCourse(student, courseName){
+    /*
+    in -> Student student, String courseName
+    out -> Object {
+      error: Boolean,
+      errorMsg: String
+    }
+    takes a Student Object and adds them
+    to the desired course
+    */
+  }
+  incrementSemester(){
+    /*
+    in -> null
+    out -> null
+    */
+  }
+}
+
+// Below is the starting state of the "database"
+
+Courses:
+| name  | seats | enrolled | waitlisted |
+| 'CS1' | 5     | 0        | 0          |
+| 'CS2' | 5     | 0        | 0          |
+| 'CS3' | 5     | 0        | 0          |
+
+Prerequisites:
+| course | prerequisite |
+| 'CS2'  | 'CS1'        |
+| 'CS3'  | 'CS2'        |
+
+Students:         Student Courses Taken:
+| name    |       | name | course |
+| 'Alice' |
+| 'Bob'   |       Student Courses Enrolled:
+| 'Eve'   |       | name | course |
+`,
+        "description": `
+        <h1>Course Scheduler</h1>
+        <hr></hr>
+        This exercise will involve writing a set of <em>system scale</em> tests on a mock system
+        <br></br>
+        This system is simulating the logic (at a very simplified level) of a course registration system
+        <br></br>
+        System Components
+        <ul>
+          <li>The <code>CourseScheduler</code> class</li>
+          <li>The <code>Student</code> class</li>
+          <li>A mock database</li>
+        </ul>
+        System Description:
+        <br></br>
+        Through the API provided by the CourseScheduler class, you can retrieve students, create new students, enroll students
+        in courses, and remove students from courses
+        <br></br>
+        Additionally, you can increment the semester -- when this happens:
+        <ul>
+          <li>Courses that a student is currently enrolled in will be moved into their courses taken</li>
+          <li>All course data will be reset (enrolled students, waitlisted students reset to 0)</li>
+        </ul>
+        `,
+      },
+    ]
   }
 ];
