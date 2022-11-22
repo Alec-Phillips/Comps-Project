@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { xcode } from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import Evaluator from './evaluator/evaluator';
 import ResultDisplay from './ResultDisplay';
 import { ContentArea, StyledOption } from './constants/styledComponents';
-import { Fragment } from 'react';
+import Hint from './Hint';
 
 const parse = require('html-react-parser');
 
@@ -217,6 +217,17 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
             
           </div>
         ) : null
+      }
+      {
+        exercise.label !== 'Introduction' && exercise.hint ? (
+          <Fragment>
+            <hr></hr>
+            <Hint
+              hintText={exercise.hint}>
+
+            </Hint>
+          </Fragment>
+        ) : (null)
       }
     </ContentArea>
   )
