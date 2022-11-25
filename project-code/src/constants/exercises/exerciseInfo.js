@@ -55,9 +55,10 @@ export const exerciseInfo = [
       {
         "label": "Example: Fizzbuzz",
         "id": 1.1,
-        "code": `
-// this implementation fails on all inputs
-function fizzbuzz(n) {
+        "hint": `Consider any possible input and track what the function is doing as it processes the input. Check if the
+        function is behaving as expected.`,
+        "code": 
+`function fizzbuzz(n) {
   const output = [];
   for (let i = 0; i <= n; i ++) {
     if (i % 3 === 0 && i % 5 === 0) {
@@ -65,10 +66,6 @@ function fizzbuzz(n) {
     } else if (i % 3 === 0) {
       output.push('fizz');
     } else {
-      // this is the error
-      // this should be an else if
-      // that is only entered when i
-      // is divisible by 5
       output.push('buzz');
     }
   }
@@ -106,22 +103,22 @@ function fizzbuzz(n) {
         "label": "Fizzbuzz Debug",
         "id": 2.1,
         "next-exercises": [],
-        "code": `
-        function fizzbuzz(n) {
-          const output = [];
-          for (let i = 0; i <= n; i ++) {
-            if (i % 3 === 0 && i % 5 === 0) {
-              output.push('fizzbuzz');
-            } else if (i % 3 === 0) {
-              output.push('fizz');
-            } else {
-              // hint:
-              // this should be an else if block
-              output.push('buzz');
-            }
-          }
-          return output;
-        }`,
+        "hint": `This code is incorrect for all inputs. Choose some possible input, and walk through what happens as the
+        function executes to determine when something goes wrong.`,
+        "code":
+`function fizzbuzz(n) {
+  const output = [];
+  for (let i = 0; i <= n; i ++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      output.push('fizzbuzz');
+    } else if (i % 3 === 0) {
+      output.push('fizz');
+    } else {
+      output.push('buzz');
+    }
+  }
+  return output;
+}`,
         "description": `
         <h1>Example Problem: Fizzbuzz</h1>
         <hr></hr>
@@ -163,8 +160,10 @@ function fizzbuzz(n) {
       {
         "label": "Fizzbuzz Counts",
         "id": 1.2,
-        "code": `
-function fizzbuzzCounts(n) {
+        "hint": `Pay close attention to the requirements of the function, and think about when the execution is
+        terminating.`,
+        "code":
+`function fizzbuzzCounts(n) {
   const counts = {
     fizz: 0,
     buzz: 0,
@@ -213,24 +212,25 @@ function fizzbuzzCounts(n) {
         "label": "Fizzbuzz Counts Debug",
         "id": 2.2,
         "next-exercises": [],
-        "code": `
-        function fizzbuzzCounts(n) {
-          const counts = {
-            fizz: 0,
-            buzz: 0,
-            fizzbuzz: 0,
-          };
-          for (let i = 0; i < n; i ++) {
-            if (i % 3 === 0 && i % 5 === 0) {
-              counts.fizzbuzz ++;
-            } else if (i % 3 === 0) {
-              counts.fizz ++;
-            } else if (i % 5 === 0) {
-              counts.buzz ++;
-            }
-          }
-          return counts;
-        }`,
+        "hint": `Use your answer to the previous problem to consider why the function is incorrect on that input.`,
+        "code":
+`function fizzbuzzCounts(n) {
+  const counts = {
+    fizz: 0,
+    buzz: 0,
+    fizzbuzz: 0,
+  };
+  for (let i = 0; i < n; i ++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      counts.fizzbuzz ++;
+    } else if (i % 3 === 0) {
+      counts.fizz ++;
+    } else if (i % 5 === 0) {
+      counts.buzz ++;
+    }
+  }
+  return counts;
+}`,
         "description": `
         <h1>Fizzbuzz Counts</h1>
         <hr></hr>
@@ -277,8 +277,9 @@ function fizzbuzzCounts(n) {
       {
         "label": "Rainfall",
         "id": 1.3,
-        "code": `
-function rainfall(measurements) {
+        "hint": `The error has to do with an illegal mathematical operation that the function is not protecting against.`,
+        "code":
+`function rainfall(measurements) {
   let total_rain = 0;
   let total_days = 0;
   for (let measurement of measurements) {
@@ -319,22 +320,24 @@ function rainfall(measurements) {
       {
         "label": "Rainfall Debug",
         "id": 2.3,
+        "hint": `Notice that there is additional requirement for this implementation that is added on to the requirements
+        in the previous problem.`,
         "next-exercises": [3.1],
-        "code": `
-        function rainfall(measurements) {
-          if (measurements.length === 0) {
-            return 0;
-          }
-          let total_rain = 0;
-          let total_days = 0;
-          for (let measurement of measurements) {
-            if (measurement >= 0) {
-              total_rain += measurement;
-              total_days += 1;
-            }
-          }
-          return total_rain / total_days;
-        }`,
+        "code":
+`function rainfall(measurements) {
+  if (measurements.length === 0) {
+    return 0;
+  }
+  let total_rain = 0;
+  let total_days = 0;
+  for (let measurement of measurements) {
+    if (measurement >= 0) {
+      total_rain += measurement;
+      total_days += 1;
+    }
+  }
+  return total_rain / total_days;
+}`,
         "description": `
         <h1>Rainfall</h1>
         <hr></hr>
@@ -377,6 +380,7 @@ function rainfall(measurements) {
       {
         "label": "Letter Groups",
         "id": 1.4,
+        "hint": `Focus on the lexicographical ordering requirement.`,
         "input-type": 1,
         "param-types": [3],
         "num-inputs": 1,
@@ -394,7 +398,7 @@ function rainfall(measurements) {
         Examples:
         <ul>
           <li><code>letterGroups('aabbbc')</code> returns <code>'bbb'</code></li>
-          <li><code>letterGroups('zyxwvu')</code> returns <code>'z'</code></li>
+          <li><code>letterGroups('uvwxyz')</code> returns <code>'u'</code></li>
           <li><code>letterGroups('123555bcaaa')</code> returns <code>'555'</code></li>
         </ul>
         Defined Behavior:
@@ -402,8 +406,8 @@ function rainfall(measurements) {
           <li>Any string of length >= 0</li>
         </ul>
         `,
-        "code": `
-function letterGroups(letters) {
+        "code": 
+`function letterGroups(letters) {
   let returnGroup = '';
   let i = 0;
   while (i < letters.length) {
@@ -420,31 +424,31 @@ function letterGroups(letters) {
     i = j;
   }
   return returnGroup;
-}
-        `,
+}`,
       },
       {
         "label": "Letter Groups Debug",
         "id": 2.4,
-        "code": `
-        function letterGroups(letters) {
-          let returnGroup = '';
-          let i = 0;
-          while (i < letters.length) {
-            const currLetter = letters.charAt(i);
-            let j = i + 1;
-            while (j < letters.length &&
-                   letters.charAt(j) === currLetter) {
-              j += 1;
-            }
-            const newSequence = letters.substring(i, j);
-            if (newSequence.length > returnGroup.length) {
-              returnGroup = newSequence;
-            }
-            i = j;
-          }
-          return returnGroup;
-        }`,
+        "hint": `Comparing two strings for equality can also indicate which string comes first alphabetically/lexicographically.`,
+        "code": 
+`function letterGroups(letters) {
+  let returnGroup = '';
+  let i = 0;
+  while (i < letters.length) {
+    const currLetter = letters.charAt(i);
+    let j = i + 1;
+    while (j < letters.length &&
+            letters.charAt(j) === currLetter) {
+      j += 1;
+    }
+    const newSequence = letters.substring(i, j);
+    if (newSequence.length > returnGroup.length) {
+      returnGroup = newSequence;
+    }
+    i = j;
+  }
+  return returnGroup;
+}`,
         "description": `
         <h1>Letter Groups</h1>
         <hr></hr>
@@ -457,7 +461,7 @@ function letterGroups(letters) {
         Examples:
         <ul>
           <li><code>letterGroups('aabbbc')</code> returns <code>'bbb'</code></li>
-          <li><code>letterGroups('zyxwvu')</code> returns <code>'z'</code></li>
+          <li><code>letterGroups('uvwxyz')</code> returns <code>'u'</code></li>
           <li><code>letterGroups('123555bcaaa')</code> returns <code>'555'</code></li>
         </ul>
         Defined Behavior:
@@ -490,6 +494,8 @@ function letterGroups(letters) {
       {
         "label": "Letter Frequencies",
         "id": 1.5,
+        "hint": `Explore what happens when targets.set() is called when the currLetter is not already in 
+        targets.`,
         "input-type": 1,
         "param-types": [3],
         "num-inputs": 1,
@@ -510,8 +516,11 @@ function letterGroups(letters) {
           <li><code>frequentTargets('azzzzbbccc') returns <code>{ 'c' }</code></li>
         </ul>
         `,
-        "code": `
-function frequentTargets(letters) {
+        "code":
+`function frequentTargets(letters) {
+  if (! letters.includes('a'||'b'||'c'||'d')) {
+    return new Set();
+  }
   const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
   let currLetter;
   for (let i = 0; i < letters.length; i ++) {
@@ -531,12 +540,12 @@ function frequentTargets(letters) {
     }
   }
   return mostFrequent;
-}
-        `,
+}`,
       },
       {
         "label": "Letter Freq. Debug",
         "id": 2.5,
+        "hint": `Consider the javascript Map.has() method.`,
         "input-type": "",
         "param-types": "",
         "num-inputs": "",
@@ -589,29 +598,28 @@ function frequentTargets(letters) {
           <li><code>frequentTargets('xyz')</code> <em>throws</em> <code>new Error('no valid input letters')</code></li>
         </ul>
         `,
-        "code": `
-        function frequentTargets(letters) {
-          const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
-          let currLetter;
-          for (let i = 0; i < letters.length; i ++) {
-            currLetter = letters.charAt(i);
-            targets.set(currLetter, targets.get(currLetter) + 1);
-          }
-          let mostFrequent = new Set();
-          let largestCount = null;
-          for (let i = 0; i < letters.length; i ++) {
-            currLetter = letters.charAt(i);
-            if (largestCount === null || targets.get(currLetter) > largestCount) {
-              mostFrequent.clear();
-              mostFrequent.add(currLetter);
-              largestCount = targets.get(currLetter);
-            } else if (targets.get(currLetter) === largestCount) {
-              mostFrequent.add(currLetter);
-            }
-          }
-          return mostFrequent;
-        }
-        `,
+        "code":
+`function frequentTargets(letters) {
+  const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
+  let currLetter;
+  for (let i = 0; i < letters.length; i ++) {
+    currLetter = letters.charAt(i);
+    targets.set(currLetter, targets.get(currLetter) + 1);
+  }
+  let mostFrequent = new Set();
+  let largestCount = null;
+  for (let i = 0; i < letters.length; i ++) {
+    currLetter = letters.charAt(i);
+    if (largestCount === null || targets.get(currLetter) > largestCount) {
+      mostFrequent.clear();
+      mostFrequent.add(currLetter);
+      largestCount = targets.get(currLetter);
+    } else if (targets.get(currLetter) === largestCount) {
+      mostFrequent.add(currLetter);
+    }
+  }
+  return mostFrequent;
+}`,
       },
 
       // {
@@ -968,8 +976,8 @@ function frequentTargets(letters) {
       {
         "label": "Introduction",
         "id": 3.0,
-        "code": `
-// given the following function:
+        "code":
+`// given the following function:
 
 function checkParity(n) {
   if (n % 2 === 0) {
@@ -1016,15 +1024,16 @@ assert(checkParity(3) === false);
       {
         "label": "Example: Even/Odd",
         "id": 3.1,
+        "hint": `See the example in the Introduction of this section.`,
         "next-exercises": [3.2],
-        "code": `
-        function checkParity(n) {
-          if (n % 2 === 0) {
-            return true;
-          } else {
-            return false;
-          }
-        }`,
+        "code":
+`function checkParity(n) {
+  if (n % 2 === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}`,
         "description": `
         <h1>Example Problem: Check Parity</h1>
         <hr></hr>
@@ -1047,8 +1056,9 @@ assert(checkParity() === );
       {
         "label": "Rainfall",
         "id": 3.2,
-        "code": `
-// function stub:
+        "hint": `Try writing one test case for each of the requirements listed in the problem description.`,
+        "code":
+`// function stub:
 // in  -> Array[Number] measurements
 // out -> Number
 function rainfall(measurements) {}`,
@@ -1071,19 +1081,20 @@ function rainfall(measurements) {}`,
         "show-editor": true,
         "placeholder-code": `
 
-assert(rainfall([5,5,5,5,5]) === 5);
+assert(rainfall([5, 5, 5, 5, 5]) === 5);
 
 `     },
       {
         "label": "Letter Groups",
         "id": 3.3,
+        "hint": "",
         "input-type": "",
         "show-editor": true,
         "placeholder-code": `
 assert(letterGroups() === );
 `,
-        "code": `
-// function stub:
+        "code":
+`// function stub:
 // in  -> String letters
 // out -> String
 function letterGroups(letters) {}`,
@@ -1111,6 +1122,8 @@ function letterGroups(letters) {}`,
       {
         "label": "Letter Frequencies",
         "id": 3.4,
+        "hint": `To test for the correct error to be thrown, you could use a try...catch block with an assertion inside
+        of the catch. One way to compare two sets is to use a loop.`,
         "input-type": "",
         "param-types": "",
         "num-inputs": "",
@@ -1150,13 +1163,13 @@ assert()
           <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch" target="_blank">try catch statement</a></li>
         </ul>
         `,
-        "code": `
-        // function stub:
-        // in  -> String
-        // out -> Set object
-        // throws -> Error('no valid input letters')
-        frequentTargets(letters) {}
-        `,
+        "code":
+`// function stub:
+// in  -> String
+// out -> Set object
+// throws -> Error('no valid input letters')
+frequentTargets(letters) {}
+`,
       },
     ],
   },

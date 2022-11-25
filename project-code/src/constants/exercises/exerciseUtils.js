@@ -117,6 +117,9 @@ exerciseTestCases.set(1.5,
       if (letters.length === 0) {
         return false;
       }
+      if (! letters.includes('a'||'b'||'c'||'d')) {
+        return false;
+      }
       const targetSet = new Set(['a', 'b', 'c', 'd']);
       return !targetSet.has(letters.charAt(0));
     },
