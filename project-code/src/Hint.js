@@ -41,7 +41,7 @@ const HintContent = styled.div`
 background: linear-gradient(
   to bottom,
   white,
-  rgba(192, 228, 240, 1)
+  lightgreen
 );
 background-color: ${props => props.active ? 'rgb(192, 228, 240)' : 'rgb(192, 228, 240)'};
 transform: ${props => props.active ? 'scale(1.1)' : 'scale(1)'};
