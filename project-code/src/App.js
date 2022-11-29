@@ -124,8 +124,16 @@ function App() {
     return segments;
   }
 
+  const clearProgress = () => {
+    localStorage.clear();
+    window.location.reload();
+  }
+
   return (
     <div className="App">
+      <button id="topRight" onClick={clearProgress}>
+        Clear Progress
+      </button>
       <StyledHeader
         onClick={() => {
           setLearnAreaContent([]);

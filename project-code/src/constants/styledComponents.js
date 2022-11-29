@@ -29,13 +29,23 @@ export const OptionArea = styled.div`
 `
 
 export const StyledOption = styled.div`
-  background: transparent;
-  background-color: ${props => props.accepted ? 'lightgreen' : 'white'};
-  border-radius: 5px;
+  ${
+    props => props.accepted ? `
+    background: linear-gradient(
+      to bottom,
+      white,
+      lightgreen
+    );
+    ` : `
+    background-color: 'white';
+    `
+  }
+  // background-color: ${props => props.accepted ? 'lightgreen' : 'white'};
+  // border-radius: 5px;
   border: 2px solid lightblue;
   color: black;
   margin: 0.5em 1em;
-  padding: 0.25em 1em;
+  // padding: 0.25em 1em;
   width: 110px;
   height: 50px;
   text-align: center;
@@ -43,6 +53,5 @@ export const StyledOption = styled.div`
   &:hover {
     cursor: pointer;
     transform: scale(1.1);
-    background-color: ${props => props.accepted ? 'lightgreen' : 'yellow'};
   }
   `

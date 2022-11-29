@@ -142,7 +142,7 @@ exerciseTestCases.set(2.1,
         if (JSON.stringify(fn(input[0])) !== JSON.stringify(input[1])) {
           return {
             pass: false,
-            failedInput: `'${input[0]}'`,
+            failedInput: `${input[0]}`,
           }
         }
       }
@@ -170,7 +170,7 @@ exerciseTestCases.set(2.2,
         if (JSON.stringify(fn(input[0])) !== JSON.stringify(input[1])) {
           return {
             pass: false,
-            failedInput: `'${input[0]}'`,
+            failedInput: `${input[0]}`,
           }
         }
       }
@@ -202,7 +202,7 @@ exerciseTestCases.set(2.3,
         if (fn(input[0]) !== input[1]) {
           return {
             pass: false,
-            failedInput: `'${input[0]}'`,
+            failedInput: `[${input[0]}]`,
           }
         }
       }

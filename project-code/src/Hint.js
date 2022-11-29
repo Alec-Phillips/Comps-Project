@@ -26,7 +26,7 @@ border: 2px solid lightblue;
 color: black;
 margin: 0.5em 1em;
 padding: 0.25em 1em;
-width: 100px;
+width: 70px;
 height: 20px;
 flex-direction: row;
 text-align: center;
@@ -72,7 +72,7 @@ function Hint({ hintText }) {
   }, [hintText]);
 
   return (
-    <Fragment>
+    <div id="hint">
       {
         showHint ? (
           <HintContent>
@@ -85,11 +85,11 @@ function Hint({ hintText }) {
               setShowHint(true);
               setIsActive(true);
             }}>
-            Show Hint
+            Hint
           </HintButton>
         )
       }
-    </Fragment>
+    </div>
   )
 }
 
