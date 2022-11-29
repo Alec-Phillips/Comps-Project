@@ -94,11 +94,11 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
     setAccepted(newResult.pass);
   }
 
-  const cs = {
+  const customStyle = {
       fontSize: "80%"
     }
     
-  const ctp = {
+  const codeTagProps = {
       style: {
         lineHeight: "inherit",
         fontSize: "inherit"
@@ -116,8 +116,8 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
               className={exercise['input-type'] === 1 ? 'codeBlock typeOneCodeBlock' : 'codeBlock typeOneCodeBlock'}
               language="javascript"
               style={xcode}
-              customStyle={cs}
-              codeTagProps={ctp}
+              customStyle={customStyle}
+              codeTagProps={codeTagProps}
               >
               {exercise.code}
             </SyntaxHighlighter>
@@ -154,10 +154,8 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
                 <StyledOption
                   accepted={accepted}
                   onClick={submitInputArgs}>
-                  Submit
+                  <a href="#hint">Submit</a>
                 </StyledOption>
-                { evalResult && accepted ? 'Pass' : evalResult && !accepted ? 'Fail' : null}
-                { evalResult && evalResult.error ? <p>{evalResult.message}</p> : null}
               </div>
             </Fragment>
           ) : ( null )
@@ -198,25 +196,33 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
             <div id="codeFeedbackArea">
               <StyledOption
                 accepted={accepted}
-                onClick={submitCode}>
-                Submit
+                onClick={submitCode}
+                >
+                <a href="#hint">Submit</a>
+                
               </StyledOption>
-              <br></br>
-                <Fragment>
-                  {
-                    evalResult ? (
-                      <ResultDisplay 
-                        evalResult={evalResult}
-                        exerciseId={Math.trunc(exercise.id)}
-                      >
-                      </ResultDisplay>
-                    ) : ( null )
-                  }
-                </Fragment>
             </div>
             
           </div>
         ) : null
+      }
+      {
+        exercise['label'] !== 'Introduction' ? (
+          <Fragment>
+            {
+              evalResult ? (
+              <Fragment>
+                <hr></hr>
+                <ResultDisplay 
+                  evalResult={evalResult}
+                  exerciseId={Math.trunc(exercise.id)}
+                >
+                </ResultDisplay>
+              </Fragment>
+              ) : ( null )
+            }
+          </Fragment>
+        ) : ( null )
       }
       {
         exercise.label !== 'Introduction' && exercise.hint ? (

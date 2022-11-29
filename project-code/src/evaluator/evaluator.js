@@ -44,7 +44,7 @@ class Evaluator {
         const paramType = inputInfo.paramTypes[i];
         const parsed = inputParseFuncs.get(Math.floor(paramType))(arg, Number((paramType - Math.floor(paramType)).toFixed(1)) * 10);
         if (parsed.error) {
-          throw new Error(`invalid input: ${arg}`)
+          throw new Error(`invalid input`)
         }
         return parsed;
       }
