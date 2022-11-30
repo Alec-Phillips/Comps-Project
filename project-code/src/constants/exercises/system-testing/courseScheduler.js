@@ -239,7 +239,7 @@ class CourseScheduler {
     coverageCheck[12] = true;
     for (const student of this.activeStudents) {
       coverageCheck[13] = true;
-      const studentToUpdate = this.mockDb.students.find(student => student['student-name'] === student.name);
+      const studentToUpdate = this.mockDb.students.find(currStudent => currStudent['student-name'] === student.studentName);
       studentToUpdate['courses-taken'].push(...student.enrolledCourses);
       student.coursesTaken.push(...student.enrolledCourses);
       student.enrolledCourses.length = 0;
