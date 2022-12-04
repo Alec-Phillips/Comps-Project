@@ -17,8 +17,7 @@ exerciseGraph.set(2.3, [1.4]);
 exerciseGraph.set(2.4, [1.5]);
 exerciseGraph.set(3.1, [3.2]);
 exerciseGraph.set(3.2, [3.3]);
-exerciseGraph.set(3.3, [3.4]);
-exerciseGraph.set(3.4, [4.1]);
+exerciseGraph.set(3.3, [3.4, 4.1]);
 
 export const exerciseInfo = [
   {
@@ -988,10 +987,30 @@ function checkParity(n) {
 }
 
 
-// passing assertions might be:
+// your test cases would need to be formatted as:
 
-assert(checkParity(2) === true);
-assert(checkParity(3) === false);
+// TEST 1:
+
+// arrange
+const testInput1 = 2;
+
+// act
+const result1 = checkParity(testInput1);
+
+// assert
+assert(result1 === true);
+
+
+// TEST 2:
+
+// arrange
+const testInput2 = 3;
+
+// act
+const result2 = checkParity(testInput2);
+
+// assert
+assert(result2 === false);
 
 // the two logical branches of the
 // function are the if and else clauses
@@ -1016,6 +1035,21 @@ assert(checkParity(3) === false);
           with a description of defined and undefined behaviors</li>
         </ul>
         Your test cases are responsible for covering anything within the scope of the <em>defined behaviors</em>
+        <hr></hr>
+        <h4>Format</h4>
+        Although you will have freedom to write your test cases how you see fit, your submissions must follow a specific format.
+        <br></br>
+        Your tests must be formatted like:
+        <ul>
+          <li>// Test #:</li>
+          <li>// arrange</li>
+          <li>define your input value as const testInput#</li>
+          <li>// act</li>
+          <li>call the function you are testing on your testInput and save this result to a const</li>
+          <li>// assert</li>
+          <li>write an assertion statement checking the outcome of your function call</li>
+        </ul>
+        See the example below for a visual
         <h4>Example</h4>
         `,
         "input-type": "",
@@ -1024,8 +1058,10 @@ assert(checkParity(3) === false);
       {
         "label": "Example: Even/Odd",
         "id": 3.1,
-        "hint": `See the example in the Introduction of this section.`,
+        "hint": `See the example in the Introduction of this section. If you are having trouble with formatting your input,
+        try copy and pasting the two test cases from the example into the editor here.`,
         "next-exercises": [3.2],
+        "test-func": 'checkParity',
         "code":
 `function checkParity(n) {
   if (n % 2 === 0) {
@@ -1049,14 +1085,34 @@ assert(checkParity(3) === false);
         `,
         "input-type": "",
         "show-editor": true,
-        "placeholder-code": `
-assert(checkParity() === );
+        "placeholder-code": 
+`// TEST 1:
+
+// arrange
+const testInput1 = 2;
+
+// act
+const result1 = checkParity(testInput1);
+
+// assert
+assert(result1 === true);
+
+
+// TEST 2:
+
+// arrange
+
+// act
+
+// assert
+
 `
       },
       {
         "label": "Rainfall",
         "id": 3.2,
         "hint": `Try writing one test case for each of the requirements listed in the problem description.`,
+        "test-func": 'rainfall',
         "code":
 `// function stub:
 // in  -> Array[Number] measurements
@@ -1079,19 +1135,43 @@ function rainfall(measurements) {}`,
         `,
         "input-type": "",
         "show-editor": true,
-        "placeholder-code": `
+        "placeholder-code": 
+`// TEST 1:
 
-assert(rainfall([5, 5, 5, 5, 5]) === 5);
+// arrange
+const testInput1 = [5, 5, 5];
+
+// act
+const result1 = rainfall(testInput1);
+
+// assert
+assert(result1 === 5);
+
+
+// TEST 2:
+
+// arrange
+
+// act
+
+// assert
 
 `     },
       {
         "label": "Letter Groups",
         "id": 3.3,
-        "hint": "",
+        "hint": "Don't forget to test the empty string input!",
+        "test-func": 'letterGroups',
         "input-type": "",
         "show-editor": true,
-        "placeholder-code": `
-assert(letterGroups() === );
+        "placeholder-code": 
+`// TEST 1:
+
+// arrange
+
+// act
+
+// assert
 `,
         "code":
 `// function stub:
@@ -1119,58 +1199,57 @@ function letterGroups(letters) {}`,
         </ul>
         `,
       },
-      {
-        "label": "Letter Frequencies",
-        "id": 3.4,
-        "hint": `To test for the correct error to be thrown, you could use a try...catch block with an assertion inside
-        of the catch. One way to compare two sets is to use a loop.`,
-        "input-type": "",
-        "param-types": "",
-        "num-inputs": "",
-        "show-editor": true,
-        "placeholder-code": `
-assert()
-`,
-        "description": `
-        <h1>Letter Frequencies</h1>
-        <hr></hr>
-        This problem requires you to test the functionality of the given function as well as test for an
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#examples" target="_blank">error</a>
-        that the function
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw" target="_blank">throws</a>.  
-        <br></br>
-        The <code>frequentTargets</code> function should:
-        <ul>
-          <li>Return a 
-          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set" target="_blank">Set</a> 
-          object</li>
-          <li>This set should contain the letters that occur most frequently in the input string</li>
-          <li>The function only cares about the <em>target</em> letters: 'a', 'b', 'c', and 'd', meaning that any other
-          letters should be ignored</li>
-          <li>Finally, if none of the target letters occur in the input string, an Error is thrown</li>
-        </ul>
-        For Example:
-        <ul>
-          <li><code>frequentTargets('azzzzbbccc')</code> returns <code>{ 'c' }</code></li>
-          <li><code>frequentTargets('zzabc')</code> returns <code>{ 'a', 'b', 'c' }</code></li>
-          <li><code>frequentTargets('xyz')</code> <em>throws</em> <code>new Error('no valid input letters')</code></li>
-        </ul>
-        Hints:
-        <ul>
-          <li>Set objects cannot be compared with the equality operators (==, ===), so you will need to come up with a
-          thoughtful way to check if the output is correct</li>
-          <li>To test for the error that is thrown, see this documentation on the 
-          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch" target="_blank">try catch statement</a></li>
-        </ul>
-        `,
-        "code":
-`// function stub:
-// in  -> String
-// out -> Set object
-// throws -> Error('no valid input letters')
-frequentTargets(letters) {}
-`,
-      },
+//       {
+//         "label": "Letter Frequencies",
+//         "id": 3.4,
+//         "hint": `To test for the correct error to be thrown, you could use a try...catch block with an assertion inside
+//         of the catch. One way to compare two sets is to use a loop.`,
+//         "input-type": "",
+//         "param-types": "",
+//         "num-inputs": "",
+//         "show-editor": true,
+//         "placeholder-code": `
+// assert()
+// `,
+//         "description": `
+//         <h1>Letter Frequencies</h1>
+//         <hr></hr>
+//         This problem requires you to test the functionality of the given function as well as test for an
+//         <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#examples" target="_blank">error</a>
+//         that the function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw" target="_blank">throws</a>.  
+//         <br></br>
+//         The <code>frequentTargets</code> function should:
+//         <ul>
+//           <li>Return a 
+//           <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set" target="_blank">Set</a> 
+//           object</li>
+//           <li>This set should contain the letters that occur most frequently in the input string</li>
+//           <li>The function only cares about the <em>target</em> letters: 'a', 'b', 'c', and 'd', meaning that any other
+//           letters should be ignored</li>
+//           <li>Finally, if none of the target letters occur in the input string, an Error is thrown</li>
+//         </ul>
+//         For Example:
+//         <ul>
+//           <li><code>frequentTargets('azzzzbbccc')</code> returns <code>{ 'c' }</code></li>
+//           <li><code>frequentTargets('zzabc')</code> returns <code>{ 'a', 'b', 'c' }</code></li>
+//           <li><code>frequentTargets('xyz')</code> <em>throws</em> <code>new Error('no valid input letters')</code></li>
+//         </ul>
+//         Hints:
+//         <ul>
+//           <li>Set objects cannot be compared with the equality operators (==, ===), so you will need to come up with a
+//           thoughtful way to check if the output is correct</li>
+//           <li>To test for the error that is thrown, see this documentation on the 
+//           <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch" target="_blank">try catch statement</a></li>
+//         </ul>
+//         `,
+//         "code":
+// `// function stub:
+// // in  -> String
+// // out -> Set object
+// // throws -> Error('no valid input letters')
+// frequentTargets(letters) {}
+// `,
+//       },
     ],
   },
   {
@@ -1181,6 +1260,7 @@ frequentTargets(letters) {}
         "label": "Course Scheduler",
         "id": 4.1,
         "input-type": "",
+        "hint": "carefully examine the starting state of the database as well as the object that each method returns",
         "show-editor": true,
         "placeholder-code": `
 // initialize an instance of the CourseScheduler
