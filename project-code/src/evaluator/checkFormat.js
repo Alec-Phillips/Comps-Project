@@ -18,7 +18,7 @@ export function checkFormat(code, testFunc) {
   }
   const tests = code.split('// TEST ');
   for (const test of tests) {
-    if (test === "") {
+    if (test.trim(''|'\n') === "") {
       continue;
     }
     checkTest(test, testFunc);
