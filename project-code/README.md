@@ -2,7 +2,7 @@
 
 ## Overview:
 
-This project is a serverless, single-page application written in React.js and javascript. The most interesting technical aspect is the evaluation of user submitted code in coding exercises, which is discussed below. 
+This project is a serverless, single-page application written in React.js and javascript
 
 ___
 ## 1. Replication Instructions
@@ -43,7 +43,11 @@ You should now be able to access the site on your localhost at port 3000!
 ___
 ## 2. Code Architecture Overview
 
-This section will detail the general React component organization and then go into detail on the mechanisms that evaluate user code submissions for the hands-on exercises.
+This section will detail the general React component organization and then go into detail on the mechanisms that evaluate user code submissions for the hands-on exercises, as well as other technical details.
+
+### Working with the UI
+
+This first section will discuss the main components of the user interface.
 
 #### Component Organization:
 - App Component
@@ -61,8 +65,41 @@ This section will detail the general React component organization and then go in
     - [React Ace Editor](https://www.npmjs.com/package/react-ace) is the code editor library
     - [React Syntax Highlighter](https://www.npmjs.com/package/react-syntax-highlighter) for rendering code snippets and examples
 
-#### Saving User Progress & Unlocking Exercises:
+### Storing Data Without a Database
+
+This section discusses how I represented and stored data without a traditional database, which was necessary because of the serverless nature of the application. 
+
+#### Storing User Progress:
 In order to track user progress, the browser localStorage is leveraged. This is an object containing key-value pairs that the browser stores and can be accessed through javascript. Since each exercise has a unique ID, I store a stringified array in the localStorage that contains the ID's of all the exercises that a user has completed. Upon loading the page, I query the localStorage and create a state variable in the App component that represents these completed exercises. Each time a new exercise is completed, the updateCompletedExercises callback is used to update this state variable, which also triggers an update of the data stored in localStorage.
+
+This logic is then extended to represent the idea of unlocking exercises - there is a graph of dependencies between exercises representing which exercises must be completed before subsequent ones. Each time a user completes an exercise, or when the page is initially loaded, all completed exercises are unlocked, as well as the exercises directly adjacent to any of the completed exercises in this graph structure. Although it may seem unnecessary to represent this with a graph, I thought it would be helpful incase there was the need to ever have one unlock multiple other ones, or if a single exercise depends on completion of multiple other exercises. Although this does not exist currently, it would be easy to extend the functionality to support it. 
+
+#### Representing Exercises and Learning Material Content
+
+If this were a traditional application with a database, the exercise and testing type descriptions would likely also be stored in a database. Instead, I store this content in lists of javascript objects, where each object represents a single exercise or learn content. These objects store all the content that gets rendered as well as any metadata necessary for the application to render the material properly. The data for exercises can be found in ./src/constants/exercises/exerciseInfo.js and data for learn content is in ./src/constants/learning-materials/learningMaterials.js. If any of the content of the application needs to be altered, the changes are made to either of these files. 
+
+Learn sections are represented by objects with the following structure:
+
+| Attribute | Data Type | Purpose |
+| --------- | --------- | ------- |
+| label     | String | the name of the section |
+| description | String | the content of the section that gets rendered when a user opens the section |
+
+\* the description attirbute is a normal string, but it contains HTML syntax, which gets run through this [html parser](https://www.npmjs.com/package/html-react-parser) so that it is formatted correctly when rendered
+
+Exercise objects have the following structure:
+
+| Attribute | Data Type | Purpose |
+| --------- | --------- | ------- |
+| label | String | |
+| id | Float | |
+| code | String | |
+| placeholder-code | String | |
+| description | String | |
+| hint | String | |
+| input-type | Integer | |
+| param-types | Array[Float] | |
+| show-editor | Boolean | |
 
 #### Evaluating Code Submissions:
 To run the code that a user inputs in response to a coding exercise, the following process occurs upon a user clicking the submit button:
