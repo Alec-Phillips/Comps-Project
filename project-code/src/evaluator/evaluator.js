@@ -23,21 +23,17 @@ class Evaluator {
         try {
           checkFormat(code, testFunc);
         } catch(e) {
-          console.log(e.name);
-          console.log(e.message);
           formatError = e;
         }
       }
       const fn = Function(this.templateArgs, code = escapeLoops(code) + this.templateSuffix);
       const evalResult = this.runTests(fn);
-      console.log(evalResult);
       if (formatError !== null) {
         evalResult.error = true;
         evalResult.pass = false;
         evalResult.type = '';
         evalResult.message = formatError.message;
       }
-      // console.log(evalResult);
       return evalResult;
     }
     

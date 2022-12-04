@@ -26,7 +26,6 @@ export function checkFormat(code, testFunc) {
 }
 
 function matchesGeneralFormat(code) {
-  console.log(code);
   const re = /^(\/\/ *TEST *[0-9]+.*)+/gmi;
   const singleLineCode = code.replaceAll('\n', '');
   if (singleLineCode.match(re) === null) {
