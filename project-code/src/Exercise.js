@@ -55,7 +55,7 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
   const submitCode = () => {
     let newResult = null;
     try {
-      newResult = ev.evaluate(editorCode);
+      newResult = ev.evaluate(editorCode, exercise['test-func']);
     } catch(e){
       newResult = {
         pass: false,

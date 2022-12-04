@@ -18,7 +18,7 @@ exerciseGraph.set(2.4, [1.5]);
 exerciseGraph.set(3.1, [3.2]);
 exerciseGraph.set(3.2, [3.3]);
 exerciseGraph.set(3.3, [3.4]);
-exerciseGraph.set(3.4, [4.1]);
+exerciseGraph.set(3.3, [4.1]);
 
 export const exerciseInfo = [
   {
@@ -1026,6 +1026,7 @@ assert(checkParity(3) === false);
         "id": 3.1,
         "hint": `See the example in the Introduction of this section.`,
         "next-exercises": [3.2],
+        "test-func": 'checkParity',
         "code":
 `function checkParity(n) {
   if (n % 2 === 0) {
@@ -1049,14 +1050,34 @@ assert(checkParity(3) === false);
         `,
         "input-type": "",
         "show-editor": true,
-        "placeholder-code": `
-assert(checkParity() === );
+        "placeholder-code": 
+`// TEST 1:
+
+// arrange
+const testInput1 = 2;
+
+// act
+const result1 = checkParity(testInput1);
+
+// assert
+assert(result1 === true);
+
+
+// TEST 2:
+
+// arrange
+
+// act
+
+// assert
+
 `
       },
       {
         "label": "Rainfall",
         "id": 3.2,
         "hint": `Try writing one test case for each of the requirements listed in the problem description.`,
+        "test-func": 'rainfall',
         "code":
 `// function stub:
 // in  -> Array[Number] measurements
@@ -1079,19 +1100,44 @@ function rainfall(measurements) {}`,
         `,
         "input-type": "",
         "show-editor": true,
-        "placeholder-code": `
+        "placeholder-code": 
+`// TEST 1:
 
-assert(rainfall([5, 5, 5, 5, 5]) === 5);
+// arrange
+const testInput1 = [5, 5, 5];
+
+// act
+const result1 = rainfall(testInput1);
+
+// assert
+assert(result1 === 5);
+
+
+// TEST 2:
+
+// arrange
+
+// act
+
+// assert
 
 `     },
       {
         "label": "Letter Groups",
         "id": 3.3,
-        "hint": "",
+        "hint": "No hint for this one :)",
+        "test-func": 'letterGroups',
         "input-type": "",
         "show-editor": true,
-        "placeholder-code": `
-assert(letterGroups() === );
+        "placeholder-code": 
+`
+// TEST 1:
+
+// arrange
+
+// act
+
+// assert
 `,
         "code":
 `// function stub:

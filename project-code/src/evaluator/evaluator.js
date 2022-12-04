@@ -1,6 +1,7 @@
 
 import { exerciseTestCases } from '../constants/exercises/exerciseUtils';
 import { runCode } from '../constants/exercises/system-testing/courseScheduler';
+import { checkFormat } from './checkFormat';
 
 
 class Evaluator {
@@ -9,19 +10,34 @@ class Evaluator {
       this.runTests = exerciseTestCases.get(exerciseId).testCase;
       this.templateArgs = exerciseTestCases.get(exerciseId).templateArgs;
       this.templateSuffix = exerciseTestCases.get(exerciseId).templateSuffix;
-    } else {
-      // TODO
     }
     this.exerciseId = exerciseId;
   }
 
-  evaluate(code) {
-    code = escapeLoops(code);
+  evaluate(code, testFunc) {
     if (this.exerciseId >= 4) {
-      return this.evaluateSystemTest(code);
+      return this.evaluateSystemTest(escapeLoops(code));
     } else {
-      const fn = Function(this.templateArgs, code + this.templateSuffix);
+      let formatError = null;
+      if (Math.floor(this.exerciseId) === 3) {
+        try {
+          checkFormat(code, testFunc);
+        } catch(e) {
+          console.log(e.name);
+          console.log(e.message);
+          formatError = e;
+        }
+      }
+      const fn = Function(this.templateArgs, code = escapeLoops(code) + this.templateSuffix);
       const evalResult = this.runTests(fn);
+      console.log(evalResult);
+      if (formatError !== null) {
+        evalResult.error = true;
+        evalResult.pass = false;
+        evalResult.type = '';
+        evalResult.message = formatError.message;
+      }
+      // console.log(evalResult);
       return evalResult;
     }
     
@@ -55,7 +71,7 @@ class Evaluator {
 export default Evaluator;
 
 
-// handle infinite loops in user code:
+// naively detect infinite loops in user code:
 function escapeLoops(code) {
   code = 'let infiniteLoopCounter = 0;\n' + code;
   const ESCAPE_PREFIX = 'infiniteLoopCounter = 0;\n';
