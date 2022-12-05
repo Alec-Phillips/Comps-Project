@@ -45,6 +45,10 @@ ___
 
 This section will detail the general React component organization and then go into detail on the mechanisms that evaluate user code submissions for the hands-on exercises, as well as other technical details.
 
+The overall architecture can be visualized as:
+
+![architecture-diagram](./Architecture-Diagram.png)
+
 ### Working with the UI
 
 This first section will discuss the main components of the user interface.
