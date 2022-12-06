@@ -460,10 +460,20 @@ through the function and more easily determine what inputs to provide to fully c
 exercises, a description of the behavior of the function is provided, but the actual code is obscured. This forces the 
 user to consider how the function would be implemented in terms of the necessary control flow. To aid the user in this 
 task, on a given submission attempt, they are given feedback on the percentage of branches that their code covered, as 
-well as whether any of their assertion statements failed. 
+well as whether any of their assertion statements failed.
 
-% TODO: 
-%   add more to the above section once I implement a system level test exercise...
+I ended up implementing one system-level test exercise, which involves the user writing a series of assertion tests on a
+larger scale API. This exercise is the most difficult of all the content and is only unlocked after a user has completed 
+all the unit test exercises. This way they have the proper context to be able to complete the system test exercise. This
+exercise involves the user writing test cases against a mock course registration system. They are provided with the documentation 
+for a CourseScheduler class with its member method stubs. Additionally, they are given the starting state of a 'database' 
+which is actually implemented as a series of javacsript objects. However, this simulates the experience of writing code 
+that interacts with a back-end database. For this exercise, users are also trying to raise the overall branch coverage, 
+and to do so must interact with all the methods in the CourseScheduler class and reason about what combinations of 
+interactions will cause certain operations to occur. For instance, students need to exercise a prerequisite-checking function,
+but to do so they must enroll students in courses, increment the semester (so that students have then completed prerequisite 
+courses), and then enroll the students in courses they are now qualified for. 
+
 
 \subsection{Iterative Project Improvement}
 
@@ -473,22 +483,105 @@ gauged the quality of the teaching content, the clarity of the exercise directio
 exercises, as well as overall user experience. From this first round of evaluations, I learned that the directions for 
 the exercises could be made more clear, and that it would be helpful to include hints for some of the more difficult 
 exercises. Additionally, it was noted that the feedback on coding exercises could be more detailed so that the user 
-has more of a sense of what they did wrong. Specifically, this meant displaying all failing test cases on debugging 
-exercises, or more information on which assertions failed on unit-test exercises. 
+has more of a sense of what they did wrong. After this feedback, I added a hint area for each exercise, and improved the 
+feedback reporting area to be more clear and visually appealing. 
 
 In addition to using a survey, I watched individuals interact with the application to get a sense of how clear it is to 
 use and where individuals get confused. One main takeaway from this was that users sometimes found it difficult to know 
 where to start with the coding exercises. The exercises are displayed in rows, and I intended for them to be attempted 
 from top-left to bottom-right. However, I noticed that this was not always intuitive, and this informed my decision to 
 add the feature of locking/unlocking exercises as the user progresses. This enforces the order and provides a clear visual
-of where to start. Additionally, it was indicated by one user that it would be helpful for the exercises to have difficulty 
-ratings that are clearly visible, as this would also help to inform a user about what to expect from the exercises. Both 
-of these points of feedback were helpful and reflected in the final version of my project. 
+of where to start. 
 
-% Talk about feedback gained after a second round of feedback too. 
+This type of interactive testing also exposed some bugs in the code evaluation system, specifically with the system test
+exercise. One more advanced student tested the exercise and noticed that one specific series of interactions caused the 
+exercise to break, so I was able to identify and fix the bug. Additionally, users identified multiple spelling errors in 
+the application. 
 
 
 \section{Evaluation}
+
+To formally evaluate my project, I chose to focus on three main criteria:
+
+\begin{enumerate}
+    \item Teaching Quality (of written teaching content)
+    \item Exercise Quality (clarity of directions, difficulty)
+    \item Overall Learning Outcomes
+\end{enumerate}
+
+As discussed above, these were evaluated in two stages, first one a larger scale with a survey that was sent out to 
+members of the computer science community, and secondly with one on one user interviews where interactions with the 
+application were observed. 
+
+\subsection{Round 1 - User Survey}
+
+\subsubsection{Survey Design}
+
+The survey was designed to target the three areas above for testing. Specifically, users were prompted to:
+
+\begin{itemize}
+    \item read the content on unit testing
+    \item read the descriptions of three exercises (one edge case identification, one debugging, one unit testing)
+    \item attempt to complete the three problems within two to three minutes
+\end{itemize}
+
+This allowed me to gain a sense of how effective each of the evaluation criteria were met in an early version of the project.
+At this point in the implementation there were not yet system test exercises, so this aspect could not be evaluated. The 
+problems that users were asked to complete were the rainfall problem for edge case and unit testing, and a fizzbuzz 
+variation with an off by one error for debugging. 
+
+\subsubsection{Participation}
+
+The survey was sent to ten upper division computer science students (students either majoring or minoring in computer science
+who have participated in an upper division course), as well as one section of twenty-eight introductory computer science students.
+Seven of the upper division students participated in the survey, and no introductory students participated. This was problematic 
+because my application was intended to be geared specifically toward introductory students. However, the findings actually 
+indicated that the more advanced students could still benefit from using the application, which makes me believe that a wider 
+target audience could be appropriate.
+
+\subsubsection{Results}
+
+For the category of teaching quality, students indicated that, their 
+prior knowledge of unit testing was ~2.14 on a scale from one to five. After reading the learn section on unit testing, 
+respondents rated their understanding at a 4 on the same one to five scale. Additionally, they rated the clarity of the 
+section as ~4.57 out of five. This was a satisfactory outcome, indicating that even for more advanced students, they felt 
+that the section taught them something new. This is especially telling because the section they read was on unit testing, 
+which I would have assumed to be the type of testing that advanced students would be most familiar with, however they still
+indicated positive learning outcomes. 
+
+For evaluating the exercise quality, students indicated the clarity of the exercise descriptions as well as whether they 
+were able to solve the problem for
+each of the three types of problems that they attempted. Repondents reported average clarities of ~3.86, 4, and ~4.23 out 
+of five for the edge case, debugging, and unit testing exercise directions respectively. These ratings indicate that users 
+were generally able to determine what was expected for each type of exercise. However, in the written feedback area, some 
+users indicated that the input format for edge case problems could be made more clear. In terms of difficulty, the solve 
+rates were 71.43\% (edge case), 85.71\% (debugging), and 42.86\% (unit test). These were all problems that I would have 
+rated as easy to medium in terms of the problems that could have been chosen. Additionally, respondents were asked to only 
+spend up to three minutes solving the problems. These results indicate that students had the most trouble solving the 
+unit testing exercise within the time limit, which reinforces the general idea that students would benefit from such 
+exercises/practice. However, this gave me a good baseline for understanding how my perception of problem difficulties 
+translates to users' experiences.
+
+In terms of overall learning outcomes, it becomes clear from the findings above that students seem to benefit from interacting 
+with the application. This is emphasized by the fact that even upper division students felt that they gained knowledge from 
+the written materials, and also were not able to easily complete the unit testing exercise on the rainfall problem. Additionally,
+on a Likert scale from one to five, when asked if they would liked this application to have been incorporated into their 
+introductory computer science course:
+
+\begin{itemize}
+    \item 14.29\% gave a rating of 3
+    \item 57.14\% gave a rating of 4
+    \item 28.57\% gave a rating of 5
+\end{itemize}
+
+Overall the sentiment was positive and indicates that students would generally like to see this incorporated into their 
+curriculum. Additionally, 100\% of respondents indicated that they felt that they learned something through interacting 
+with the application. 
+
+Despite the limited engagement with the survey, especially from introductory students, the findings were informative in 
+providing a baseline of the applications effectiveness in relation to the three main evaluation criteria.
+
+
 
 % for final comps paper (could also do this in this paper too):
 %   - discussion of evaluation metrics could actually go before the methods, since it will be useful context since they
@@ -502,96 +595,61 @@ of these points of feedback were helpful and reflected in the final version of m
 %           - possibly have some who used the app and some who didn't both answer questions & take a short test
 %               - could have them write test cases, or reasoning questions about edge cases, etc.
 
-There are several parts of the application that I would like to evaluate independently: 1 - testing the robustness of 
-the application in terms of ability to handle user traffic and efficiently evaluate user submissions; 2 - the usability 
-of the application in terms of user interface and experience; 3 - the effectiveness of the educational material on the 
-application.
+% \subsection{Usability}
 
-\subsection{Robustness}
+% As opposed to the robustness testing, the user experience  of the application will 
+% require user-testing. I would like to get at least ten respondents who are computer science majors at Occidental College 
+% to evaluate this aspect of the project. It is important that they are computer science students, because I will be 
+% having them evaluate the text editor, and I would like them to have a frame of reference going into this part of the 
+% evaluation. I will create a Google Form survey that asks respondents to evaluate how 
+% intuitive and usable the application is. There would be several prompts for the users in order to give them experience using the applicaion 
+% before responding to the survey questions. First I would prompt them to spend two minutes exploring the application 
+% freely to get a feel for the organization. Then I would prompt them to navigate to a specific exercise on the website, 
+% in order for them to assess the difficulty of getting to a particular page they want to get to. This way, they would 
+% get to see the entire UI flow and see all the pages. Finally, I would ask 
+% them to try typing into the code editor. The survey questions would have them rank: 1 - their overall impression of how 
+% intuitive the application layout is, 2 - the difficulty of finding the particular webpage that they were directed to 
+% find, 3 - the organization of the educational content, 4 - the design of the exercise/material pages, 5 - the visual 
+% appearance of the text editor (text highlighting and language accuracy), 6 - the experience of 
+% typing in the editor in terms of responsiveness. Each of these would be ranked on a Likert Scale from 1 to 5. 
+% Additionally, I would offer an open ended feedback section at the end. This would be valuable during the iterative 
+% improvement stage so that I can get a sense of what users would like to see improved and what worked well. To analyze 
+% the data and create visualizations of the evaluations, I would use Google Sheets; the Google Form survey data can be 
+% sent directly into a Sheet, making this process simple. 
 
-This is likely the easiest aspect of the project to evaluate, because it can be done without relying on anyone else. I 
-can test the efficiency of the code evaluation on my own using Postman to send some large number of requests to the 
-system simultaneously. I would like to set benchmarks and see how the system is able to live up to them for different 
-numbers of requests. I will have to do some research to figure out exactly what these targets should be, in order to see
-what reasonable targets are for performance.
+% \subsection{Educational Quality}
 
-\subsection{Usability}
+% To evaluate the quality of the educational materials, I would like to get feedback from both computer science students 
+% as well as computer science professors. First the evaluation of students will be discussed.  I would like to get responses from at least ten Occidental 
+% College computer science students. Ideally these students would be different from the ones evaluating usability. I 
+% could choose to combine these aspects of the survey, but I would rather have these surveys remain separate, because I 
+% would not want the surveys to take a long time to complete or the respondents to experience survey fatigue. The 
+% participants would be given the link directly to the 'main learning page' of the application and prompted to choose a 
+% topic to learn. They would be given twenty minutes to read the material and attempt the associated exercise. They would 
+% then be asked several questions about the experience: 1 - how comprehensive were the material options, 2 - how clear was 
+% the material explanation, 3 - how clear were the exercise directions, 4 - how difficult was the material to understand, 
+% 5 - how difficult was the coding exercise. Once again, these would use a Likert scale from 1 to 5, and would be analyzed 
+% in Google Sheets. 
 
-As opposed to the robustness testing, the user experience  of the application will 
-require user-testing. I would like to get at least ten respondents who are computer science majors at Occidental College 
-to evaluate this aspect of the project. It is important that they are computer science students, because I will be 
-having them evaluate the text editor, and I would like them to have a frame of reference going into this part of the 
-evaluation. I will create a Google Form survey that asks respondents to evaluate how 
-intuitive and usable the application is. There would be several prompts for the users in order to give them experience using the applicaion 
-before responding to the survey questions. First I would prompt them to spend two minutes exploring the application 
-freely to get a feel for the organization. Then I would prompt them to navigate to a specific exercise on the website, 
-in order for them to assess the difficulty of getting to a particular page they want to get to. This way, they would 
-get to see the entire UI flow and see all the pages. Finally, I would ask 
-them to try typing into the code editor. The survey questions would have them rank: 1 - their overall impression of how 
-intuitive the application layout is, 2 - the difficulty of finding the particular webpage that they were directed to 
-find, 3 - the organization of the educational content, 4 - the design of the exercise/material pages, 5 - the visual 
-appearance of the text editor (text highlighting and language accuracy), 6 - the experience of 
-typing in the editor in terms of responsiveness. Each of these would be ranked on a Likert Scale from 1 to 5. 
-Additionally, I would offer an open ended feedback section at the end. This would be valuable during the iterative 
-improvement stage so that I can get a sense of what users would like to see improved and what worked well. To analyze 
-the data and create visualizations of the evaluations, I would use Google Sheets; the Google Form survey data can be 
-sent directly into a Sheet, making this process simple. 
+% An alternative approach that I was considering was to conduct an experiment in which participants 
+% complete a short software testing exam that asks conceptual questions about testing and includes a short coding section 
+% where they are told to write different types of tests for a specific function. I would have a control group that is just 
+% given the test, and an experimental group that is given access to my application while taking the test. I would then 
+% compare the scores between the two groups. I opted against this strategy because the outcomes would be highly dependent 
+% on the prior experience of the participants which would make the results less informative. If I could limit the 
+% participants to senior computer science majors it could control some of this variability, but I worry that would create 
+% too small of a participant pool and I would not get a sufficient number of responses. 
 
-\subsection{Educational Quality}
+% I would like to survey at least four computer science professors at Occidental. The professors would be asked to look at 
+% three lessons of their choice on the application, looking at both the explanations and exercises. They would be asked 
+% several questions rated on a scale from 1 to 5: how comprehensive are the material options; how clear are the 
+% explanations; how clear are the exercise directions; would you incorporate this as part of a course. They would also be 
+% asked several other questions that are rated 
+% differently: what skill level are the materials appropriate for (introductory, moderate, advanced); what materials would 
+% you add (open ended). These professor evaluations would provide extremely valuable feedback, as they would have 
+% considerable insight into computer science education. 
 
-To evaluate the quality of the educational materials, I would like to get feedback from both computer science students 
-as well as computer science professors. First the evaluation of students will be discussed.  I would like to get responses from at least ten Occidental 
-College computer science students. Ideally these students would be different from the ones evaluating usability. I 
-could choose to combine these aspects of the survey, but I would rather have these surveys remain separate, because I 
-would not want the surveys to take a long time to complete or the respondents to experience survey fatigue. The 
-participants would be given the link directly to the 'main learning page' of the application and prompted to choose a 
-topic to learn. They would be given twenty minutes to read the material and attempt the associated exercise. They would 
-then be asked several questions about the experience: 1 - how comprehensive were the material options, 2 - how clear was 
-the material explanation, 3 - how clear were the exercise directions, 4 - how difficult was the material to understand, 
-5 - how difficult was the coding exercise. Once again, these would use a Likert scale from 1 to 5, and would be analyzed 
-in Google Sheets. 
 
-An alternative approach that I was considering was to conduct an experiment in which participants 
-complete a short software testing exam that asks conceptual questions about testing and includes a short coding section 
-where they are told to write different types of tests for a specific function. I would have a control group that is just 
-given the test, and an experimental group that is given access to my application while taking the test. I would then 
-compare the scores between the two groups. I opted against this strategy because the outcomes would be highly dependent 
-on the prior experience of the participants which would make the results less informative. If I could limit the 
-participants to senior computer science majors it could control some of this variability, but I worry that would create 
-too small of a participant pool and I would not get a sufficient number of responses. 
-
-I would like to survey at least four computer science professors at Occidental. The professors would be asked to look at 
-three lessons of their choice on the application, looking at both the explanations and exercises. They would be asked 
-several questions rated on a scale from 1 to 5: how comprehensive are the material options; how clear are the 
-explanations; how clear are the exercise directions; would you incorporate this as part of a course. They would also be 
-asked several other questions that are rated 
-differently: what skill level are the materials appropriate for (introductory, moderate, advanced); what materials would 
-you add (open ended). These professor evaluations would provide extremely valuable feedback, as they would have 
-considerable insight into computer science education. 
-
-\section{Proposed Timeline}
-
-Summer (tasks to be completed by listed date):
-
-\begin{itemize}
-    \item{July 15: Complete interviews with computer science educators. Research and detailed plan for how to implement 
-    the code exercise evaluation mechanism within my application.}
-    \item{August 30: Complete interviews with industry professionals. Complete design specification for application
-    based on information gathered from interviews.}
-\end{itemize}
-
-Fall Semester:
-
-\begin{itemize}
-    \item{September 15: All server-side and database code complete, including code evaluation mechanism.}
-    \item{October 1: All client-side (React) code complete and integrated with server-side code. This constitutes a 
-    complete prototype for the project.}
-    \item{October 15: First round of user testing complete.}
-    \item{November 1: Integration of first user evaluations complete, ready for second round of evaluations.}
-    \item{November 15: Second round of user testing complete.}
-    \item{December 1: Integration of second user evaluations complete.}
-    \item{Final Deadline: Completion of final comps paper.}
-\end{itemize}
 
 \printbibliography 
 
