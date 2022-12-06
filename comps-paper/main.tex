@@ -377,8 +377,6 @@ because that is the only language that can run in the web-browser, without the u
 convert from another language into javascript. I had initially wanted to have the exercises be in python, however javascript 
 is also a good language for students to get introduced to, especially if they are interested in going into front-end development. 
 
-% TODO:
-%   talk about how I got around not having a db, how I store user progress, etc. 
 One main drawback that the serverless design posed was the lack of a database. My main concern without a database was figuring
 out how to store the content descriptions and exercises, as well as storing user progress. However, I realized that another 
 way to achieve the storing of user progress was through the browser's localStorage feature. This is a structure stored by the 
@@ -398,6 +396,18 @@ with less stable internet connections. In terms of ease of development, the lack
 easier to deploy; I was able to deploy through github pages, which was a very simple process. This ease of deployment made 
 it easier to have an initial deployment out earlier, meaning I was able to do a first round of user evaluations fairly early, 
 allowing me more time to iterate on feedback and get input from users. 
+
+One additional aspect of the implementation that required outside research was getting code coverage for a user's test cases.
+From an initial search online, there were many tools that gather test coverage, but few that talk about how test coverage 
+is actually determined. One technique that I located showed the process of injecting coverage flags into a function under 
+test, which can be set to true when the execution enters the corresponding condition \cite{coverage}. To implement this I
+simply declare an array of boolean flags, all set to false, with each flag corresponding to a particular branch of the code. When the function runs,
+within each branch, a different element of the array is set to true. Once all tests have been run, the total branch coverage 
+is the percentage of flags that are set to true. This was a surprisingly simple way to determining coverage, and was effective 
+for my purposes. There are downsides to evaluating simply on branch coverage, because there are more thorough methods for 
+evaluating coverage, such as path coverage. I would have liked to extended to detecting path coverage with more time to 
+work on the project, because it seems interesting algorithmically to detect, and would require users to write more thorough 
+test cases, because there will necessarily be at least as many paths through a code block as there are branches. 
 
 
 \subsection{Interface Design}
@@ -581,7 +591,27 @@ with the application.
 Despite the limited engagement with the survey, especially from introductory students, the findings were informative in 
 providing a baseline of the applications effectiveness in relation to the three main evaluation criteria.
 
+\subsection{Round 2 - One-on-one Evaluations}
 
+The second round of user evaluations involved asking individuals about their experience using the application in a one-on-one 
+setting. I used two different formats for this. 
+\begin{itemize}
+    \item watching individual users interact with the application and observing with minimal interference
+    \item asking individuals to use the application on their own (without observing them) and then discussing their experience
+\end{itemize}
+
+This was intended to gain insight into how users interact with the application when they have freedom to do 
+so as they see fit. The decision to observe some users and not observe others was motivated by the fact that some users 
+seemed to look for guidance when I was observing them using the application, which defeats the purpose of the user interacting 
+with the application freely. However, it was still beneficial to get a direct visual of how individuals navigate the page.
+Additionally, the non-observational type allowed me to get feedback from individuals who were not directly present, such as 
+peers who go to other schools.
+
+With each of these tests, my evaluation consisted of an open ended discussion with the user about their experience, as 
+well as more targeted questions about their interactions. These questions focused on the three main evaluation criteria 
+detailed above, so as to be consistent and work towards building a sense of the key goals of my project. However, these 
+conversations also focused more on the overall usability of the application, and the clarity of the general application 
+flow.
 
 % for final comps paper (could also do this in this paper too):
 %   - discussion of evaluation metrics could actually go before the methods, since it will be useful context since they
