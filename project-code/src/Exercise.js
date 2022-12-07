@@ -154,7 +154,7 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
                 <StyledOption
                   accepted={accepted}
                   onClick={submitInputArgs}>
-                  <a href="#hint">Submit</a>
+                  <a className="hintRef" href="#hint">Submit</a>
                 </StyledOption>
               </div>
             </Fragment>
@@ -198,7 +198,7 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
                 accepted={accepted}
                 onClick={submitCode}
                 >
-                <a href="#hint">Submit</a>
+                <a className="hintRef" href="#hint">Submit</a>
                 
               </StyledOption>
             </div>
