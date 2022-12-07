@@ -25,8 +25,9 @@ Follow these instructions if you wish to view and run the project locally on you
   git clone https://github.com/Alec-Phillips/Comps-Project.git
   ```
 
-- Navigate into the ./project-code directory
+- Navigate into the ./Comps-Project/project-code directory
   ```
+  cd Comps-Project
   cd project-code
   ```
 - Install dependencies through npm (this looks at the dependencies in the package.lock file and installs them as well as installing node_modules, which are the files needed for React.js to run correctly)
