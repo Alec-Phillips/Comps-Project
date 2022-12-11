@@ -269,9 +269,7 @@ are the ethical and pedagogical obligations that an educator has to the students
 application’s service will likely only affect those who already have 
 access to computer science education, reinforcing the current power dynamics in terms of who has access to education and 
 the ability to learn computer science. Additionally, it reinforces power dynamics existing around who has internet 
-access. Finally, there is the concern of security, as any web application is open to possible attacks, and any service 
-that stores user information, as mine likely will, must consider the risk of exposing individuals’ information that they 
-have entrusted to you and the service. Despite the initially benign appearance of this project, these ethical 
+access. Despite the initially benign appearance of this project, these ethical 
 considerations emphasize that there are still potential ethical issues present that need to be considered carefully. 
 
 \subsection{Educator Obligations}
@@ -295,7 +293,8 @@ competence. Within the context of my project, it would require continued updatin
 as continuing to further my knowledge to better serve the users of the application, which are not responsibilities that 
 I can confidently commit to at this time. These two examples represent the issues that come along with taking on the 
 role of educator and building an educational site. In order to address this, it is important that, if this application 
-is to be deployed, I only allow it to be active for as long as I can uphold these obligations. 
+is to be deployed, I only allow it to be active for as long as I can uphold these obligations.
+
 
 \subsection{Power Reinforcement}
 
@@ -307,7 +306,7 @@ differentiates power in computer science and technology is whether or not someon
 access to the internet. Individuals who have easy access to the internet are much more easily able to interact with 
 existing technologies and web applications, and also have much more access to learning how to interact with computers in 
 general. The issue with this web application, and conveying educational material over the internet in general, is that 
-it is only making information more accessible to those who can already easily access it. Even if my application makes 
+it is only making information more accessible to those who can already easily access it. Even if my application successfully makes 
 the information easier to learn 
 or more enjoyable, it is not reaching a new audience or further distributing access to learning computer science. This 
 then reinforces the existing power structures that exist in computer science. 
@@ -322,24 +321,32 @@ emphasizes the importance of the relationship between internet access and power.
 with internet access by means of a web application that only those individuals can benefit from will inherently further 
 these existing power dynamics.
 
-Power differences as a result of internet access habe been further exacerbated by the COVID-19 pandemic. This has been a 
+Power differences as a result of internet access have been further exacerbated by the COVID-19 pandemic. This has been a 
 prevalent issue in the academic sphere; students 
 who have access to reliable internet can more easily and consistently access their courses, and do not have to worry 
 about missing material because of something outside of their control like stable internet \cite{Lai2020Article}. 
 This emphasizes that, currently, those without internet access are experiencing even greater challenges as a result of 
-the pandemic, so introducing more web based applications will further this divide. These issues are important to 
+the pandemic, so introducing more web based applications will further this divide. 
+
+These issues are important to 
 consider, but my hope is that ultimately my application can provide more benefit to individuals and make computer 
-science more accesible overall. 
+science more accesible overall. Additionally, the way that my application is designed works to mitigate these concerns.
+Specifically, because the application can be fully contained within the user's web browser and there are no network calls 
+made during use, the application actually does not require an internet connection. If being used in the browser, a 
+network connection is only required when the user initially requests the page. However, the application code can also 
+be downloaded onto the device and can then be completely used with no internet connection. This makes the application 
+more accessible and helps to combat some of the concerns above regarding the furthering of the power divide caused by 
+internet access. 
 
 \subsection{Ethics of Security}
 
-This application also brings in the issue of security. The application will likely store user data, such as passwords 
-and usernames in a database. If the application is attacked, this user data could be leaked. Additionally, a part of my 
-application involves running users' code to evaluate their performance on coding exercises. This brings in the 
-possibility of malicious code injection. To ensure that it is ethical to deploy this application, it will be critical 
-for me to make sure that I am diligent in securing the 
-application from potential attacks such as these, in order to feel confident that my application is not putting anyone's 
-information in danger. 
+In my initial project design I had planned on having users log in to their own account to track their progress, which 
+would require storing user information such as an identifier and password. This inherently brings up ethical concerns, 
+because if the application is to be breached in some way, these users' trusted information would no longer be safe. This 
+places the burden of securing this information on the developer. However, once I switched to a serverless 
+design and used the localStorage instead of a database to store progress, these concerns were eliminated. While I was 
+initially concerned about the limitations of building the application without a database, all the technical goals of the 
+project were still able to be met, while also eliminating the concerns surrounding storing user information. 
 
 \section{Methods} 
 
@@ -509,7 +516,7 @@ exercise to break, so I was able to identify and fix the bug. Additionally, user
 the application. 
 
 
-\section{Evaluation}
+\section{Evaluation Metrics}
 
 To formally evaluate my project, I chose to focus on three main criteria:
 
@@ -549,47 +556,8 @@ because my application was intended to be geared specifically toward introductor
 indicated that the more advanced students could still benefit from using the application, which makes me believe that a wider 
 target audience could be appropriate.
 
-\subsubsection{Results}
+% \subsubsection{Results}
 
-For the category of teaching quality, students indicated that, their 
-prior knowledge of unit testing was ~2.14 on a scale from one to five. After reading the learn section on unit testing, 
-respondents rated their understanding at a 4 on the same one to five scale. Additionally, they rated the clarity of the 
-section as ~4.57 out of five. This was a satisfactory outcome, indicating that even for more advanced students, they felt 
-that the section taught them something new. This is especially telling because the section they read was on unit testing, 
-which I would have assumed to be the type of testing that advanced students would be most familiar with, however they still
-indicated positive learning outcomes. 
-
-For evaluating the exercise quality, students indicated the clarity of the exercise descriptions as well as whether they 
-were able to solve the problem for
-each of the three types of problems that they attempted. Repondents reported average clarities of ~3.86, 4, and ~4.23 out 
-of five for the edge case, debugging, and unit testing exercise directions respectively. These ratings indicate that users 
-were generally able to determine what was expected for each type of exercise. However, in the written feedback area, some 
-users indicated that the input format for edge case problems could be made more clear. In terms of difficulty, the solve 
-rates were 71.43\% (edge case), 85.71\% (debugging), and 42.86\% (unit test). These were all problems that I would have 
-rated as easy to medium in terms of the problems that could have been chosen. Additionally, respondents were asked to only 
-spend up to three minutes solving the problems. These results indicate that students had the most trouble solving the 
-unit testing exercise within the time limit, which reinforces the general idea that students would benefit from such 
-exercises/practice. However, this gave me a good baseline for understanding how my perception of problem difficulties 
-translates to users' experiences.
-
-In terms of overall learning outcomes, it becomes clear from the findings above that students seem to benefit from interacting 
-with the application. This is emphasized by the fact that even upper division students felt that they gained knowledge from 
-the written materials, and also were not able to easily complete the unit testing exercise on the rainfall problem. Additionally,
-on a Likert scale from one to five, when asked if they would liked this application to have been incorporated into their 
-introductory computer science course:
-
-\begin{itemize}
-    \item 14.29\% gave a rating of 3
-    \item 57.14\% gave a rating of 4
-    \item 28.57\% gave a rating of 5
-\end{itemize}
-
-Overall the sentiment was positive and indicates that students would generally like to see this incorporated into their 
-curriculum. Additionally, 100\% of respondents indicated that they felt that they learned something through interacting 
-with the application. 
-
-Despite the limited engagement with the survey, especially from introductory students, the findings were informative in 
-providing a baseline of the applications effectiveness in relation to the three main evaluation criteria.
 
 \subsection{Round 2 - One-on-one Evaluations}
 
@@ -612,6 +580,8 @@ well as more targeted questions about their interactions. These questions focuse
 detailed above, so as to be consistent and work towards building a sense of the key goals of my project. However, these 
 conversations also focused more on the overall usability of the application, and the clarity of the general application 
 flow.
+
+Overall these types of interviews were conducted with six students, three advanced and three introductory level.  
 
 % for final comps paper (could also do this in this paper too):
 %   - discussion of evaluation metrics could actually go before the methods, since it will be useful context since they
@@ -679,6 +649,97 @@ flow.
 % you add (open ended). These professor evaluations would provide extremely valuable feedback, as they would have 
 % considerable insight into computer science education. 
 
+
+\section{Results and Discussion}
+
+\subsection{Round One Evaluation}
+
+For the category of teaching quality, students indicated that, their 
+prior knowledge of unit testing was ~2.14 on a scale from one to five. After reading the learn section on unit testing, 
+respondents rated their understanding at a 4 on the same one to five scale. Additionally, they rated the clarity of the 
+section as ~4.57 out of five. This was a satisfactory outcome, indicating that even for more advanced students, they felt 
+that the section taught them something new. This is especially telling because the section they read was on unit testing, 
+which I would have assumed to be the type of testing that advanced students would be most familiar with, however they still
+indicated positive learning outcomes. 
+
+For evaluating the exercise quality, students indicated the clarity of the exercise descriptions as well as whether they 
+were able to solve the problem for
+each of the three types of problems that they attempted. Repondents reported average clarities of ~3.86, 4, and ~4.23 out 
+of five for the edge case, debugging, and unit testing exercise directions respectively. These ratings indicate that users 
+were generally able to determine what was expected for each type of exercise. However, in the written feedback area, some 
+users indicated that the input format for edge case problems could be made more clear. In terms of difficulty, the solve 
+rates were 71.43\% (edge case), 85.71\% (debugging), and 42.86\% (unit test). These were all problems that I would have 
+rated as easy to medium in terms of the problems that could have been chosen. Additionally, respondents were asked to only 
+spend up to three minutes solving the problems. These results indicate that students had the most trouble solving the 
+unit testing exercise within the time limit, which reinforces the general idea that students would benefit from such 
+exercises/practice. However, this gave me a good baseline for understanding how my perception of problem difficulties 
+translates to users' experiences.
+
+In terms of overall learning outcomes, it becomes clear from the findings above that students seem to benefit from interacting 
+with the application. This is emphasized by the fact that even upper division students felt that they gained knowledge from 
+the written materials, and also were not able to easily complete the unit testing exercise on the rainfall problem. Additionally,
+on a Likert scale from one to five, when asked if they would liked this application to have been incorporated into their 
+introductory computer science course:
+
+\begin{itemize}
+    \item 14.29\% gave a rating of 3
+    \item 57.14\% gave a rating of 4
+    \item 28.57\% gave a rating of 5
+\end{itemize}
+
+Overall the sentiment was positive and indicates that students would generally like to see this incorporated into their 
+curriculum. Additionally, 100\% of respondents indicated that they felt that they learned something through interacting 
+with the application. 
+
+Despite the limited engagement with the survey, especially from introductory students, the findings were informative in 
+providing a baseline of the applications effectiveness in relation to the three main evaluation criteria.
+
+\subsection{Round Two Evaluation}
+
+The one-on-one evaluations were particularly insightful for indicating how usable the application is, and whether it 
+reached my goals for intuitiveness and clarity. Some main takeaways from watching individuals interact with the application 
+were that introductory users tended to start with the learn section, while more advanced students (individuals who had 
+taken at least one upper division computer science course) wanted to start with the exercises. In general, more advanced 
+users also wanted to start with the harder exercises, instead of working their way up through the problems. In these 
+cases, I would manually unlock the more advanced levels for them, but they tended to struggle because they were missing 
+context that would have been explained if they had started from the easier problems. This reinforced my idea that it makes 
+sense to still enforce the ordering of the problems even for more advanced users. In general, from watching the advanced 
+students try exercises, they still seemed to find the problems somewhat challenging. Beginners also had difficulty, but 
+were still able to solve the easier problems after reading the directions and contextual material. It was encouraging to 
+see that students of all skill levels found the problems to be adequately difficult.
+
+In terms of usability, testers indicated that the content sections were clear and they were not confused about where to 
+navigate to in order to find the content that they wanted to look at. Additionally, users seemed to want to work from 
+left to right through the content. There were still some points of confusion, specifically on the submission feedback 
+for the coding problems. For the edge case identification problems, some users were confused because the goal of the 
+problem is to provide an input that causes the function to execute incorrectly, but when they provide an input that 
+successfully does this, the feedback says 'PASS.' Users found this confusing because they thought that this meant that 
+the function executed correctly, not that their input broke the function. I tried to fix this problem by using more visual
+cues that their solution passed, such as highlighting the submission green. Additionally, a green check-mark will appear 
+on the problem name and the next exercise becomes unlocked. Given more time, I would further improve this by forcing the 
+page to scroll back to the top or providing a 'next exercise' button to make it even more clear that the problem is complete. 
+Additionally, for coding problems, the feedback indicates if there is an error in the user's code, but it does not say 
+which line the error is on. Users complained that this made it difficult to debug their code. I tried to address this,
+but it seems like a limitation of the way the evaluation mechanism works; the user's code is embedded into an anonymous 
+function that actually gets run in a virtual machine within the browser. I do not know all the specifics of why this is 
+the case, but it seems to be the same for dynamically generated functions and any code run with the eval() function. 
+I would also like to have tried other ways of addressing this if there was more time to work on the project. 
+
+\subsection{Conclusion}
+
+Despite some of the shortcomings above, I believe that the project succeeded in meeting the goals that I set out to 
+accomplish when designing the project. My main concern was that users would get a learning experience from using the 
+application and be exposed to new content in a manageable and understandable way. From both sets of evaluations, it 
+became clear that not only introductory, but also advanced students benefitted from interacting with the application. 
+I believe that this indicates that the concept has more utility than I had initially thought. This also shows that 
+more advanced students do not always learn software testing concepts independently even if they aren't taught these ideas 
+in an introductory course. I believe that this reinforces the importance of introducing students to these concepts. 
+In addition to the improvements discussed above, the main change that would be necessary if this application were to be 
+used in a course is that more content would need to be added. It definitely proved to be more difficult than anticipated 
+to come up with exercises of appropriate difficulty - often what seemed like a good idea for an exercise proved to be 
+significantly too easy or difficult. It was specifically difficult to come up with unit test exercises, because the 
+complexity or difficulty of an algorithm often did not translate to having a significant number of branches in the logic, 
+meaning that it would only require a couple test cases to fully reach the coverage goal. 
 
 
 \printbibliography 
