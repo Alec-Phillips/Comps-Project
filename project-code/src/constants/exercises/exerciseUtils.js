@@ -117,6 +117,9 @@ exerciseTestCases.set(1.5,
       if (letters.length === 0) {
         return false;
       }
+      if (! letters.includes('a'||'b'||'c'||'d')) {
+        return false;
+      }
       const targetSet = new Set(['a', 'b', 'c', 'd']);
       return !targetSet.has(letters.charAt(0));
     },
@@ -139,7 +142,7 @@ exerciseTestCases.set(2.1,
         if (JSON.stringify(fn(input[0])) !== JSON.stringify(input[1])) {
           return {
             pass: false,
-            failedInput: `'${input[0]}'`,
+            failedInput: `${input[0]}`,
           }
         }
       }
@@ -167,7 +170,7 @@ exerciseTestCases.set(2.2,
         if (JSON.stringify(fn(input[0])) !== JSON.stringify(input[1])) {
           return {
             pass: false,
-            failedInput: `'${input[0]}'`,
+            failedInput: `${input[0]}`,
           }
         }
       }
@@ -199,7 +202,7 @@ exerciseTestCases.set(2.3,
         if (fn(input[0]) !== input[1]) {
           return {
             pass: false,
-            failedInput: `'${input[0]}'`,
+            failedInput: `[${input[0]}]`,
           }
         }
       }

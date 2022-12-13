@@ -5,54 +5,87 @@ import { Fragment } from 'react';
 function ResultDisplay({ evalResult, exerciseId }) {
 
   const getRender = () => {
-    if (evalResult.error) {
+    if (exerciseId === 1) {
       return (
-        <div>
-          {evalResult.type}
-          <br></br>
-          {evalResult.message}
-        </div>
+        <table>
+          <tbody>
+            <tr>
+              <td>Result</td>
+              <td>{evalResult.pass ? 'PASS' : 'fail'}</td>
+            </tr>
+            <tr>
+              <td>Error</td>
+              <td>{evalResult.error ? evalResult.message : 'N/A'}</td>
+            </tr>
+          </tbody>
+        </table>
+      )
+    } else if (exerciseId === 2) {
+      return (
+        <table>
+          <tbody>
+            <tr>
+              <td>Result</td>
+              <td>{evalResult.error ? 'fail' : evalResult.pass ? 'PASS' : 'fail'}</td>
+            </tr>
+            <tr>
+              <td>Error</td>
+              <td>{evalResult.error ? evalResult.type + '\n' + evalResult.message : 'N/A'}</td>
+            </tr>
+            <tr>
+              <td>Failed On Input</td>
+              <td>{evalResult.failedInput ? evalResult.failedInput : 'N/A'}</td>
+            </tr>
+          </tbody>
+        </table>
       )
     } else {
-      if (exerciseId === 2) {
+      if (evalResult.error) {
         return (
-          <Fragment>
-            {
-              evalResult && evalResult.pass ? (
-                <p>
-                  PASS!
-                </p>
-              ) : evalResult && (evalResult.pass === false) ? (
-                <p>
-                  Failed on input: {evalResult.failedInput}
-                </p>
-              ) : (null)
-            }
-          </Fragment>
-        )
-      } else {
-        return (
-          <Fragment>
-            {
-              evalResult.pass ? (
-                <div className="resultRow" id="evalResult">
-                  Result: Pass
-                </div>
-              ) : (
-                <div className="resultRow" id="evalResult">
-                  Result: Fail
-                </div>
-              )
-            }
-            <div className="resultRow" id="branchCoverage">
-              Branch Coverage: {evalResult.coverageReport.coverage}%
-            </div>
-            <div className="resultRow" id="assertionResults">
-              Failed Assertions: {evalResult.assertionReport.length}
-            </div>
-          </Fragment>
+          <table>
+            <tbody>
+              <tr>
+                <td>Result</td>
+                <td>{'fail'}</td>
+              </tr>
+              <tr>
+                <td>Error</td>
+                <td>{evalResult.type + '\n' + evalResult.message}</td>
+              </tr>
+              <tr>
+                <td>Coverage</td>
+                <td>{'N/A'}</td>
+              </tr>
+              <tr>
+                <td>Failed Assertions</td>
+                <td>{'N/A'}</td>
+              </tr>
+            </tbody>
+          </table>
         )
       }
+      return (
+        <table>
+          <tbody>
+            <tr>
+              <td>Result</td>
+              <td>{evalResult.pass ? 'PASS' : 'fail'}</td>
+            </tr>
+            <tr>
+              <td>Error</td>
+              <td>{'N/A'}</td>
+            </tr>
+            <tr>
+              <td>Coverage</td>
+              <td>{evalResult.coverageReport.coverage + '%'}</td>
+            </tr>
+            <tr>
+              <td>Failed Assertions</td>
+              <td>{evalResult.assertionReport.length}</td>
+            </tr>
+          </tbody>
+        </table>
+      )
     }
   }
 
@@ -62,6 +95,5 @@ function ResultDisplay({ evalResult, exerciseId }) {
     </div>
   )
 }
-
 
 export default ResultDisplay;

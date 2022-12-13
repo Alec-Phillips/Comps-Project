@@ -46,24 +46,24 @@ export const contentDescriptions = [
     <h3>Example</h3>
     Say you have the function:
     -codeSegmentStart-
-      function getMax(array) {
-        let max = array[0];
-        for (let i = 1; i < array.length; i ++) {
-          if (array[i] > max) {
-            max = array[i];
-          }
-        }
-        return max;
-      }
+function getMax(array) {
+  let max = array[0];
+  for (let i = 1; i < array.length; i ++) {
+    if (array[i] > max) {
+      max = array[i];
+    }
+  }
+  return max;
+}
     -codeSegmentEnd-
     Unit tests usually involve an <code>assert</code> statement. This is a statement that expects a certain condition to
     be true. This is a way of saying that we expect our function to output a specific result.
     <br></br>
     Unit tests for this may look like:
     -codeSegmentStart-
-      assert(getMax([1,2,3,4,5]) === 5);
-      assert(getMax([5,4,3,2,1]) === 5);
-      assert(getMax([]) === null);
+assert(getMax([1,2,3,4,5]) === 5);
+assert(getMax([5,4,3,2,1]) === 5);
+assert(getMax([]) === null);
     -codeSegmentEnd-
     These unit tests would expose a bug in the code: the empty array input is not handled. This makes it clear where the
     error is located and the code can be easily adjusted. 
@@ -100,49 +100,49 @@ export const contentDescriptions = [
     </ul>
     Say the interface for the input formatter looks like:
     -codeSegmentStart-
-      class InputHandler {
+class InputHandler {
 
-        format(input) {
-          // takes an input that can be a city name or zip code, along with a date
-          // validates input
-          // returns an object with the city name, zip code, and date
-          //    will retrieve the one that is not provided from a database
-        }
-      }
+  format(input) {
+    // takes an input that can be a city name or zip code, along with a date
+    // validates input
+    // returns an object with the city name, zip code, and date
+    //    will retrieve the one that is not provided from a database
+  }
+}
       -codeSegmentEnd-
     And the interface for the weather retrieval system looks like:
     -codeSegmentStart-
-      class GetWeather {
+class GetWeather {
 
-        retrieve(locationData) {
-          // takes an object with a city name, zip code. and date
-          // queries database to get weather for input location from target date
-          // returns the weather data
-        }
-      }
+  retrieve(locationData) {
+    // takes an object with a city name, zip code. and date
+    // queries database to get weather for input location from target date
+    // returns the weather data
+  }
+}
       -codeSegmentEnd-
     A possible test case that exercises the integration of these components:
     -codeSegmentStart-
-      function TestInputHanderGetWeatherIntegration1() {
-        // create instance of input handler
-        const inputHandler = new InputHandler();
+function TestInputHanderGetWeatherIntegration1() {
+  // create instance of input handler
+  const inputHandler = new InputHandler();
 
-        // create instance of the weather retriever
-        const weatherRetriever = new GetWeather();
-
-
-        // use the input handler to get the formatted user input
-        const formattedInput = inputHandler.format('90041', '10/10/2010');
-
-        // call the weather retriever with the formatted input
-        const weatherResult = weatherRetriever.retrieve(formattedInput);
+  // create instance of the weather retriever
+  const weatherRetriever = new GetWeather();
 
 
-        // check if the result is accurate
-        // (this assumes we know what the system should output for this input)
-        const expectedResult = '79 degrees';
-        assert(weatherResult === expectedResult);
-      }
+  // use the input handler to get the formatted user input
+  const formattedInput = inputHandler.format('90041', '10/10/2010');
+
+  // call the weather retriever with the formatted input
+  const weatherResult = weatherRetriever.retrieve(formattedInput);
+
+
+  // check if the result is accurate
+  // (this assumes we know what the system should output for this input)
+  const expectedResult = '79 degrees';
+  assert(weatherResult === expectedResult);
+}
       -codeSegmentEnd-
     It is assumed that each of these components would be thoroughly unit tested first
     <br></br>
@@ -184,23 +184,23 @@ export const contentDescriptions = [
     </ul>
     With this in mind, the exposed API for this system may look something like:
     -codeSegmentStart-
-        class ImageEditor {
+class ImageEditor {
 
-          constructor(filePath) {
-            // assume this retrieves and instantaites a representation of the image at this location
-            this.image = new ImageInstance(filePath);
-          }
+  constructor(filePath) {
+    // assume this retrieves and instantaites a representation of the image at this location
+    this.image = new ImageInstance(filePath);
+  }
 
-          getImageDimensions() {}
+  getImageDimensions() {}
 
-          cropImage(startX, startY, newHeight, newWidth) {}
+  cropImage(startX, startY, newHeight, newWidth) {}
 
-          filterImage(filterType) {}
+  filterImage(filterType) {}
 
-          addOverlayShape(targetCoordinate, overlayType, overlayDimensions) {}
+  addOverlayShape(targetCoordinate, overlayType, overlayDimensions) {}
 
-          compressImage(compressionFormat) {}
-        }
+  compressImage(compressionFormat) {}
+}
         -codeSegmentEnd-
     Assume that there is some interface through which the user is interacting with the file, and as they make edits,
     these methods are called according to the actions of the user
@@ -212,26 +212,26 @@ export const contentDescriptions = [
     <br></br>
     One of our system tests may look something like:
     -codeSegmentStart-
-        function testCropImage() {
-          // arrange:
-          const imagePath = './test-images/test-image-1.jpg';
-          const editorInstance = new ImageEditor(imagePath);
+function testCropImage() {
+  // arrange:
+  const imagePath = './test-images/test-image-1.jpg';
+  const editorInstance = new ImageEditor(imagePath);
 
-          // act:
-          const oldDimensions = editorInstance.getDimensions();
-          editorInstance.cropImage(oldDimensions.xStart, oldDimensions.yStart + 5, oldDimensions.height * .75, oldDimensions.width * .5);
+  // act:
+  const oldDimensions = editorInstance.getDimensions();
+  editorInstance.cropImage(oldDimensions.xStart, oldDimensions.yStart + 5, oldDimensions.height * .75, oldDimensions.width * .5);
 
-          // assert:
-          const newDimensions = editorInstance.getDimensions();
-          const expectedDimensions = {
-            xStart: oldDimensions.xStart,
-            yStart: oldDimensions.yStart + 5,
-            height: oldDimensions.height * .75,
-            width: oldDimensions.width * .5,
-          }
-          assert(newDimensions === expectedDimensions); // cannot actually compare objects like this
-                                                        // would need to loop through attributes
-        }
+  // assert:
+  const newDimensions = editorInstance.getDimensions();
+  const expectedDimensions = {
+    xStart: oldDimensions.xStart,
+    yStart: oldDimensions.yStart + 5,
+    height: oldDimensions.height * .75,
+    width: oldDimensions.width * .5,
+  }
+  assert(newDimensions === expectedDimensions); // cannot actually compare objects like this
+                                                // would need to loop through attributes
+}
         -codeSegmentEnd-
     This process would repeat until we've thoroughly exercised each of the exposed methods
     <br></br>

@@ -1,19 +1,46 @@
 
 import { exerciseTestCases } from '../constants/exercises/exerciseUtils';
+import { runCode } from '../constants/exercises/system-testing/courseScheduler';
+import { checkFormat } from './checkFormat';
 
 
 class Evaluator {
   constructor(exerciseId) {
-    this.runTests = exerciseTestCases.get(exerciseId).testCase;
-    this.templateArgs = exerciseTestCases.get(exerciseId).templateArgs;
-    this.templateSuffix = exerciseTestCases.get(exerciseId).templateSuffix;
+    if (exerciseId < 4) {
+      this.runTests = exerciseTestCases.get(exerciseId).testCase;
+      this.templateArgs = exerciseTestCases.get(exerciseId).templateArgs;
+      this.templateSuffix = exerciseTestCases.get(exerciseId).templateSuffix;
+    }
+    this.exerciseId = exerciseId;
   }
 
-  evaluate(code) {
-    code = escapeLoops(code);
-    const fn = Function(this.templateArgs, code + this.templateSuffix);
-    const evalResult = this.runTests(fn);
-    return evalResult;
+  evaluate(code, testFunc) {
+    if (this.exerciseId >= 4) {
+      return this.evaluateSystemTest(escapeLoops(code));
+    } else {
+      let formatError = null;
+      if (Math.floor(this.exerciseId) === 3) {
+        try {
+          checkFormat(code, testFunc);
+        } catch(e) {
+          formatError = e;
+        }
+      }
+      const fn = Function(this.templateArgs, code = escapeLoops(code) + this.templateSuffix);
+      const evalResult = this.runTests(fn);
+      if (formatError !== null) {
+        evalResult.error = true;
+        evalResult.pass = false;
+        evalResult.type = '';
+        evalResult.message = formatError.message;
+      }
+      return evalResult;
+    }
+    
+  }
+
+  evaluateSystemTest(code) {
+    return runCode(code);
   }
 
   // evaluate the non-code submissions for edge case exercises
@@ -29,7 +56,7 @@ class Evaluator {
         const paramType = inputInfo.paramTypes[i];
         const parsed = inputParseFuncs.get(Math.floor(paramType))(arg, Number((paramType - Math.floor(paramType)).toFixed(1)) * 10);
         if (parsed.error) {
-          throw new Error(`invalid input: ${arg}`)
+          throw new Error(`invalid input`)
         }
         return parsed;
       }
@@ -40,7 +67,7 @@ class Evaluator {
 export default Evaluator;
 
 
-// handle infinite loops in user code:
+// naively detect infinite loops in user code:
 function escapeLoops(code) {
   code = 'let infiniteLoopCounter = 0;\n' + code;
   const ESCAPE_PREFIX = 'infiniteLoopCounter = 0;\n';

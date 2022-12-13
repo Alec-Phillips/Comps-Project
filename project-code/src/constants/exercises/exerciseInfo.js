@@ -17,7 +17,7 @@ exerciseGraph.set(2.3, [1.4]);
 exerciseGraph.set(2.4, [1.5]);
 exerciseGraph.set(3.1, [3.2]);
 exerciseGraph.set(3.2, [3.3]);
-exerciseGraph.set(3.3, [3.4]);
+exerciseGraph.set(3.3, [3.4, 4.1]);
 
 export const exerciseInfo = [
   {
@@ -44,8 +44,8 @@ export const exerciseInfo = [
           <li>A description of defined behaviors; inputs that the function <em>should</em> be able to handle</li>
           <li>A description of undefined behaviors; inputs that are outside of the scope of the problem and don't need to be tested</li>
         </ul>
-        Your job is to provide an input within the scope of the <em>defined behaviors</em> of the function that exposes the error in the code.
-        So to pass each exercise, the input that you provide should create an incorrect output.
+        For each function, there will be one exercise where your goal is to provide an input within the scope of the <em>defined behaviors</em> of the function that exposes the error in the code,
+        followed by another exercise where your job is to debug the function. 
         `,
         "input-type": "",
         "show-editor": false,
@@ -54,9 +54,10 @@ export const exerciseInfo = [
       {
         "label": "Example: Fizzbuzz",
         "id": 1.1,
-        "code": `
-// this implementation fails on all inputs
-function fizzbuzz(n) {
+        "hint": `Consider any possible input and track what the function is doing as it processes the input. Check if the
+        function is behaving as expected.`,
+        "code": 
+`function fizzbuzz(n) {
   const output = [];
   for (let i = 0; i <= n; i ++) {
     if (i % 3 === 0 && i % 5 === 0) {
@@ -64,10 +65,6 @@ function fizzbuzz(n) {
     } else if (i % 3 === 0) {
       output.push('fizz');
     } else {
-      // this is the error
-      // this should be an else if
-      // that is only entered when i
-      // is divisible by 5
       output.push('buzz');
     }
   }
@@ -105,22 +102,22 @@ function fizzbuzz(n) {
         "label": "Fizzbuzz Debug",
         "id": 2.1,
         "next-exercises": [],
-        "code": `
-        function fizzbuzz(n) {
-          const output = [];
-          for (let i = 0; i <= n; i ++) {
-            if (i % 3 === 0 && i % 5 === 0) {
-              output.push('fizzbuzz');
-            } else if (i % 3 === 0) {
-              output.push('fizz');
-            } else {
-              // hint:
-              // this should be an else if block
-              output.push('buzz');
-            }
-          }
-          return output;
-        }`,
+        "hint": `This code is incorrect for all inputs. Choose some possible input, and walk through what happens as the
+        function executes to determine when something goes wrong.`,
+        "code":
+`function fizzbuzz(n) {
+  const output = [];
+  for (let i = 0; i <= n; i ++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      output.push('fizzbuzz');
+    } else if (i % 3 === 0) {
+      output.push('fizz');
+    } else {
+      output.push('buzz');
+    }
+  }
+  return output;
+}`,
         "description": `
         <h1>Example Problem: Fizzbuzz</h1>
         <hr></hr>
@@ -162,8 +159,10 @@ function fizzbuzz(n) {
       {
         "label": "Fizzbuzz Counts",
         "id": 1.2,
-        "code": `
-function fizzbuzzCounts(n) {
+        "hint": `Pay close attention to the requirements of the function, and think about when the execution is
+        terminating.`,
+        "code":
+`function fizzbuzzCounts(n) {
   const counts = {
     fizz: 0,
     buzz: 0,
@@ -212,24 +211,25 @@ function fizzbuzzCounts(n) {
         "label": "Fizzbuzz Counts Debug",
         "id": 2.2,
         "next-exercises": [],
-        "code": `
-        function fizzbuzzCounts(n) {
-          const counts = {
-            fizz: 0,
-            buzz: 0,
-            fizzbuzz: 0,
-          };
-          for (let i = 0; i < n; i ++) {
-            if (i % 3 === 0 && i % 5 === 0) {
-              counts.fizzbuzz ++;
-            } else if (i % 3 === 0) {
-              counts.fizz ++;
-            } else if (i % 5 === 0) {
-              counts.buzz ++;
-            }
-          }
-          return counts;
-        }`,
+        "hint": `Use your answer to the previous problem to consider why the function is incorrect on that input.`,
+        "code":
+`function fizzbuzzCounts(n) {
+  const counts = {
+    fizz: 0,
+    buzz: 0,
+    fizzbuzz: 0,
+  };
+  for (let i = 0; i < n; i ++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      counts.fizzbuzz ++;
+    } else if (i % 3 === 0) {
+      counts.fizz ++;
+    } else if (i % 5 === 0) {
+      counts.buzz ++;
+    }
+  }
+  return counts;
+}`,
         "description": `
         <h1>Fizzbuzz Counts</h1>
         <hr></hr>
@@ -276,8 +276,9 @@ function fizzbuzzCounts(n) {
       {
         "label": "Rainfall",
         "id": 1.3,
-        "code": `
-function rainfall(measurements) {
+        "hint": `The error has to do with an illegal mathematical operation that the function is not protecting against.`,
+        "code":
+`function rainfall(measurements) {
   let total_rain = 0;
   let total_days = 0;
   for (let measurement of measurements) {
@@ -318,22 +319,24 @@ function rainfall(measurements) {
       {
         "label": "Rainfall Debug",
         "id": 2.3,
+        "hint": `Notice that there is additional requirement for this implementation that is added on to the requirements
+        in the previous problem.`,
         "next-exercises": [3.1],
-        "code": `
-        function rainfall(measurements) {
-          if (measurements.length === 0) {
-            return 0;
-          }
-          let total_rain = 0;
-          let total_days = 0;
-          for (let measurement of measurements) {
-            if (measurement >= 0) {
-              total_rain += measurement;
-              total_days += 1;
-            }
-          }
-          return total_rain / total_days;
-        }`,
+        "code":
+`function rainfall(measurements) {
+  if (measurements.length === 0) {
+    return 0;
+  }
+  let total_rain = 0;
+  let total_days = 0;
+  for (let measurement of measurements) {
+    if (measurement >= 0) {
+      total_rain += measurement;
+      total_days += 1;
+    }
+  }
+  return total_rain / total_days;
+}`,
         "description": `
         <h1>Rainfall</h1>
         <hr></hr>
@@ -376,6 +379,7 @@ function rainfall(measurements) {
       {
         "label": "Letter Groups",
         "id": 1.4,
+        "hint": `Focus on the lexicographical ordering requirement.`,
         "input-type": 1,
         "param-types": [3],
         "num-inputs": 1,
@@ -393,7 +397,7 @@ function rainfall(measurements) {
         Examples:
         <ul>
           <li><code>letterGroups('aabbbc')</code> returns <code>'bbb'</code></li>
-          <li><code>letterGroups('zyxwvu')</code> returns <code>'z'</code></li>
+          <li><code>letterGroups('uvwxyz')</code> returns <code>'u'</code></li>
           <li><code>letterGroups('123555bcaaa')</code> returns <code>'555'</code></li>
         </ul>
         Defined Behavior:
@@ -401,8 +405,8 @@ function rainfall(measurements) {
           <li>Any string of length >= 0</li>
         </ul>
         `,
-        "code": `
-function letterGroups(letters) {
+        "code": 
+`function letterGroups(letters) {
   let returnGroup = '';
   let i = 0;
   while (i < letters.length) {
@@ -419,31 +423,31 @@ function letterGroups(letters) {
     i = j;
   }
   return returnGroup;
-}
-        `,
+}`,
       },
       {
         "label": "Letter Groups Debug",
         "id": 2.4,
-        "code": `
-        function letterGroups(letters) {
-          let returnGroup = '';
-          let i = 0;
-          while (i < letters.length) {
-            const currLetter = letters.charAt(i);
-            let j = i + 1;
-            while (j < letters.length &&
-                   letters.charAt(j) === currLetter) {
-              j += 1;
-            }
-            const newSequence = letters.substring(i, j);
-            if (newSequence.length > returnGroup.length) {
-              returnGroup = newSequence;
-            }
-            i = j;
-          }
-          return returnGroup;
-        }`,
+        "hint": `Comparing two strings for equality can also indicate which string comes first alphabetically/lexicographically.`,
+        "code": 
+`function letterGroups(letters) {
+  let returnGroup = '';
+  let i = 0;
+  while (i < letters.length) {
+    const currLetter = letters.charAt(i);
+    let j = i + 1;
+    while (j < letters.length &&
+            letters.charAt(j) === currLetter) {
+      j += 1;
+    }
+    const newSequence = letters.substring(i, j);
+    if (newSequence.length > returnGroup.length) {
+      returnGroup = newSequence;
+    }
+    i = j;
+  }
+  return returnGroup;
+}`,
         "description": `
         <h1>Letter Groups</h1>
         <hr></hr>
@@ -456,7 +460,7 @@ function letterGroups(letters) {
         Examples:
         <ul>
           <li><code>letterGroups('aabbbc')</code> returns <code>'bbb'</code></li>
-          <li><code>letterGroups('zyxwvu')</code> returns <code>'z'</code></li>
+          <li><code>letterGroups('uvwxyz')</code> returns <code>'u'</code></li>
           <li><code>letterGroups('123555bcaaa')</code> returns <code>'555'</code></li>
         </ul>
         Defined Behavior:
@@ -489,6 +493,8 @@ function letterGroups(letters) {
       {
         "label": "Letter Frequencies",
         "id": 1.5,
+        "hint": `Explore what happens when targets.set() is called when the currLetter is not already in 
+        targets.`,
         "input-type": 1,
         "param-types": [3],
         "num-inputs": 1,
@@ -509,8 +515,11 @@ function letterGroups(letters) {
           <li><code>frequentTargets('azzzzbbccc') returns <code>{ 'c' }</code></li>
         </ul>
         `,
-        "code": `
-function frequentTargets(letters) {
+        "code":
+`function frequentTargets(letters) {
+  if (! letters.includes('a'||'b'||'c'||'d')) {
+    return new Set();
+  }
   const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
   let currLetter;
   for (let i = 0; i < letters.length; i ++) {
@@ -530,12 +539,12 @@ function frequentTargets(letters) {
     }
   }
   return mostFrequent;
-}
-        `,
+}`,
       },
       {
         "label": "Letter Freq. Debug",
         "id": 2.5,
+        "hint": `Consider the javascript Map.has() method.`,
         "input-type": "",
         "param-types": "",
         "num-inputs": "",
@@ -588,29 +597,28 @@ function frequentTargets(letters) {
           <li><code>frequentTargets('xyz')</code> <em>throws</em> <code>new Error('no valid input letters')</code></li>
         </ul>
         `,
-        "code": `
-        function frequentTargets(letters) {
-          const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
-          let currLetter;
-          for (let i = 0; i < letters.length; i ++) {
-            currLetter = letters.charAt(i);
-            targets.set(currLetter, targets.get(currLetter) + 1);
-          }
-          let mostFrequent = new Set();
-          let largestCount = null;
-          for (let i = 0; i < letters.length; i ++) {
-            currLetter = letters.charAt(i);
-            if (largestCount === null || targets.get(currLetter) > largestCount) {
-              mostFrequent.clear();
-              mostFrequent.add(currLetter);
-              largestCount = targets.get(currLetter);
-            } else if (targets.get(currLetter) === largestCount) {
-              mostFrequent.add(currLetter);
-            }
-          }
-          return mostFrequent;
-        }
-        `,
+        "code":
+`function frequentTargets(letters) {
+  const targets = new Map([['a', 0], ['b', 0], ['c', 0], ['d', 0]]);
+  let currLetter;
+  for (let i = 0; i < letters.length; i ++) {
+    currLetter = letters.charAt(i);
+    targets.set(currLetter, targets.get(currLetter) + 1);
+  }
+  let mostFrequent = new Set();
+  let largestCount = null;
+  for (let i = 0; i < letters.length; i ++) {
+    currLetter = letters.charAt(i);
+    if (largestCount === null || targets.get(currLetter) > largestCount) {
+      mostFrequent.clear();
+      mostFrequent.add(currLetter);
+      largestCount = targets.get(currLetter);
+    } else if (targets.get(currLetter) === largestCount) {
+      mostFrequent.add(currLetter);
+    }
+  }
+  return mostFrequent;
+}`,
       },
 
       // {
@@ -967,8 +975,8 @@ function frequentTargets(letters) {
       {
         "label": "Introduction",
         "id": 3.0,
-        "code": `
-// given the following function:
+        "code":
+`// given the following function:
 
 function checkParity(n) {
   if (n % 2 === 0) {
@@ -979,10 +987,30 @@ function checkParity(n) {
 }
 
 
-// passing assertions might be:
+// your test cases would need to be formatted as:
 
-assert(checkParity(2) === true);
-assert(checkParity(3) === false);
+// TEST 1:
+
+// arrange
+const testInput1 = 2;
+
+// act
+const result1 = checkParity(testInput1);
+
+// assert
+assert(result1 === true);
+
+
+// TEST 2:
+
+// arrange
+const testInput2 = 3;
+
+// act
+const result2 = checkParity(testInput2);
+
+// assert
+assert(result2 === false);
 
 // the two logical branches of the
 // function are the if and else clauses
@@ -1007,6 +1035,21 @@ assert(checkParity(3) === false);
           with a description of defined and undefined behaviors</li>
         </ul>
         Your test cases are responsible for covering anything within the scope of the <em>defined behaviors</em>
+        <hr></hr>
+        <h4>Format</h4>
+        Although you will have freedom to write your test cases how you see fit, your submissions must follow a specific format.
+        <br></br>
+        Your tests must be formatted like:
+        <ul>
+          <li>// Test #:</li>
+          <li>// arrange</li>
+          <li>define your input value as const testInput#</li>
+          <li>// act</li>
+          <li>call the function you are testing on your testInput and save this result to a const</li>
+          <li>// assert</li>
+          <li>write an assertion statement checking the outcome of your function call</li>
+        </ul>
+        See the example below for a visual
         <h4>Example</h4>
         `,
         "input-type": "",
@@ -1015,15 +1058,18 @@ assert(checkParity(3) === false);
       {
         "label": "Example: Even/Odd",
         "id": 3.1,
+        "hint": `See the example in the Introduction of this section. If you are having trouble with formatting your input,
+        try copy and pasting the two test cases from the example into the editor here.`,
         "next-exercises": [3.2],
-        "code": `
-        function checkParity(n) {
-          if (n % 2 === 0) {
-            return true;
-          } else {
-            return false;
-          }
-        }`,
+        "test-func": 'checkParity',
+        "code":
+`function checkParity(n) {
+  if (n % 2 === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}`,
         "description": `
         <h1>Example Problem: Check Parity</h1>
         <hr></hr>
@@ -1039,15 +1085,36 @@ assert(checkParity(3) === false);
         `,
         "input-type": "",
         "show-editor": true,
-        "placeholder-code": `
-assert(checkParity() === );
+        "placeholder-code": 
+`// TEST 1:
+
+// arrange
+const testInput1 = 2;
+
+// act
+const result1 = checkParity(testInput1);
+
+// assert
+assert(result1 === true);
+
+
+// TEST 2:
+
+// arrange
+
+// act
+
+// assert
+
 `
       },
       {
         "label": "Rainfall",
         "id": 3.2,
-        "code": `
-// function stub:
+        "hint": `Try writing one test case for each of the requirements listed in the problem description.`,
+        "test-func": 'rainfall',
+        "code":
+`// function stub:
 // in  -> Array[Number] measurements
 // out -> Number
 function rainfall(measurements) {}`,
@@ -1068,21 +1135,46 @@ function rainfall(measurements) {}`,
         `,
         "input-type": "",
         "show-editor": true,
-        "placeholder-code": `
+        "placeholder-code": 
+`// TEST 1:
 
-assert(rainfall([5,5,5,5,5]) === 5);
+// arrange
+const testInput1 = [5, 5, 5];
+
+// act
+const result1 = rainfall(testInput1);
+
+// assert
+assert(result1 === 5);
+
+
+// TEST 2:
+
+// arrange
+
+// act
+
+// assert
 
 `     },
       {
         "label": "Letter Groups",
         "id": 3.3,
+        "hint": "Don't forget to test the empty string input!",
+        "test-func": 'letterGroups',
         "input-type": "",
         "show-editor": true,
-        "placeholder-code": `
-assert(letterGroups() === );
+        "placeholder-code": 
+`// TEST 1:
+
+// arrange
+
+// act
+
+// assert
 `,
-        "code": `
-// function stub:
+        "code":
+`// function stub:
 // in  -> String letters
 // out -> String
 function letterGroups(letters) {}`,
@@ -1107,56 +1199,175 @@ function letterGroups(letters) {}`,
         </ul>
         `,
       },
+//       {
+//         "label": "Letter Frequencies",
+//         "id": 3.4,
+//         "hint": `To test for the correct error to be thrown, you could use a try...catch block with an assertion inside
+//         of the catch. One way to compare two sets is to use a loop.`,
+//         "input-type": "",
+//         "param-types": "",
+//         "num-inputs": "",
+//         "show-editor": true,
+//         "placeholder-code": `
+// assert()
+// `,
+//         "description": `
+//         <h1>Letter Frequencies</h1>
+//         <hr></hr>
+//         This problem requires you to test the functionality of the given function as well as test for an
+//         <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#examples" target="_blank">error</a>
+//         that the function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw" target="_blank">throws</a>.  
+//         <br></br>
+//         The <code>frequentTargets</code> function should:
+//         <ul>
+//           <li>Return a 
+//           <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set" target="_blank">Set</a> 
+//           object</li>
+//           <li>This set should contain the letters that occur most frequently in the input string</li>
+//           <li>The function only cares about the <em>target</em> letters: 'a', 'b', 'c', and 'd', meaning that any other
+//           letters should be ignored</li>
+//           <li>Finally, if none of the target letters occur in the input string, an Error is thrown</li>
+//         </ul>
+//         For Example:
+//         <ul>
+//           <li><code>frequentTargets('azzzzbbccc')</code> returns <code>{ 'c' }</code></li>
+//           <li><code>frequentTargets('zzabc')</code> returns <code>{ 'a', 'b', 'c' }</code></li>
+//           <li><code>frequentTargets('xyz')</code> <em>throws</em> <code>new Error('no valid input letters')</code></li>
+//         </ul>
+//         Hints:
+//         <ul>
+//           <li>Set objects cannot be compared with the equality operators (==, ===), so you will need to come up with a
+//           thoughtful way to check if the output is correct</li>
+//           <li>To test for the error that is thrown, see this documentation on the 
+//           <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch" target="_blank">try catch statement</a></li>
+//         </ul>
+//         `,
+//         "code":
+// `// function stub:
+// // in  -> String
+// // out -> Set object
+// // throws -> Error('no valid input letters')
+// frequentTargets(letters) {}
+// `,
+//       },
+    ],
+  },
+  {
+    "label": "System Tests",
+    "type": 4,
+    "exercises": [
       {
-        "label": "Letter Frequencies",
-        "id": 3.4,
+        "label": "Course Scheduler",
+        "id": 4.1,
         "input-type": "",
-        "param-types": "",
-        "num-inputs": "",
+        "hint": "carefully examine the starting state of the database as well as the object that each method returns",
         "show-editor": true,
         "placeholder-code": `
-assert()
+// initialize an instance of the CourseScheduler
+const scheduler = new CourseScheduler();
+
+// retrieve a student
+const bobResponse = scheduler.getStudent('Bob');
+
+// check that there was no error in the retrieval
+assert(bobResponse.error === false);
+
+// enroll Bob in a course
+const bob = bobResponse.student;
+scheduler.enrollInCourse(bob, 'CS1');
+`,
+        "code": `
+// below is the API that you will be interacting with:
+class CourseScheduler {
+  getStudent(studentName){
+    /*
+    in -> String studentName
+    out -> Object {
+      error: Boolean,
+      errorMsg: String,
+      student: Student
+    }
+    retrieves an existing student
+    error attribute will be true if:
+    - the student does not exist
+    - the student has already been retrieved
+    */
+  }
+  createStudent(studentName){
+    /*
+    in -> String studentName
+    out -> Object {
+      error: Boolean,
+      errorMsg: String,
+      student: Student
+    }
+    creates a new student who can then be
+    enrolled in courses
+    */
+  }
+  enrollInCourse(student, courseName){
+    /*
+    in -> Student student, String courseName
+    out -> Object {
+      error: Boolean,
+      errorMsg: String
+    }
+    takes a Student Object and adds them
+    to the desired course
+    */
+  }
+  incrementSemester(){
+    /*
+    in -> null
+    out -> null
+    */
+  }
+}
+
+// Below is the starting state of the "database"
+
+Courses:
+| name  | seats | enrolled | waitlisted |
+| 'CS1' | 5     | 0        | 0          |
+| 'CS2' | 5     | 0        | 0          |
+| 'CS3' | 5     | 0        | 0          |
+
+Prerequisites:
+| course | prerequisite |
+| 'CS2'  | 'CS1'        |
+| 'CS3'  | 'CS2'        |
+
+Students:         Student Courses Taken:
+| name    |       | name | course |
+| 'Alice' |
+| 'Bob'   |       Student Courses Enrolled:
+| 'Eve'   |       | name | course |
 `,
         "description": `
-        <h1>Letter Frequencies</h1>
+        <h1>Course Scheduler</h1>
         <hr></hr>
-        This problem requires you to test the functionality of the given function as well as test for an
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#examples" target="_blank">error</a>
-        that the function
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw" target="_blank">throws</a>.  
+        This exercise will involve writing a set of <em>system scale</em> tests on a mock system
         <br></br>
-        The <code>frequentTargets</code> function should:
+        This system is simulating the logic (at a very simplified level) of a course registration system
+        <br></br>
+        System Components
         <ul>
-          <li>Return a 
-          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set" target="_blank">Set</a> 
-          object</li>
-          <li>This set should contain the letters that occur most frequently in the input string</li>
-          <li>The function only cares about the <em>target</em> letters: 'a', 'b', 'c', and 'd', meaning that any other
-          letters should be ignored</li>
-          <li>Finally, if none of the target letters occur in the input string, an Error is thrown</li>
+          <li>The <code>CourseScheduler</code> class</li>
+          <li>The <code>Student</code> class</li>
+          <li>A mock database</li>
         </ul>
-        For Example:
+        System Description:
+        <br></br>
+        Through the API provided by the CourseScheduler class, you can retrieve students, create new students, enroll students
+        in courses, and remove students from courses
+        <br></br>
+        Additionally, you can increment the semester -- when this happens:
         <ul>
-          <li><code>frequentTargets('azzzzbbccc')</code> returns <code>{ 'c' }</code></li>
-          <li><code>frequentTargets('zzabc')</code> returns <code>{ 'a', 'b', 'c' }</code></li>
-          <li><code>frequentTargets('xyz')</code> <em>throws</em> <code>new Error('no valid input letters')</code></li>
+          <li>Courses that a student is currently enrolled in will be moved into their courses taken</li>
+          <li>All course data will be reset (enrolled students, waitlisted students reset to 0)</li>
         </ul>
-        Hints:
-        <ul>
-          <li>Set objects cannot be compared with the equality operators (==, ===), so you will need to come up with a
-          thoughtful way to check if the output is correct</li>
-          <li>To test for the error that is thrown, see this documentation on the 
-          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch" target="_blank">try catch statement</a></li>
-        </ul>
-        `,
-        "code": `
-        // function stub:
-        // in  -> String
-        // out -> Set object
-        // throws -> Error('no valid input letters')
-        frequentTargets(letters) {}
         `,
       },
-    ],
+    ]
   }
 ];

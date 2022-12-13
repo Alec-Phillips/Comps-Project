@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { xcode } from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import Evaluator from './evaluator/evaluator';
 import ResultDisplay from './ResultDisplay';
 import { ContentArea, StyledOption } from './constants/styledComponents';
-import { Fragment } from 'react';
+import Hint from './Hint';
 
 const parse = require('html-react-parser');
 
@@ -55,7 +55,7 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
   const submitCode = () => {
     let newResult = null;
     try {
-      newResult = ev.evaluate(editorCode);
+      newResult = ev.evaluate(editorCode, exercise['test-func']);
     } catch(e){
       newResult = {
         pass: false,
@@ -94,11 +94,11 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
     setAccepted(newResult.pass);
   }
 
-  const cs = {
+  const customStyle = {
       fontSize: "80%"
     }
     
-  const ctp = {
+  const codeTagProps = {
       style: {
         lineHeight: "inherit",
         fontSize: "inherit"
@@ -116,8 +116,8 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
               className={exercise['input-type'] === 1 ? 'codeBlock typeOneCodeBlock' : 'codeBlock typeOneCodeBlock'}
               language="javascript"
               style={xcode}
-              customStyle={cs}
-              codeTagProps={ctp}
+              customStyle={customStyle}
+              codeTagProps={codeTagProps}
               >
               {exercise.code}
             </SyntaxHighlighter>
@@ -154,10 +154,8 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
                 <StyledOption
                   accepted={accepted}
                   onClick={submitInputArgs}>
-                  Submit
+                  <a className="hintRef" href="#hint">Submit</a>
                 </StyledOption>
-                { evalResult && accepted ? 'Pass' : evalResult && !accepted ? 'Fail' : null}
-                { evalResult && evalResult.error ? <p>{evalResult.message}</p> : null}
               </div>
             </Fragment>
           ) : ( null )
@@ -198,25 +196,44 @@ function Exercise({ exercise, updateCompletedExercises, completed }) {
             <div id="codeFeedbackArea">
               <StyledOption
                 accepted={accepted}
-                onClick={submitCode}>
-                Submit
+                onClick={submitCode}
+                >
+                <a className="hintRef" href="#hint">Submit</a>
+                
               </StyledOption>
-              <br></br>
-                <Fragment>
-                  {
-                    evalResult ? (
-                      <ResultDisplay 
-                        evalResult={evalResult}
-                        exerciseId={Math.trunc(exercise.id)}
-                      >
-                      </ResultDisplay>
-                    ) : ( null )
-                  }
-                </Fragment>
             </div>
             
           </div>
         ) : null
+      }
+      {
+        exercise['label'] !== 'Introduction' ? (
+          <Fragment>
+            {
+              evalResult ? (
+              <Fragment>
+                <hr></hr>
+                <ResultDisplay 
+                  evalResult={evalResult}
+                  exerciseId={Math.trunc(exercise.id)}
+                >
+                </ResultDisplay>
+              </Fragment>
+              ) : ( null )
+            }
+          </Fragment>
+        ) : ( null )
+      }
+      {
+        exercise.label !== 'Introduction' && exercise.hint ? (
+          <Fragment>
+            <hr></hr>
+            <Hint
+              hintText={exercise.hint}>
+
+            </Hint>
+          </Fragment>
+        ) : (null)
       }
     </ContentArea>
   )
