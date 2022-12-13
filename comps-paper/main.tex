@@ -26,8 +26,6 @@
 
 \section{Problem Context}
 
-% come back to this section last and give all the context needed to understand the project and the following sections
-
 Software testing is a core principle of computer science that is often overlooked or at least under-emphasized in 
 computer science education. Testing is an integral part of any software project, and is a skill that must be developed 
 like any other technique in software development. It takes considerable knowledge to be able to develop robust and 
@@ -38,7 +36,8 @@ serves as the motivation behind my comps project idea; I would like to create a 
 testing techniques and exposes introductory to intermediate level students to related concepts. 
 
 A web application that teaches software testing would be beneficial to computer science education in general because 
-it could be added to a standard computer science curriculum to help students get exposure to the concept. My goal is to 
+it could be added to a standard computer science curriculum to help students get exposure to the types of testing and how 
+they are implemented. My goal is to 
 provide comprehensive materials on software testing as well as hands on exercises where learners can put the concepts 
 into practice. Instructors could add this to their curricula, or self-learners could utilize it to gain exposure to 
 software testing techniques. 
@@ -47,26 +46,21 @@ software testing techniques.
 
 This section will cover the relevant terminology that is critical for understanding the technical side of my project as
 well as the general goals of my application. These include general software testing techniques, as well as related topics
-such as test-driven development, error handling, edge case identification, and debugging. It is important that students
-view testing as an important aspect of software development.
+such as test-driven development, error handling, edge case identification, and debugging.
 
 \subsection{Software Testing Techniques}
 
 \subsubsection{Scopes of Testing}
 
 Testing is a nuanced aspect of software development, and there are several key techniques that are commonly employed for 
-writing tests. These different techniques are often used together to comprehensively exercise code, as they work 
-together to test a single application in different ways. Thus, it is not sufficient to know just one of these 
-techniques; a competent developer should be familiar with all of them, in order to know what to utilize depending on 
-their needs. Software testing can be broken up into four main categories depending on the scope and motivation of the 
+writing tests. Software testing can be broken up into four main categories depending on the scope and motivation of the 
 test. These categories are unit testing, integration testing, end-to-end testing, and acceptance testing 
-\cite{Luo2001Article}. These are the four categories of testing that I plan to teach in my application, so it is 
-important to elaborate on them in this section. 
+\cite{Luo2001Article}. These are the four categories of testing that I plan to teach in my application.
 
 \begin{itemize}
     \item{Unit tests are those that have the narrowest 
-    scope. These are tests that apply to individual modules of code. Defining a specific unit of the code is up to the 
-    developer, but it is standard for unit tests to apply to specific functions, although it can also apply to an entire 
+    scope, applying to individual modules of code. Defining a specific unit of the code is up to the 
+    developer, but it is standard for unit tests to apply to specific functions, although they can also apply to an entire 
     module.}
     \item{Integration testing checks that the individual units are interacting as expected. This means that the interfaces 
     between the units as well as the general information flow between them should be exercised.}
@@ -78,82 +72,92 @@ important to elaborate on them in this section.
     step, in which it is determined if the piece of software conforms to the general specification requirements, and also 
     aligns with what the client or user is expecting \cite{Luo2001Article}. }
 \end{itemize}
-   
-\subsubsection{Styles of Testing}
 
-In addition to the four categories of testing discussed above, there are also two styles of tests that serve different 
-purposes, and can each be applied to a either subset or all of the above categories. Once again, it is important to know 
-both of these styles, as a thorough test suite should incorporate both. These two types are functional and structural 
-testing. Functional is the more broad of the two, in the sense that any of the four categories of tests above can be 
-functional in nature. Functional tests are also called 'black box' tests. These tests are ones that assume no knowledge 
-of the underlying implementation of the code being tested, and only examine the expectied behavior of the section of 
-code being run. These are tests that could be written provided only with the API for a class, or the definition of a 
-function, along with an understanding of the expected output. In contrast, structural tests, or 'white box' tests, 
-take into account the implementation of the code. They are geared towards exercising specific sections of the 
-implementation to make sure that the internal code is operating as expected. This is looking deeper than just expected 
-outputs, but instead at the operations taking place within the code. Unit tests, integration tests, and system tests 
-can all be structural, however acceptance tests cannot. This is because acceptance tests evaluate whether the system's 
-bahavior aligns with what the end user is expecting, and the user or client will (likely) not have any understanding of 
-the internal implementation of the code \cite{Sawant2012Article}.
+These different techniques are often used together to comprehensively exercise code, as they work 
+together to test a single application in different ways. Thus, it is not sufficient to know just one of these 
+techniques; a competent developer should be familiar with all of them, in order to know what to utilize depending on 
+their needs. 
+   
+% \subsubsection{Styles of Testing}
+
+% In addition to the four categories of testing discussed above, there are also two styles of tests that serve different 
+% purposes, and can each be applied to a either subset or all of the above categories. Once again, it is important to know 
+% both of these styles, as a thorough test suite should incorporate both. These two types are functional and structural 
+% testing. Functional is the more broad of the two, in the sense that any of the four categories of tests above can be 
+% functional in nature. Functional tests are also called 'black box' tests. These tests are ones that assume no knowledge 
+% of the underlying implementation of the code being tested, and only examine the expectied behavior of the section of 
+% code being run. These are tests that could be written provided only with the API for a class, or the definition of a 
+% function, along with an understanding of the expected output. In contrast, structural tests, or 'white box' tests, 
+% take into account the implementation of the code. They are geared towards exercising specific sections of the 
+% implementation to make sure that the internal code is operating as expected. This is looking deeper than just expected 
+% outputs, but instead at the operations taking place within the code. Unit tests, integration tests, and system tests 
+% can all be structural, however acceptance tests cannot. This is because acceptance tests evaluate whether the system's 
+% bahavior aligns with what the end user is expecting, and the user or client will (likely) not have any understanding of 
+% the internal implementation of the code \cite{Sawant2012Article}.
 
 \subsubsection{Arrange, Act, Assert}
 
-Along with these types/styles of testing, my application includes information on testing best practices. These include
+Along with these scopes of testing, my application includes information on testing 'best practices'. These include
 the \textit{arrange}, \textit{act}, \textit{assert} style of writing tests. This is the generally accepted format of 
-structuring each test case. 
+structuring each test case. Each test case should include each of the following steps, which should be clearly differentiable. 
+
 \begin{enumerate}
-    \item{The arrange step involves setting up any context necessary to run the test - this could 
+    \item{The \textit{arrange} step involves setting up any context necessary to run the test - this could 
     include initializing objects and variables that will be involved in the test.}
-    \item{In the act step, function calls are made that exercise the behavior under test. Results of these calls are set
-    to variables.}
-    \item{The variables resulting from the act step are then checked for correctness in the assert step. This involves
+    \item{In the \textit{act} step, function calls to and interactions with the code being tested are made. This is where the \textit{behavior 
+    under test} is exercised. Results of these interactions are saved so that they can be verified in the \textit{assert} step.}
+    \item{The variables resulting from the \textit{act} step are then checked for correctness in the \textit{assert} step. This involves
     some form of \textit{assertion} statement that will see if the act step resulted in the expected values and throw
     an error if the result is not as expected.}
 \end{enumerate}
 
-\subsubsection{Error Handling}
+This format is followed because it makes tests easy to read. Tests should be straightforward so that when something breaks 
+in the code, it is easy to determine where the error arose by looking at the failing test cases. This is why consistency in
+formatting and test style is important. 
 
-Finally, the application exposes students to the concept of error handling in code. This is more tangentially related to 
-testing but is still important to understand. It relates to software testing because the appropriate use of error handling 
-makes code easier to test and debug. My application focuses on error handling to the extent of including a content section
-that goes into detail on how to raise errors in javascript, how to catch and handle these errors, as well as how to test
-for errors being raised. It can be easily overlooked that test cases can be dedicated to checking for a particular type 
-of error being raised in a certain situation, so it is important and relevant for students to learn about how to test 
-for raised errors in this way. 
+\subsubsection{Code Coverage}
 
-\subsection{Test-Driven Development}
+Code coverage is an important metric to be familiar with for evaluating test quality. Coverage refers to the percentage 
+of code that is exercised by a series of tests. There are several types of coverage, including statement, branch, and path 
+coverage. Statement coverage refers to the percentage of lines of code (not including empty lines) that get run. Branch
+coverage refers to the percentage of logical branches of the code that are run - this means that each branch of an if/else 
+statement constitutes a different branch. Path coverage is the most robust, referring to the percentage of possible paths 
+through the code that get exercises. Thus, for full path coverage to be met, each combination of branches would need to be 
+tried by a different test case. My application uses branch coverage as the metric to determine test quality of users' 
+exercise submissions.
+
+\subsection{Test-Driven Development (TDD)}
+
+Test-driven development is not a testing strategy, such as 
+the ones discussed in the prior section. Instead, it is a software development technique, meaning
+that it informs the entire software development process, not just the testing aspect \cite{George2004Article}. In general,
+TDD is a strategy of software development that prioritizes testing and shapes the development process around the writing 
+of tests. This is an important concept for students to be familiar with because it is a common practice in industry. 
 
 Initially, I had wanted my application to specifically have students practice the process of test-driven development. 
-However, after beginning to develop coding exercises, it became clear that it is difficult to have users practice this 
-development strategy within the confines of an application. This is because the process of test-driven development inverts
-the standard order of writing and then testing code, and can be abstract. I decided that it would be more engaging for students to be able to 
+However, after beginning to develop coding exercises, I decided that it would be more engaging for students to be able to 
 immediately run their test cases against a specific function. Thus, I did not include exercises specifically on test-driven
-development, but it is still explained in the Learn section of my application. Because TDD is increasingly being used in 
-industry, students should have an understanding of the general process. 
+development, but it is still explained in the Learn section of my application. 
 
-It is important to understand that test-driven development is not a testing strategy, such as 
-the ones discussed in the prior section. Instead, it is a software development framework, meaning
-that it informs the entire software development process, not just the testing aspect \cite{George2004Article}.
+% Test-driven development fits within the Agile approach of software development \cite{Janzen2005Article}. Agile 
+% strategies tend to involve an iterative process that repeats until a project is complete, and is a common industry 
+% practice. This sits in contrast to older styles of development, such as Waterfall, which have more upfront design 
+% prior to coding. Test-driven development is also considered a practice of extreme 
+% programming, or XP, which takes basic development principles, such as testing, and emphasizes them to drive the entire 
+% development process \cite{Desai2008Article}.
 
-Test-driven development fits within the Agile approach of software development \cite{Janzen2005Article}. Agile 
-strategies tend to involve an iterative process that repeats until a project is complete, and is a common industry 
-practice. This sits in contrast to older styles of development, such as Waterfall, which have more upfront design 
-prior to coding. Test-driven development is also considered a practice of extreme 
-programming, or XP, which takes basic development principles, such as testing, and emphasizes them to drive the entire 
-development process \cite{Desai2008Article}.
-
-Test-driven development lays out a detailed approach to developing software that is centered around allowing 
-code testing to push forward the project, in the sense that test cases are written that in turn motivate the code 
-that needs to be written. 
+Although my application did not end up revolving around Test-Driven Development, it was 
+important in motivating the project because of TDD's popularity and usefullness as a development technique. 
 
 \subsubsection*{Steps of TDD:}
 \begin{enumerate}
-    \item write test cases for the next unit of code being added to the project
-    \item write the code that the first test case is exercising (until it satisfies the test case)
-    \item refactor the code as needed (both function and test case)
-    \item re-run all existing test cases to check for regressions in the code base \cite{Bhat2006Article}
+    \item Write test cases for the next unit of code being added to the project
+    \item Write the code that the first test case is exercising (until it satisfies the test case)
+    \item Refactor the code as needed (both function and test case)
+    \item Re-run all existing test cases to check for regressions in the code base \cite{Bhat2006Article}
 \end{enumerate}
-This process then repeats until the project is complete. Thus, this process informs the 
+
+This process then repeats until the project is complete, thus informing the 
 development of the entire project, not just the testing aspect. 
 
  
@@ -174,9 +178,9 @@ development of the entire project, not just the testing aspect.
 
 \section{Prior Work}
 
-This section explores some of the literature on incorporating software testing in to computer science education, as well 
-as some of the areas that this can be improved. This research helped guide and motivate my project in terms of helping me 
-determine what my application should focus on and the gaps that it is helping to fill.
+This section explores some of the literature on incorporating software testing into computer science education, as well 
+as some of the areas that this integration can be improved. The following research guided and motivated my project, helping me 
+determine what my application should focus on and the gaps that it should aim to fill.
 
 % TODO:
 %   same as below, this can be discussed IF I improve the Learn section on TDD
@@ -193,37 +197,34 @@ This section will discuss some of the strategies that have been used to teach so
 development in the past. This will inform the approach that I take for teaching software testing in my application. 
 I came across a significant amount of discussion on the reasons why software testing is undertaught, as well as why 
 students find it to be an uninteresting concept to learn. Additionally, there was discussion of how test-driven 
-development specifically could be integrated into computer science education. 
+development could be integrated into computer science education. 
 
 The lack of emphasis on software testing in education stems from both students and instructors. Computer science courses 
 as well as entire programs are already packed with material, so adding lessons or assignments focused solely on testing 
 can be infeasible \cite{Edwards2003Article2}. Additionally, students often find implementation of projects more exciting 
-than testing their code, and testing can often appear tedious. Students can also be unmotivated to 
-test their code, because they do not want to see it fail \cite{Carrington1997Article}. This is also something that I 
-have noticed as a teaching assistant; students will sometimes write test cases that are very specific to their code, 
-when more general test cases would not pass. From being a TA I have also noticed that, in general, students do not take 
+than testing their code, and testing can appear tedious. Students can also be unmotivated to 
+test their code, because they do not want to see it fail \cite{Carrington1997Article}. This parallels what I 
+have noticed as a teaching assistant; students often write test cases that are specific to their implementation that they 
+know will pass. I have also noticed that students generally do not take 
 writing test cases very seriously. Even when instructed to write tests, students in Data Structures will treat it as an 
 afterthought, heavily prioritizing other aspects of their projects. 
 
 If the incentives were flipped, and students had 
-more of a desire to write failing test cases, they would likely take the task more seriously. This can inform the way 
-that I design my practice exercises in the application; instead of having students write code and then test it, I would 
-provide them with code that they then need to exercise with test cases, and their performance on this activity will be 
-dictated by how robust their tests are. One potential way this could work is by providing a function that fails on some 
-edge case which the learner has to identify on their own and then write a test that causes the provided code to fail. 
-This would incentivise the student to thoroughly understand both the goal of the function, as well as the actual code, 
-and would provide the desire to write a good test that fails the code. 
+more of a desire to write failing test cases, they would likely take the task more seriously. This informed the way that 
+I designed my practice exercises in the application; instead of having students write code and then test it, I 
+provide them with code that they then need to exercise with test cases, and their performance is
+evaluated by how robust their tests are. Ideally, this incentivises the user to thoroughly understand the code they are
+testing and creates a desire to write good tests that cause the code to fail. 
 
-There is also existing research on having students apply the concepts of test-driven development in order to learn 
-computer science in general. This would make software testing a more integral part of every project that students take 
-on, shaping the belief that testing is an important part of writing code. Some strategies for implementing this in an 
-education setting were to make students fully responsible for demonstrating the correctness of their code 
-\cite{Edwards2003Article1}. This would mean that students would not be given any automated test results before 
-submitting their code, and would instead be responsible for determining their code's correctness on their own. This may 
-be unrealistic to implement in a classroom setting, because it would likely put an even greater strain on students, 
-espcially when computer science classes are already time consuming and challenging. However, I can base the exercises in 
-my application around this idea, requiring students to write code along with test cases that must reach a certain amount 
-of coverage of their code, or catch certain edge cases. 
+There is also existing research on applying the concepts of test-driven development in general computer science courses. 
+This would make software testing a more integral part of every project that students take 
+on; one strategy for implementing this in an 
+educational setting was to make students fully responsible for demonstrating the correctness of their code 
+\cite{Edwards2003Article1}. This means students would not be given any automated test results before 
+submitting their code, and would instead be responsible for determining their code's correctness on their own. If this 
+strategy were to be implemented in a classroom setting, it would be even more important for students to have a solid 
+baseline understanding of testing. Although my application does not prompt students to work in this way, this research 
+still motivated my project design. 
 
 % TODO:
 %   don't add this until the section in the application on TDD is improved
@@ -263,7 +264,7 @@ of coverage of their code, or catch certain edge cases.
 
 An application geared towards education may initially appear to be ethical, however there are still potential moral issues. 
 Any application or product geared towards 
-users and has the potential to affect real world outcomes has the inherent possibility of affecting negative change. 
+users that can affect real world outcomes may cause negative change. 
 Additionally, there are a number of ethical concerns that arise from taking on the role of educator; for instance: what 
 are the ethical and pedagogical obligations that an educator has to the students? There is the also the topic of power, as this 
 application’s service will likely only affect those who already have 
@@ -338,15 +339,15 @@ be downloaded onto the device and can then be completely used with no internet c
 more accessible and helps to combat some of the concerns above regarding the furthering of the power divide caused by 
 internet access. 
 
-\subsection{Ethics of Security}
+% \subsection{Ethics of Security}
 
-In my initial project design I had planned on having users log in to their own account to track their progress, which 
-would require storing user information such as an identifier and password. This inherently brings up ethical concerns, 
-because if the application is to be breached in some way, these users' trusted information would no longer be safe. This 
-places the burden of securing this information on the developer. However, once I switched to a serverless 
-design and used the localStorage instead of a database to store progress, these concerns were eliminated. While I was 
-initially concerned about the limitations of building the application without a database, all the technical goals of the 
-project were still able to be met, while also eliminating the concerns surrounding storing user information. 
+% In my initial project design I had planned on having users log in to their own account to track their progress, which 
+% would require storing user information such as an identifier and password. This inherently brings up ethical concerns, 
+% because if the application is to be breached in some way, these users' trusted information would no longer be safe. This 
+% places the burden of securing this information on the developer. However, once I switched to a serverless 
+% design and used the localStorage instead of a database to store progress, these concerns were eliminated. While I was 
+% initially concerned about the limitations of building the application without a database, all the technical goals of the 
+% project were still able to be met, while also eliminating the concerns surrounding storing user information. 
 
 \section{Methods} 
 
@@ -366,72 +367,80 @@ project were still able to be met, while also eliminating the concerns surroundi
 
 \subsection{Implementation}
 
+This section will discuss high level implementation decisions and their rationale. For more detail on techniques used, 
+see the code documentation within the project-code/README file.
+
+\subsubsection{Serverless Design}
+
 The project is build fully using React.js and javascript, along with CSS and HTML. Originally, I intended to have a server-side 
-API running that would process code submissions, as well as a database to store the excercises as well as user progress. This 
-would require the application to have a login page, and the code evaluation would need to involve using subprocesses or something 
-analogous in order to asynchronously run users' code submissions. Additionally, running user generated code on the server-side 
-is inherently dangerous, because they gain access to the file system and OS of the server. In order to safely run their code,
+API to process code submissions, and a database to store the excercises and user progress. However, this 
+would require the application to have a login page, and the code evaluation mechanism would involve subprocesses or something 
+analogous to asynchronously run code submissions. Additionally, running user generated code on the server-side 
+is inherently dangerous, because this code gains access to the file system and OS of the server. In order to safely run their code,
 I would have needed to either restrict what the user is allowed to write in the code editor, or heavily verify their submissions. 
 This would be very difficult and time consuming to do sufficiently, and would take away from the ability to focus on other aspects 
 of the application like usability. 
 
-All of these factors lead me to end up choosing to build the application as a server-less web-page. This way, the user generated 
-code is only running in their web-browser, and so they have no ability to break a remote server with their code. Additionally, 
-this takes away the reliance on having a network connection to submit code, and there is no need to handle multiple submissions 
-asynchronously, as would be necessary if a back-end were implemented. This also makes the application very fast, since it is 
-independent of the speed of the network. One drawback of this design is that all coding exercises had to be in javascript, 
-because that is the only language that can run in the web-browser, without the use of some sort of cross-compiler that would 
-convert from another language into javascript. I had initially wanted to have the exercises be in python, however javascript 
-is also a good language for students to get introduced to, especially if they are interested in going into front-end development. 
+All of these factors motivated me to build the application as a server-less web-page. This way, the user generated 
+code is only running in their web-browser, and so a user has no ability to break a remote server with their code. Additionally, 
+there is no reliance on a network connection to submit code, and no need to handle multiple submissions 
+concurrently, as would be necessary if a back-end were implemented. This makes the application very fast, since it is 
+independent of the speed of the network. One drawback of this design is that all coding exercises have to be in javascript, 
+because that is the only language that can run in the web-browser, without the use of some sort of cross-compiler. I had 
+initially wanted to have the exercises be in python, but javascript 
+is also a good language for students to get introduced to. 
 
 One main drawback that the serverless design posed was the lack of a database. My main concern without a database was figuring
-out how to store the content descriptions and exercises, as well as storing user progress. However, I realized that another 
-way to achieve the storing of user progress was through the browser's localStorage feature. This is a structure stored by the 
+out how to store the content descriptions, exercises, and user progress. However, I realized that another 
+way to achieve this was through the browser's localStorage feature. This is a structure stored by the 
 browser that each webpage can access through a simple get/set API. I leveraged this to store a list of exerciseIds corresponding 
 to the exercises that the user has completed. Upon a correct exercise submission, the application updates this list, which is 
 saved and loaded on subsequent visits to the application. In order to get around storing other data that would have been put 
 into a database, I stored the data in javascript objects. This simulates the way that the data would be stored in a non-relational
-database. I looked into serverless database options, but after learning that the localStorage option was available, I chose to go 
+database. I looked into serverless database options, but after learning about localStorage, I chose to go 
 down that route because it seemed more feasible for the scale of the application. 
 
-Additionally, the lack of a server came along with several advantages for usability as well as ease of development. The general
-usability is improved because the lack of a back-end system means that the application is very quick and responsive, because 
-there is no reliance on network connection speeds in sending information back and forth. Additionally, since all the data 
-that the application needs in order to run is held in the browser upon initial loading, if network connection is subsequently 
-lost, the application is still fully usable. This is advantageous because it makes the application more usable for individuals 
-with less stable internet connections. In terms of ease of development, the lack of a server-side made the application much 
-easier to deploy; I was able to deploy through github pages, which was a very simple process. This ease of deployment made 
-it easier to have an initial deployment out earlier, meaning I was able to do a first round of user evaluations fairly early, 
+Additionally, the serverless design made the application much 
+easier to deploy; I was able to release through github pages, which was a very simple process. This made 
+it easier to have an initial prototype out earlier, meaning I was able to do a first round of user evaluations fairly quickly, 
 allowing me more time to iterate on feedback and get input from users. 
 
-One additional aspect of the implementation that required outside research was getting code coverage for a user's test cases.
+\subsubsection{Extracting Code Coverage}
+
+Another aspect of the implementation that required outside research was getting code coverage for a user's test cases.
 From an initial search online, there were many tools that gather test coverage, but few that talk about how test coverage 
 is actually determined. One technique that I located showed the process of injecting coverage flags into a function under 
 test, which can be set to true when the execution enters the corresponding condition \cite{coverage}. To implement this I
 simply declare an array of boolean flags, all set to false, with each flag corresponding to a particular branch of the code. When the function runs,
 within each branch, a different element of the array is set to true. Once all tests have been run, the total branch coverage 
 is the percentage of flags that are set to true. This was a surprisingly simple way to determining coverage, and was effective 
-for my purposes. There are downsides to evaluating simply on branch coverage, because there are more thorough methods for 
-evaluating coverage, such as path coverage. I would have liked to extended to detecting path coverage with more time to 
-work on the project, because it seems interesting algorithmically to detect, and would require users to write more thorough 
-test cases, because there will necessarily be at least as many paths through a code block as there are branches. 
+for my purposes. However, path coverage would have been a more thorough metric to use for evaluating user test quality. I 
+would have liked to extend to detecting path coverage with more time to 
+work on the project, because it seems interesting algorithmically, and would require users to write more thorough 
+test cases.
 
 
 \subsection{Interface Design}
 
-My main motivation with the interface was to have a simple but still visually appealing design, focusing more on having 
-a very intuitive page layout. My general design was inspired by \href{https://codingbat.com/java}{CodingBat}, which is one 
-of my favorite online computer science education resources \cite{CodingBat}. This cite was created by a Stanford professor 
+My main motivation with the interface was to have a simple but visually appealing design that focuses more on an intuitive 
+page layout. My general design was inspired by \href{https://codingbat.com/java}{CodingBat}, which is one 
+of my favorite online computer science education resources \cite{CodingBat}. This site was created by a Stanford professor 
 for his introductory computer science students. I find the overall experience of using the 
-website to be intuitive and simple. The user interface is bare-bones and easy to navigate.
+website to be intuitive and simple. The user interface is bare-bones and easy to navigate. The mixture 
+of written content and coding exercises was particularly influential in my application design. 
 
-One difference that I wanted for my application was to have a more clear path through the material so that the content can
-build on itself. I wanted this for my application because I want the user to be working through the exercises in order so 
-that they can draw on topics introduced earlier on in order to solve later problems. Additionally, since it is intended to 
-be a first exploration of software testing as well as the javascript language, I believe that it makes sense for users to 
-work through the problems from the beginning. In order to enforce this, I added the feature of unlocking exercises; at 
-the beginning, the first exercise of each section is unlocked, and subsequent exercises become unlocked as the user 
-completes the problems. I also believe that this makes the application more fun, because it gamify the user experience. 
+One difference was that I wanted my application to have a more clear organization between learning and practice materials.
+This informed my decision to create a clear split between the two areas. I had initially wanted to pair learn and exercise 
+sections, but after putting together all the materials, I realized that there would be 
+more learn sections that excercise sections. This ultimately motivated me to split the two areas. 
+
+% One difference that I wanted for my application was to have a more clear path through the material so that the content can
+% build on itself. I wanted this for my application because I want the user to be working through the exercises in order so 
+% that they can draw on topics introduced earlier on in order to solve later problems. Additionally, since it is intended to 
+% be a first exploration of software testing as well as the javascript language, I believe that it makes sense for users to 
+% work through the problems from the beginning. In order to enforce this, I added the feature of unlocking exercises; at 
+% the beginning, the first exercise of each section is unlocked, and subsequent exercises become unlocked as the user 
+% completes the problems. I also believe that this makes the application more fun, because it gamify the user experience. 
 
 
 % This figure is no longer relevant, but could choose to include a different UI diagram...
@@ -453,13 +462,12 @@ completes the problems. I also believe that this makes the application more fun,
 %   etc. 
 
 As an educational application, a critical piece of my project was designing the content and programming exercises.
-I made sure to talk to many individuals about what would be most helpful to include and focus on in the application.
+I made sure to talk to many individuals about what would be most helpful to include in the application.
 The main takeaways were that it is important to include hands-on exercises as well as detailed 
 examples, as opposed to simply having descriptions on types of testing. However, it was also emphasized that the materials should be concise to avoid being overwhelming. This was important 
-to me as well, because I want this to be a concise but useful introduction to the nuances and types of software testing. 
+to me as well, because I want this to be a concise and useful introduction to the nuances and types of software testing. 
 One helpful piece of advice that I recieved on designing the exercises was to focus on common errors, such as off by one 
-and improper input formats. By focusing on commonly occuring errors, users of the application will be able to gain 
-familiarity with some of these and be better prepared to avoid them in the future. 
+and improper input formats.
 
 In terms of the specific types of exercises included in the application, I had initially wanted to focus on implementing 
 a combination of unit and system-style testing exercises. However, some aspects of development that I had overlooked took 
@@ -472,19 +480,19 @@ identify an input that causes a function to break, and then actually debug the c
 ability to reason about code, and offers an entry point into learning javascript for the user. 
 
 The test-writing exercises involve writing test cases that use assertion statements, with the goal of maximizing branch 
-coverage on a given function. In the initial warm-up problems, the code being tested is provided, so the user can step 
+coverage on a given function. In early problems, the code being tested is provided, so the user can step 
 through the function and more easily determine what inputs to provide to fully cover the branches. However, in subsequent 
-exercises, a description of the behavior of the function is provided, but the actual code is obscured. This forces the 
-user to consider how the function would be implemented in terms of the necessary control flow. To aid the user in this 
+exercises, only a description of the behavior of the function is provided, with the actual code obscured. This forces the 
+user to consider how the function would be implemented and the necessary control flow. To aid the user in this 
 task, on a given submission attempt, they are given feedback on the percentage of branches that their code covered, as 
 well as whether any of their assertion statements failed.
 
 I ended up implementing one system-level test exercise, which involves the user writing a series of assertion tests on a
 larger scale API. This exercise is the most difficult of all the content and is only unlocked after a user has completed 
 all the unit test exercises. This way they have the proper context to be able to complete the system test exercise. This
-exercise involves the user writing test cases against a mock course registration system. They are provided with the documentation 
-for a CourseScheduler class with its member method stubs. Additionally, they are given the starting state of a 'database' 
-which is actually implemented as a series of javacsript objects. However, this simulates the experience of writing code 
+problem involves writing test cases against a mock course registration system. Documentation 
+for a CourseScheduler class with its member method stubs is provided. Additionally, users are given the starting state of a 'database' 
+which is actually implemented as a series of javacsript objects. This simulates the experience of writing code 
 that interacts with a back-end database. For this exercise, users are also trying to raise the overall branch coverage, 
 and to do so must interact with all the methods in the CourseScheduler class and reason about what combinations of 
 interactions will cause certain operations to occur. For instance, students need to exercise a prerequisite-checking function,
@@ -507,13 +515,16 @@ In addition to using a survey, I watched individuals interact with the applicati
 use and where individuals get confused. One main takeaway from this was that users sometimes found it difficult to know 
 where to start with the coding exercises. The exercises are displayed in rows, and I intended for them to be attempted 
 from top-left to bottom-right. However, I noticed that this was not always intuitive, and this informed my decision to 
-add the feature of locking/unlocking exercises as the user progresses. This enforces the order and provides a clear visual
+add the feature of unlocking exercises as the user progresses. This enforces the order and provides a clear visual
 of where to start. 
 
-This type of interactive testing also exposed some bugs in the code evaluation system, specifically with the system test
-exercise. One more advanced student tested the exercise and noticed that one specific series of interactions caused the 
+Interactive testing also exposed some bugs in the code evaluation system, specifically with the system test
+exercise. One more advanced student noticed that a specific series of interactions caused the 
 exercise to break, so I was able to identify and fix the bug. Additionally, users identified multiple spelling errors in 
 the application. 
+
+Overall, the iteration on feedback allowed the usability of the application to be improved and 
+gave me confidence that the adjustments being made were rooted in creating a better experience for real users. 
 
 
 \section{Evaluation Metrics}
@@ -526,9 +537,12 @@ To formally evaluate my project, I chose to focus on three main criteria:
     \item Overall Learning Outcomes
 \end{enumerate}
 
-As discussed above, these were evaluated in two stages, first one a larger scale with a survey that was sent out to 
-members of the computer science community, and secondly with one on one user interviews where interactions with the 
-application were observed. 
+As discussed above, these were evaluated in two stages, first on a larger scale with a survey that was sent out to 
+members of the computer science community, and secondly with one-on-one user interviews where interactions with the 
+application were observed. The ideal evaluation method would have been to implement the application in one section of 
+an introductory course, and compare those students to a control group who were not exposed to it. However, 
+with the time constraints this was not feasible. Additionally, although the user survey was not my preferred form of evaluation,
+it proved to be effective for hitting the three main criteria listed above.
 
 \subsection{Round 1 - User Survey}
 
@@ -537,12 +551,12 @@ application were observed.
 The survey was designed to target the three areas above for testing. Specifically, users were prompted to:
 
 \begin{itemize}
-    \item read the content on unit testing
-    \item read the descriptions of three exercises (one edge case identification, one debugging, one unit testing)
-    \item attempt to complete the three problems within two to three minutes
+    \item Read the content on unit testing
+    \item Read the descriptions of three exercises (one edge case identification, one debugging, one unit testing)
+    \item Attempt to complete the three problems within two to three minutes
 \end{itemize}
 
-This allowed me to gain a sense of how effective each of the evaluation criteria were met in an early version of the project.
+This allowed me to gain a sense of how effectively each of the evaluation criteria were met in an early version of the project.
 At this point in the implementation there were not yet system test exercises, so this aspect could not be evaluated. The 
 problems that users were asked to complete were the rainfall problem for edge case and unit testing, and a fizzbuzz 
 variation with an off by one error for debugging. 
@@ -552,9 +566,8 @@ variation with an off by one error for debugging.
 The survey was sent to ten upper division computer science students (students either majoring or minoring in computer science
 who have participated in an upper division course), as well as one section of twenty-eight introductory computer science students.
 Seven of the upper division students participated in the survey, and no introductory students participated. This was problematic 
-because my application was intended to be geared specifically toward introductory students. However, the findings actually 
-indicated that the more advanced students could still benefit from using the application, which makes me believe that a wider 
-target audience could be appropriate.
+because my application was intended to be geared towards introductory students. However, the findings actually 
+indicated that the more advanced students could still benefit from using the application.
 
 % \subsubsection{Results}
 
@@ -562,26 +575,24 @@ target audience could be appropriate.
 \subsection{Round 2 - One-on-one Evaluations}
 
 The second round of user evaluations involved asking individuals about their experience using the application in a one-on-one 
-setting. I used two different formats for this. 
+setting. These types of interviews were conducted with six students, three advanced and three introductory level. I used two different formats for this. 
 \begin{itemize}
-    \item watching individual users interact with the application and observing with minimal interference
-    \item asking individuals to use the application on their own (without observing them) and then discussing their experience
+    \item Watching individual users interact with the application and observing with minimal interference
+    \item Asking individuals to use the application on their own (without observing them) and then discussing their experience
 \end{itemize}
 
-This was intended to gain insight into how users interact with the application when they have freedom to do 
-so as they see fit. The decision to observe some users and not observe others was motivated by the fact that some users 
-seemed to look for guidance when I was observing them using the application, which defeats the purpose of the user interacting 
+This was intended to gain insight into how users interact with the application with no constraints or specific guidelines. 
+The decision to observe some users and not others was motivated by the fact that some testers 
+seemed to look for guidance when I was observing them, which defeats the purpose of the user interacting 
 with the application freely. However, it was still beneficial to get a direct visual of how individuals navigate the page.
-Additionally, the non-observational type allowed me to get feedback from individuals who were not directly present, such as 
-peers who go to other schools.
+Additionally, the non-observational type allowed me to get feedback from individuals who were not directly present.
 
 With each of these tests, my evaluation consisted of an open ended discussion with the user about their experience, as 
 well as more targeted questions about their interactions. These questions focused on the three main evaluation criteria 
-detailed above, so as to be consistent and work towards building a sense of the key goals of my project. However, these 
+detailed above, so as to be consistent and work towards building a sense of the key goals of my project. These 
 conversations also focused more on the overall usability of the application, and the clarity of the general application 
 flow.
 
-Overall these types of interviews were conducted with six students, three advanced and three introductory level.  
 
 % for final comps paper (could also do this in this paper too):
 %   - discussion of evaluation metrics could actually go before the methods, since it will be useful context since they
@@ -652,33 +663,38 @@ Overall these types of interviews were conducted with six students, three advanc
 
 \section{Results and Discussion}
 
-\subsection{Round One Evaluation}
+\subsection{Round One Evaluation Results}
 
-For the category of teaching quality, students indicated that, their 
-prior knowledge of unit testing was ~2.14 on a scale from one to five. After reading the learn section on unit testing, 
+The raw data for this evaluation can be found in the ./comps-paper directory of the project.
+
+\subsubsection{Teaching Quality}
+
+For the category of teaching quality, students indicated that their 
+prior knowledge of unit testing was \(\sim \)2.14 on a scale from one to five. After reading the 'Learn' section on unit testing, 
 respondents rated their understanding at a 4 on the same one to five scale. Additionally, they rated the clarity of the 
-section as ~4.57 out of five. This was a satisfactory outcome, indicating that even for more advanced students, they felt 
-that the section taught them something new. This is especially telling because the section they read was on unit testing, 
-which I would have assumed to be the type of testing that advanced students would be most familiar with, however they still
-indicated positive learning outcomes. 
+section as \(\sim \)4.57 out of five. This was a satisfactory outcome, indicating that even more advanced students felt 
+that the section taught them something new. This is especially telling because I would have expected advanced students to
+be most familiar with unit testing. 
 
-For evaluating the exercise quality, students indicated the clarity of the exercise descriptions as well as whether they 
-were able to solve the problem for
-each of the three types of problems that they attempted. Repondents reported average clarities of ~3.86, 4, and ~4.23 out 
+\subsubsection{Exercise Quality}
+
+To evaluate exercise quality, for each of the three problems attempted, students indicated the clarity of the exercise description and whether they 
+were able to solve the problem. Repondents reported average clarities of \(\sim \)3.86, 4, and \(\sim \)4.23 out 
 of five for the edge case, debugging, and unit testing exercise directions respectively. These ratings indicate that users 
 were generally able to determine what was expected for each type of exercise. However, in the written feedback area, some 
 users indicated that the input format for edge case problems could be made more clear. In terms of difficulty, the solve 
-rates were 71.43\% (edge case), 85.71\% (debugging), and 42.86\% (unit test). These were all problems that I would have 
-rated as easy to medium in terms of the problems that could have been chosen. Additionally, respondents were asked to only 
-spend up to three minutes solving the problems. These results indicate that students had the most trouble solving the 
+rates were 71.43\% (edge case), 85.71\% (debugging), and 42.86\% (unit test). I would have 
+rated these as easy to medium difficulty in terms of the problems that could have been chosen. These results indicate that students had the most trouble solving the 
 unit testing exercise within the time limit, which reinforces the general idea that students would benefit from such 
-exercises/practice. However, this gave me a good baseline for understanding how my perception of problem difficulties 
+exercises/practice. This also gave me a good baseline for understanding how my perception of problem difficulty
 translates to users' experiences.
+
+\subsubsection{Learning Outcomes}
 
 In terms of overall learning outcomes, it becomes clear from the findings above that students seem to benefit from interacting 
 with the application. This is emphasized by the fact that even upper division students felt that they gained knowledge from 
 the written materials, and also were not able to easily complete the unit testing exercise on the rainfall problem. Additionally,
-on a Likert scale from one to five, when asked if they would liked this application to have been incorporated into their 
+on a Likert scale from one to five, when asked if they would like this application to have been incorporated into their 
 introductory computer science course:
 
 \begin{itemize}
@@ -688,37 +704,37 @@ introductory computer science course:
 \end{itemize}
 
 Overall the sentiment was positive and indicates that students would generally like to see this incorporated into their 
-curriculum. Additionally, 100\% of respondents indicated that they felt that they learned something through interacting 
+curriculum. Also, 100\% of respondents indicated that they learned something through interacting 
 with the application. 
 
 Despite the limited engagement with the survey, especially from introductory students, the findings were informative in 
 providing a baseline of the applications effectiveness in relation to the three main evaluation criteria.
 
-\subsection{Round Two Evaluation}
+\subsection{Round Two Evaluation Results}
+
+There is no raw data for this round of evaluations because they were done in an informal/casual way through conversations 
+with users. 
 
 The one-on-one evaluations were particularly insightful for indicating how usable the application is, and whether it 
 reached my goals for intuitiveness and clarity. Some main takeaways from watching individuals interact with the application 
-were that introductory users tended to start with the learn section, while more advanced students (individuals who had 
-taken at least one upper division computer science course) wanted to start with the exercises. In general, more advanced 
-users also wanted to start with the harder exercises, instead of working their way up through the problems. In these 
+were that introductory users tended to start with the 'Learn' section, while more advanced students wanted to start with the exercises, specifically the harder ones, instead of working their way up through the problems. In these 
 cases, I would manually unlock the more advanced levels for them, but they tended to struggle because they were missing 
 context that would have been explained if they had started from the easier problems. This reinforced my idea that it makes 
-sense to still enforce the ordering of the problems even for more advanced users. In general, from watching the advanced 
-students try exercises, they still seemed to find the problems somewhat challenging. Beginners also had difficulty, but 
+sense to still enforce the ordering of the problems even for more advanced users. Beginners also had difficulty, but 
 were still able to solve the easier problems after reading the directions and contextual material. It was encouraging to 
 see that students of all skill levels found the problems to be adequately difficult.
 
-In terms of usability, testers indicated that the content sections were clear and they were not confused about where to 
-navigate to in order to find the content that they wanted to look at. Additionally, users seemed to want to work from 
+In terms of usability, testers indicated that the content sections were clear and that they were not confused about how to navigate 
+the application. Users seemed to want to work from 
 left to right through the content. There were still some points of confusion, specifically on the submission feedback 
 for the coding problems. For the edge case identification problems, some users were confused because the goal of the 
 problem is to provide an input that causes the function to execute incorrectly, but when they provide an input that 
-successfully does this, the feedback says 'PASS.' Users found this confusing because they thought that this meant that 
+successfully does this, the feedback says 'PASS.' Users found this confusing because they thought that this meant 
 the function executed correctly, not that their input broke the function. I tried to fix this problem by using more visual
-cues that their solution passed, such as highlighting the submission green. Additionally, a green check-mark will appear 
+cues that their solution passed, such as highlighting the submission green. Also, a green check-mark will appear 
 on the problem name and the next exercise becomes unlocked. Given more time, I would further improve this by forcing the 
 page to scroll back to the top or providing a 'next exercise' button to make it even more clear that the problem is complete. 
-Additionally, for coding problems, the feedback indicates if there is an error in the user's code, but it does not say 
+Another point of confusion was that, for coding problems, the feedback indicates if there is an error in the user's code, but it does not say 
 which line the error is on. Users complained that this made it difficult to debug their code. I tried to address this,
 but it seems like a limitation of the way the evaluation mechanism works; the user's code is embedded into an anonymous 
 function that actually gets run in a virtual machine within the browser. I do not know all the specifics of why this is 
@@ -727,19 +743,21 @@ I would also like to have tried other ways of addressing this if there was more 
 
 \subsection{Conclusion}
 
-Despite some of the shortcomings above, I believe that the project succeeded in meeting the goals that I set out to 
-accomplish when designing the project. My main concern was that users would get a learning experience from using the 
+Despite some of the shortcomings discussed, I believe that the project succeeded in meeting the goals that I set out to 
+accomplish when designing the project. My main goal was that users would get a learning experience from using the 
 application and be exposed to new content in a manageable and understandable way. From both sets of evaluations, it 
 became clear that not only introductory, but also advanced students benefitted from interacting with the application. 
 I believe that this indicates that the concept has more utility than I had initially thought. This also shows that 
-more advanced students do not always learn software testing concepts independently even if they aren't taught these ideas 
+more advanced students do not always learn these concepts independently when not taught these ideas 
 in an introductory course. I believe that this reinforces the importance of introducing students to these concepts. 
 In addition to the improvements discussed above, the main change that would be necessary if this application were to be 
-used in a course is that more content would need to be added. It definitely proved to be more difficult than anticipated 
+used in a course is that more content would need to be added. It definitely proved to be more time consuming than anticipated 
 to come up with exercises of appropriate difficulty - often what seemed like a good idea for an exercise proved to be 
-significantly too easy or difficult. It was specifically difficult to come up with unit test exercises, because the 
-complexity or difficulty of an algorithm often did not translate to having a significant number of branches in the logic, 
-meaning that it would only require a couple test cases to fully reach the coverage goal. 
+significantly too easy or challenging to solve. It was specifically difficult to come up with unit test exercises, because the 
+complexity of an algorithm often did not translate to having a significant number of branches in the logic, 
+meaning that it would only require a couple test cases to fully reach the coverage goal. In conclusion, the current state 
+of the project serves as a valid educational tool, with infrastructure in place that could be easily extended to become 
+even more robust and effective. 
 
 
 \printbibliography 
