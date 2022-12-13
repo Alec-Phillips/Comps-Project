@@ -3,8 +3,6 @@
 ### Content:
 - __Code__, __Replication Instructions__, and __Software Architecture Documentation__ are [HERE](https://github.com/Alec-Phillips/Comps-Project/tree/main/project-code)
 
-- The __application__ can be accessed [HERE](https://alec-phillips.github.io/Comps-Project/)
-
 - A __formal paper__ with more involved details of the project is [HERE](https://github.com/Alec-Phillips/Comps-Project/tree/main/comps-paper)
 
 ### Motivation:
